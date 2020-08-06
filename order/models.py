@@ -20,8 +20,11 @@ class Order(models.Model):
 
     statusChoices = (
         (0, 'pending'),
-        (1, 'working'),
-        (2, 'completed'),
+        (1, 'ready'),
+        (2, 'working'),
+        (3, 'completed'),
+        (4, 'cancelled'),
+        (5, 'confirmed'),
     )
     status = models.IntegerField(default=0, choices=statusChoices)
     created_date = models.DateTimeField(auto_now=True)
