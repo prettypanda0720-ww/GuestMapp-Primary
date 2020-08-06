@@ -1,0 +1,383 @@
+{% extends 'baseaccount.html' %}
+
+{% load static %}
+
+
+{% block main %}
+
+<!-- Hero Section Begin -->
+<section class="pricing-hero-section" style="background-color: #FFFFFF;">
+    <!-- <div class="hero__slider owl-carousel"> -->
+        <div class="set-bg" data-setbg="{% static 'img/hero/pwd-bk.png' %}">
+            <div class="container">
+                <div class="header__logo">
+                    <div class="row">
+                        <a href="{% url 'home' %}"><img src="{% static 'img/logo.png' %}" alt=""></a>
+                    </div>
+                </div>
+                <div class="canvas__open">
+                    <img src="{% static 'img/menu.png' %}">
+                </div>
+                <div class="user__login">
+                    <img src="{% static 'img/user-avatar.png' %}" onclick="doLogin()">
+                </div>
+            </div>
+        </div>
+    <!-- </div> -->
+</section>
+<!-- Hero Section End -->
+
+<section class="progress-guestmapp-section spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5 col-md-5">
+                <h1 class="header-h4 ta-center" style="color: #679724;">Hello Name Surname</h4>
+                <h1 class="section-title mt-40">Your Prepaid Guestmapp</h1>
+            </div>
+            <div class="col-lg-12 col-md-12">
+                <table class="table custom-table custom-table-striped mt-30">
+                    <tbody>
+                        <tr>
+                            <td><img src="{% static 'img/custom3d.png' %}" class="mr-10">Custom 3D mobile home</td>
+                        </tr>
+                        <tr>
+                            <td><img src="{% static 'img/blueprint.png' %}" class="mr-10">Blueprint</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-lg-5 col-md-5">
+                <a href="{% url 'planprices' %}" class="btn green-btn mt-30">Order new project</a>
+                <h1 class="section-title mt-68">Upload blueprint</h1>
+                <h4 class="header-h4-normal mt-20 ta-center" style="color: #414F5F;">If you have your Blueprint please upload it</h4>
+                <div class="ta-center">
+                    {% comment %} <label for="fileselect"> {% endcomment %}
+                        <img src="{% static 'img/upload-blueprint.png' %}" class="upload-btn">
+                    {% comment %} </label> {% endcomment %}
+                    {% comment %} <input type="file" id="fileselect" name="fileselect" accept=".pdf" style="visibility: hidden;" /> {% endcomment %}
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12">
+                <p class="paragraph mt-30">To scan tiers, please use the <a href="#" class="underline">GuestMapp App</a>&nbsp;on your mobile device. If you did not install the app yet, you can get it for free on the <a href="#" class="underline">App Store</a>&nbsp;for iOS devices or on the <a href="#" class="underline">Play Market</a>
+for Android ones </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="section-title mt-37">Guestmapps in progress</h1>
+            </div>
+        </div>
+        <div class="row mt-40">
+            <div class="progressguestmapp__slider owl-carousel">
+                <div class="col-lg-4">
+                    <div class="progress__item">
+                        <img src="{% static 'img/carousel/carousel-1.png' %}" alt="">
+                        <div class="item-content">
+                            <img src="{% static 'img/inwork.png' %}" alt="">
+                            <h4>Order number</h4>
+                            <h5><span>Status:</span> in work</h4>
+                            <a href="" class="btn green-reverse-btn">Details</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="progress__item">
+                        <img src="{% static 'img/carousel/carousel-2.png' %}" alt="">
+                        <div class="item-content">
+                            <img src="{% static 'img/inwork.png' %}" alt="">
+                            <h4>Order number</h4>
+                            <h5><span class="span-bold">Status&nbsp;:</span><span class="span-red">&nbsp;waiting for your photos</span></h4>
+                            <a href="" class="btn green-reverse-btn">Details</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="progress__item">
+                        <img src="{% static 'img/carousel/carousel-3.png' %}" alt="">
+                        <div class="item-content">
+                            <img src="{% static 'img/inwork.png' %}" alt="">
+                            <h4>Order number</h4>
+                            <h5><span>Status:</span> in work</h4>
+                            <a href="" class="btn green-reverse-btn">Details</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="progress__item">
+                        <img src="{% static 'img/carousel/carousel-1.png' %}" alt="">
+                        <div class="item-content">
+                            <img src="{% static 'img/inwork.png' %}" alt="">
+                            <h4>Order number</h4>
+                            <h5><span>Status:</span> in work</h4>
+                            <a href="" class="btn green-reverse-btn">Details</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="progress__item">
+                        <img src="{% static 'img/carousel/carousel-2.png' %}" alt="">
+                        <div class="item-content">
+                            <img src="{% static 'img/inwork.png' %}" alt="">
+                            <h4>Order number</h4>
+                            <h5><span class="span-bold">Status&nbsp;:</span><span class="span-red">&nbsp;waiting for your photos</span></h4>
+                            <a href="" class="btn green-reverse-btn">Details</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="progress__item">
+                        <img src="{% static 'img/carousel/carousel-3.png' %}" alt="">
+                        <div class="item-content">
+                            <img src="{% static 'img/inwork.png' %}" alt="">
+                            <h4>Order number</h4>
+                            <h5><span>Status:</span> in work</h4>
+                            <a href="" class="btn green-reverse-btn">Details</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="progress__item">
+                        <img src="{% static 'img/carousel/carousel-1.png' %}" alt="">
+                        <div class="item-content">
+                            <img src="{% static 'img/inwork.png' %}" alt="">
+                            <h4>Order number</h4>
+                            <h5><span>Status:</span> in work</h4>
+                            <a href="" class="btn green-reverse-btn">Details</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="progress__item">
+                        <img src="{% static 'img/carousel/carousel-2.png' %}" alt="">
+                        <div class="item-content">
+                            <img src="{% static 'img/inwork.png' %}" alt="">
+                            <h4>Order number</h4>
+                            <h5><span class="span-bold">Status&nbsp;:</span><span class="span-red">&nbsp;waiting for your photos</span></h4>
+                            <a href="" class="btn green-reverse-btn">Details</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="progress__item">
+                        <img src="{% static 'img/carousel/carousel-3.png' %}" alt="">
+                        <div class="item-content">
+                            <img src="{% static 'img/inwork.png' %}" alt="">
+                            <h4>Order number</h4>
+                            <h5><span>Status:</span> in work</h4>
+                            <a href="" class="btn green-reverse-btn">Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="complete-guestmapp-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="section-title">Completed guestmapps</h1>
+            </div>
+        </div>
+        <div class="row mt-40">
+            <div class="completedguestmapp__slider owl-carousel">
+                <div class="col-lg-4">
+                    <div class="completed__item">
+                        <img src="{% static 'img/carousel/carousel-1.png' %}" alt="">
+                        <div class="item-content">
+                            <h4>Project title, #000000</h4>
+                            <a href="#"><img src="{% static 'img/download.png' %}">Download</a>
+                            <a href="#">Make adjustments</a>
+                        </div>
+                    </div>
+                </div>                    
+                <div class="col-lg-4">
+                    <div class="completed__item">
+                        <img src="{% static 'img/carousel/carousel-2.png' %}" alt="">
+                        <div class="item-content">
+                            <h4>Project title, #000000</h4>
+                            <a href="#"><img src="{% static 'img/download.png' %}">Download</a>
+                            <a href="#">Make adjustments</a>
+                        </div>
+                    </div>
+                </div>                    
+                <div class="col-lg-4">
+                    <div class="completed__item">
+                        <img src="{% static 'img/carousel/carousel-3.png' %}" alt="">
+                        <div class="item-content">
+                            <h4>Project title, #000000</h4>
+                            <a href="#"><img src="{% static 'img/download.png' %}">Download</a>
+                            <a href="#">Make adjustments</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="completed__item">
+                        <img src="{% static 'img/carousel/carousel-1.png' %}" alt="">
+                        <div class="item-content">
+                            <h4>Project title, #000000</h4>
+                            <a href="#"><img src="{% static 'img/download.png' %}">Download</a>
+                            <a href="#">Make adjustments</a>
+                        </div>
+                    </div>
+                </div>                    
+                <div class="col-lg-4">
+                    <div class="completed__item">
+                        <img src="{% static 'img/carousel/carousel-2.png' %}" alt="">
+                        <div class="item-content">
+                            <h4>Project title, #000000</h4>
+                            <a href="#"><img src="{% static 'img/download.png' %}">Download</a>
+                            <a href="#">Make adjustments</a>
+                        </div>
+                    </div>
+                </div>                    
+                <div class="col-lg-4">
+                    <div class="completed__item">
+                        <img src="{% static 'img/carousel/carousel-3.png' %}" alt="">
+                        <div class="item-content">
+                            <h4>Project title, #000000</h4>
+                            <a href="#"><img src="{% static 'img/download.png' %}">Download</a>
+                            <a href="#">Make adjustments</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="completed__item">
+                        <img src="{% static 'img/carousel/carousel-1.png' %}" alt="">
+                        <div class="item-content">
+                            <h4>Project title, #000000</h4>
+                            <a href="#"><img src="{% static 'img/download.png' %}">Download</a>
+                            <a href="#">Make adjustments</a>
+                        </div>
+                    </div>
+                </div>                    
+                <div class="col-lg-4">
+                    <div class="completed__item">
+                        <img src="{% static 'img/carousel/carousel-2.png' %}" alt="">
+                        <div class="item-content">
+                            <h4>Project title, #000000</h4>
+                            <a href="#"><img src="{% static 'img/download.png' %}">Download</a>
+                            <a href="#">Make adjustments</a>
+                        </div>
+                    </div>
+                </div>                    
+                <div class="col-lg-4">
+                    <div class="completed__item">
+                        <img src="{% static 'img/carousel/carousel-3.png' %}" alt="">
+                        <div class="item-content">
+                            <h4>Project title, #000000</h4>
+                            <a href="#"><img src="{% static 'img/download.png' %}">Download</a>
+                            <a href="#">Make adjustments</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="all-guestmapps" style="z-index: 9999;">
+                <div class="col-lg-12 col-md-12 col-12">
+                    <a href="{% url 'ownguestmapp' %}">View all my Guestmapps</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock main %}
+
+{% block script %}
+<script src="{% static 'js/upload.js' %}"></script>
+
+<div class="modal" id="modal_form_blueprint" role="dialog">
+    <div class="d-flex justify-content-center align-items-center">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body form">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <form action="#" id="blueprint-form" class="form-horizontal">
+                        {% csrf_token %}
+                        <div class="form-body">
+                            <div class="form-group">
+                                <label class="modal-title">Uploading scan</label>
+                                <div class="ta-center mt-30">
+                                    <div class="blueprint-drag" for="fileselect">
+                                        <img src="{% static 'img/upload.png' %}">
+                                        <p>Drag and drop your photo</p>
+                                        <input type="file" id="fileselect" name="fileselect" style="visibility: hidden;" />
+                                    </div>
+                                    <label for="fileselect" class="mt-20"><span class="lbl-from">Upload a blueprint from computer</span></label>
+                                    <div id="status1"></div>
+                                </div>
+                                <div class="modal-input-group mt-36">
+                                    <label class="modal-input-label">Or upload from Airbnb</label>
+                                    <input id="airbnb" name="airbnb" placeholder="Link to your listing" class="form-control" type="text">
+                                </div>                                    
+                                <div class="modal-input-group">
+                                    <label class="modal-input-label">Or upload from Google Drive</label> 
+                                    <input id="google_drive" name="google_drive" placeholder="Link" class="form-control" type="text">
+                                </div>
+                            </div>
+                            <div class="alert alert-danger" id="alert-div">
+                                <button id="msg-btn" type="button" class="close">&times;</button>
+                            </div>
+                        </div>
+                        {% comment %} <button type="submit" id="blueprint-upload-btn" class="btn green-btn mt-40">Upload</button> {% endcomment %}
+                        <a href="#" class="btn green-btn" onclick="show_blueprint_submitted()">Upload</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="modal_form_blueprint_submitted" role="dialog" style="display: none;">
+    <div class="d-flex justify-content-center align-items-center">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body form">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <form action="#" id="blueprint-form" class="form-horizontal">
+                        {% csrf_token %}
+                        <label class="modal-title">Uploading scan</label>
+                    
+                        <div class="ta-center">
+                            <img src="{% static 'img/success-check.png' %}">
+                            <p class="mt-20">Blueprint uploaded</p>
+                        </div>
+                        <div>
+                            <label class="modal-input-label">Save blueprint</label>
+                            <input id="airbnb" name="airbnb" placeholder="Project title" class="form-control" type="text">
+                            <a href="#" class="btn green-btn mt-30" onclick="show_upload_photos()">Next</a>
+                            {% comment %} <button type="submit" id="blueprint-upload-btn" class="btn green-btn mt-40">Upload</button> {% endcomment %}
+                        </div>
+                        
+                        <div class="alert alert-danger" id="alert-div">
+                            <button id="msg-btn" type="button" class="close">&times;</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="modal_form_upload_photos" role="dialog" style="display: none;">
+    <div class="d-flex justify-content-center align-items-center">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body form">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        {% csrf_token %}
+                        <img src="{% static 'img/floorplan-2.png' %}">
+                        <div class="projects-wrapper">
+                            <p class="paragraph">Project title</p>
+                            <h5 class="header-h5">waiting for photos</h5>
+                            <p class="paragraph">Please upload photos to continue</p>
+                            <a href="#" class="btn green-btn mt-30" onclick="show_blueprint_submitted()">Upload photos</a>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock script %}
