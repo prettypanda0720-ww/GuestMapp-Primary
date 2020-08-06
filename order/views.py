@@ -5,6 +5,7 @@ from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
 from order.models import Order
+from scan.models import ScanTable
 from order.serializers import OrderSerializer
 
 
@@ -18,11 +19,21 @@ class OrderViewSet(ModelViewSet):
 
     def list(self, request, *args, **kwargs):
         orders = self.get_queryset()
+        orderses = []
+        for order in orders:
+            query = order.to_dict()
+            try:
+                scans = ScanTable.objects.get(order = order.id)
+                query.update({"scan":scans.to_dict()})
+            except:
+                query.update({"scan":[]})
+            orderses.append(query)
+
         return JsonResponse({
             "success": True,
             "message": "success to get order list",
             "errCode": -1,
-            "data": [order.to_dict() for order in orders]
+            "data": orderses
         }, status=status.HTTP_200_OK)
 
     def create(self, request, *args, **kwargs):

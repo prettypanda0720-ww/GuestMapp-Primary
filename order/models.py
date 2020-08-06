@@ -1,7 +1,5 @@
 from django.db import models
-
 from users.models import User
-
 
 class Order(models.Model):
     """
@@ -45,5 +43,4 @@ class Order(models.Model):
             'status': self.status,
             'createdTime': self.created_date,
             'completedTime': self.completed_date,
-
         }

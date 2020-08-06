@@ -160,7 +160,7 @@ def ajax_login(request):
                 if user.is_active:
                     auth_login(request, user)
                     try:
-                        order = Order.objects.get(user = request.user)
+                        order = Order.objects.filter(user = request.user)
                     except Order.DoesNotExist:
                         order = None
                     
@@ -209,7 +209,7 @@ def home(request):
     order = None
     if request.user.is_authenticated:
         try:
-            order = Order.objects.get(userId = request.user)
+            order = Order.objects.filter(user = request.user)
         except Order.DoesNotExist:
             order = None
 
