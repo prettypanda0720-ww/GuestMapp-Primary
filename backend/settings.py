@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from decouple import config
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -19,8 +20,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'v2#f$8o*56m8fhwfx1vekboddee@@v3r6%7$ol*9j&$r(0dko@'
 
+SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -41,7 +42,6 @@ INSTALLED_APPS = [
     'scan',
     'users',
     'contact',
-    'billing',
 
     # thirdparty
     'rest_framework',
@@ -158,3 +158,6 @@ MEDIA_URL = '/media/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
+
+STRIPE_PUBLISHABLE_KEY = 'pk_test_51HDLj6CtzgITtfkbEPLhgC6509Y7unmzkrmumjKgCxm7RIjzuqs0mwijA3uTjVVDYkvyyLdsQRL7rOcUUpPPgeWo00d6iOEhpg'
+STRIPE_SECRET_KEY = 'sk_test_51HDLj6CtzgITtfkbhTDhdQv1p4fq5MlC3i2MVWc25nx3PgsIb5pyX0D4MW2FogfOGcSP71eARYhPmDojevP7JT9j00giiscnFT'

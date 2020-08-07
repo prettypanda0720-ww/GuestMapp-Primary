@@ -11,68 +11,70 @@ $('#signup-form #msg-btn').on('click', function(event){
 //this method validates login
 function validate_login(e)
 {
-    e.preventDefault();
-    if($('#email').val()===''){
+    // e.preventDefault();
+    if($('#login-form #email').val()===''){
         // e.preventDefault();
         $('#login-form #msg-btn').html('<i class="fa fa-warning (alias)"></i> Email is required! &times');
         $('#login-form #alert-div').addClass('active');
-        return;       
+        return false;       
     } 
 
-    if($('#password').val()===''){
+    if($('#login-form #password').val()===''){
         // e.preventDefault();
         $('#login-form #msg-btn').html('<i class="fa fa-warning (alias)"></i> Password is required! &times');
         $('#login-form #alert-div').addClass('active');
-        return;       
+        return false;       
     }
 
-    if($('#email').val()==='' || $('#password').val()===''){
+    if($('#login-form #email').val()==='' || $('#password').val()===''){
         // e.preventDefault();
         $('#login-form #msg-btn').html('<i class="fa fa-warning (alias)"></i> Please all field are required&times');
         $('#login-form #alert-div').addClass('active');
-        return;    
+        return false;    
     }
+    return true;
 }
 
 //this method validates login
 function validate_register(e)
 {
-    if($('#name').val()===''){
-        e.preventDefault();
+    if($('#signup-form #name').val()===''){
+        // e.preventDefault();
         $('#signup-form #msg-btn').html('<i class="fa fa-warning (alias)"></i>Name is required! &times');
         $('#signup-form #alert-div').addClass('active');
-        return;       
+        return false;       
     }
 
-    if($('#email').val()===''){
-        e.preventDefault();
+    if($('#signup-form #email').val()===''){
+        // e.preventDefault();
         $('#signup-form #msg-btn').html('<i class="fa fa-warning (alias)"></i> Email is required! &times');
         $('#signup-form #alert-div').addClass('active');
-        return;       
+        return false;       
     } 
 
-    if($('#password').val()===''){
-        e.preventDefault();
+    if($('#signup-form #password').val()===''){
+        // e.preventDefault();
         $('#signup-form #msg-btn').html('<i class="fa fa-warning (alias)"></i> Password is required! &times');
         $('#signup-form #alert-div').addClass('active');
-        return;       
+        return false;       
     }
 
-    if($('#cfm_password').val()===''){
-        e.preventDefault();
+    if($('#signup-form #cfm_password').val()===''){
+        // e.preventDefault();
         $('#signup-form #msg-btn').html('<i class="fa fa-warning (alias)"></i> Confirm Password is required! &times');
         $('#signup-form #alert-div').addClass('active');
-        return;       
+        return false;       
     }
 
-    if($('#cfm_password').val()!=='' && $('#password').val() !==''){
-        if($('#cfm_password').val() !== $('#password').val()){
-            e.preventDefault();
+    if($('#signup-form #cfm_password').val()!=='' && $('#signup-form #password').val() !==''){
+        if($('#signup-form #cfm_password').val() !== $('#signup-form #password').val()){
+            // e.preventDefault();
             $('#signup-form #msg-btn').html('<i class="fa fa-warning (alias)"></i> Confirm Password is incorrect!&times');
             $('#signup-form #alert-div').addClass('active');
-            return;
+            return false;
         }
     }
+    return true;
 }
 
 
@@ -83,54 +85,71 @@ $('#msg-btn').on('click', function(event){
 
 $("#login-form button[type='submit']").on('click', function(event){
     event.preventDefault();
-    validate_login(event);
-    var email = $("#login-form input[name='email']").val();
-    var password = $("#login-form input[name='password']").val();
-    $.ajax({
-        
-        url: '/ajax_login/',
-        method: 'POST',
-        data: {
-            email: email/*'admin'*/,
-            password: password/*'!@#$qwer'*/,
-            csrfmiddlewaretoken:$('#login-form input[name=csrfmiddlewaretoken]').val(),
-        },
-        success:function(response){
-            if(response.success == true){
-                if(response.order == true){
-                    window.location.href = "/ownguestmapp/"
+    if (validate_login(event)){
+        var email = $("#login-form input[name='email']").val();
+        var password = $("#login-form input[name='password']").val();
+        $("#login-form #login-btn").attr('disabled', 'disabled');
+        $("#login-form #login-btn .loader").css('display', 'block');
+        $.ajax({
+            
+            url: '/ajax_login/',
+            method: 'POST',
+            data: {
+                email: email/*'admin'*/,
+                password: password/*'!@#$qwer'*/,
+                csrfmiddlewaretoken:$('#login-form input[name=csrfmiddlewaretoken]').val(),
+            },
+            success:function(response){
+                if(response.success == true){
+                    if(response.order == true){
+                        window.location.href = "/ownguestmapp/"
+                    }
+                    else{
+                        window.location.href = "/planprices/"
+                    }
                 }
                 else{
-                    window.location.href = "/planprices/"
+                    $('#login-form #msg-btn').html(response.message + '&times');
+                    $('#login-form #alert-div').addClass('active');
                 }
-            }
-            else{
-                $('#msg-btn').html(response.message + '&times');
-                $('#alert-div').addClass('active');
-                
-            }
-        },
-        
-    });
+                $("#login-form #login-btn .loader").css('display', 'none');
+                $("#login-form #login-btn").removeAttr('disabled');
+            },
+        });
+    } 
 });
 
 
 $("#modal_form_signup button[type='submit']").on('click', function(event){
-    event.preventDefault();
-    $.ajax({
-        url: '/ajax_register/',
-        method: 'POST',
-        data: {
-            username: 'conda9',
-            email: 'conda959@outlook.com',
-            password: '!@#$qwer',
-            csrfmiddlewaretoken:$('#modal_form_signup input[name=csrfmiddlewaretoken]').val(),
-        },
+    event.preventDefault(event);
+    if(validate_register(event)){
+        var name = $("#signup-form input[name='name']").val();
+        var email = $("#signup-form input[name='email']").val();
+        var password = $("#signup-form input[name='password']").val();
+        console.log(name);
+        console.log(email);
+        console.log(password);
+        $("#signup-form #signup-btn").attr('disabled', 'disabled');
+        $("#signup-form #signup-btn .loader").css('display', 'block');
+        $.ajax({
+            url: '/ajax_register/',
+            method: 'POST',
+            data: {
+                username: name,
+                email: email,
+                password: password,
+                csrfmiddlewaretoken:$('#signup-form input[name=csrfmiddlewaretoken]').val(),
+            },
 
-        success:function(response){
-            if(response.success == true){
-                window.location.href = "/planprices/";
+            success:function(response){
+                if(response.success == true){
+                    window.location.href = "/planprices/";
+                } else {
+                    $('#signup-form #msg-btn').html(response.message + '&times');
+                    $('#signup-form #alert-div').addClass('active');
+                }
+                $("#signup-form #signup-btn .loader").css('display', 'none');
             }
-        }
-    });
+        });
+    }
 });

@@ -9,3 +9,5 @@ mysqlclient==2.0.1
 python-magic==0.4.18
 pytz==2020.1
 libmagic==1.0
+stripe==2.25.0
+pip install python-decouple==3.3

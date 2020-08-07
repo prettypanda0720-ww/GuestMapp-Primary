@@ -31,16 +31,23 @@ urlpatterns = [
     path('api/order/', include('order.urls')),
     path('api/scan/', include('scan.urls')),
 
-    # web part
+    # for ajax handler
     path(r'ajax_login/', views.ajax_login, name = "ajax_login"),
     path(r'ajax_register/', views.ajax_register, name = "ajax_register"),
     path(r'ajax_logout/', views.ajax_logout, name="ajax_logout"),
-    path(r'ajax_order/', order_views.ajax_order, name="ajax_order"),
+
+    # for web template
     path(r'', views.home, name = "home"),
     path(r'planprices/', views.planprices, name = "planprices"),
     path(r'ownguestmapp/', views.ownguestmapp, name="ownguestmapp"),
     path(r'guestmapp/', views.guestmapp, name = "guestmapp"),
     path(r'newpassword/', views.newpassword),
+
+    # for stripe integrtion
+    path(r'config/', order_views.stripe_config),
+    path(r'create-checkout-session/', order_views.create_checkout_session), # new
+    path(r'success/', order_views.SuccessView.as_view()), # new
+    path(r'cancelled/', order_views.CancelledView.as_view()), # new
 
     # media part
     url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT, }),

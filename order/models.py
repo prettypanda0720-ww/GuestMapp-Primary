@@ -47,3 +47,47 @@ class Order(models.Model):
             'createdTime': self.created_date,
             'completedTime': self.completed_date,
         }
+
+class Billing(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, blank=True, null=True)
+    card_name = models.CharField(max_length=255)
+    card_number = models.CharField(max_length=255)
+    cvv = models.IntegerField()
+    price = models.FloatField()
+    expiry_date = models.CharField(max_length=255)
+    transaction_code = models.CharField(max_length=255)
+
+    class Meta:
+        db_table = 'billing'
+    
+    def __str__(self):
+        return "billing" + str(self.id)
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'card_name': self.card_name,
+            'card_number': self.card_number,
+            'cvv': self.cvv,
+            'price': self.price,
+            'expiry_date': self.expiry_date,
+            'transaction_code': self.transaction_code,
+        }
+
+class Price(models.Model):
+    title = models.CharField(max_length=255)
+    price = models.FloatField()
+    old_price = models.FloatField()
+    unit = models.CharField(max_length=255)
+
+    class Meta:
+        db_table = 'price'
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'title': self.title,
+            'price': self.price,
+            'old_price': self.old_price,
+            'unit': self.unit,
+        }

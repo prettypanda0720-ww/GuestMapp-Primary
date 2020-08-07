@@ -253,7 +253,7 @@ function showOrderStep2()
 
 function doPay(){
     $('#modal_form_order_step2').modal('hide');   
-    $('#modal_form_order_complete').modal('show');   
+    // $('#modal_form_order_complete').modal('show');   
 }
 
 function resetPassword()

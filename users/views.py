@@ -15,6 +15,10 @@ from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponse, JsonResponse
 from order.models import Order
 
+# stripe and env file
+from decouple import config
+import stripe
+
 class Login(ObtainAuthToken):
     serializer_class = LoginSerializer
 
@@ -230,4 +234,3 @@ def ownguestmapp(request):
 @login_required
 def newpassword(request):
     return render(request, 'newpassword.html')
-

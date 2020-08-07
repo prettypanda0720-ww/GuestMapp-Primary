@@ -472,7 +472,7 @@
                                     <button id="msg-btn" type="button" class="close">&times;</button>
                                 </div>
                             </div>
-                            <button type="submit" id="login-btn" class="btn green-btn mt-40">Login</button>
+                            <button type="submit" id="login-btn" class="btn green-btn mt-40">Login<span class="loader"></span></button>
                         </form>
                         <p class="mt-15">If you forgot your password, <a href="#" onclick="resetPassword()">click here</a></p>
                         <p><a href="#" onclick="doSignup()">Create a new account</a></p>
@@ -496,6 +496,7 @@
                     <div class="modal-body form">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <form action="#" id="signup-form" class="form-horizontal">
+                            {% csrf_token %}
                             <div class="form-body">
                                 <div class="form-group">
                                     <span class="fa fa-arrow-left back-btn" onclick="doLogin()"></span>
@@ -521,7 +522,7 @@
                                     <button id="msg-btn" type="button" class="close">&times;</button>
                                 </div>
                             </div>
-                            <button type="submit" class="btn green-btn mt-30" aria-label="Close">Next</button>
+                            <button type="submit" class="btn green-btn mt-30" aria-label="Close" id="signup-btn">Next<span class="loader"></span></button>
                         </form>
                         <p class="mt-15">If you already have an account, please <a href="#" onclick="doLogin()">login</a></p>
                     </div>

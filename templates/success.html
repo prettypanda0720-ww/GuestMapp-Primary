@@ -334,7 +334,7 @@
                 </div>
                 <div class="modal-footer">
                     <button id="submitBtn" class="btn green-btn mt-40">Pay only $99 USD</button>
-                    {% comment %} <button type="submit" class="btn green-btn mt-40">Pay only $99 USD</button> {% endcomment %}
+                    <button type="submit" class="btn green-btn mt-40">Pay only $99 USD</button>
                     {% comment %} <a class="btn green-btn" onclick="doPay()">Pay only $99 USD</a> {% endcomment %}
                 </div>
             </div><!-- /.modal-content -->
@@ -368,4 +368,9 @@
 </div>
 <script src="https://js.stripe.com/v3/"></script>  <!-- new -->
 <script src="{% static 'js/order.js' %}"></script>
+<script>
+(function ($) {
+    $('#modal_form_order_complete').modal('show');
+})(jQuery);
+</script>
 {% endblock script %}
