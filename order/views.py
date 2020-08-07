@@ -26,7 +26,7 @@ class OrderViewSet(ModelViewSet):
                 scans = ScanTable.objects.get(order = order.id)
                 query.update({"scan":scans.to_dict()})
             except:
-                query.update({"scan":[]})
+                query.update({"scan":{}})
             orderses.append(query)
 
         return JsonResponse({
