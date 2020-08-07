@@ -2417,6 +2417,7 @@ ol {
 			display: flex;
 			text-align: center;
 			color: $color-white;
+			margin-top:40px;
 		}
 	}
 	.header__info {
@@ -2789,8 +2790,12 @@ ol {
 					display: none;		
 				}
 			}
+			a{
+				margin-top: 30px;
+			}
 			@media only screen and (max-width: 767px) {
-				width: 100%;		
+				width: 100%;	
+				margin-top:	25px;
 			}
 		}
 		@media only screen and (max-width: 767px) {
@@ -2818,16 +2823,26 @@ ol {
 .advantage-section {
 	.advantage-card-item {
 		text-align: center;
+		h3{
+			color: #000000;
+		}
 		@media only screen and (max-width: 767px) {
 			margin-top: 40px;
 			h3{
 				margin-top: 25px;
 			}
+			.paragraph{
+				margin-top: 8px;
+			}
 		}
 	}
 	@media only screen and (max-width: 767px) {
 		.mt-84{
-			margin-top: 40px;
+			margin-top: 10px;
+		}
+		img{
+			width: 180px;
+			height: 120px;
 		}
 	}
 }
@@ -3323,7 +3338,7 @@ ol {
 		}
 		
 		.lbl-from{
-			font-family: Roboto Regular;
+			font-family: Roboto;
 			font-style: normal;
 			font-weight: normal;
 			font-size: 16px;
@@ -3465,6 +3480,18 @@ ol {
 		    margin: 0 auto;
 		    top: -40px;	
 		}
+
+		@media only screen and (max-width: 420px) {
+			h4{
+				font-size: 16px;
+				line-height: 19px;
+				margin-top: 20px;
+			}
+			h5{
+				font-size: 14px;
+				line-height: 26px;
+			}
+		}
 	}
 }
 
@@ -3491,6 +3518,10 @@ ol {
 		h4{
 			@include base-h4;
 			font-weight: bold;
+			@media only screen and (max-width: 420px) {
+				font-size: 16px;
+				line-height: 19px;
+			}
 		}
 		h5{
 			@include base-paragraph;
@@ -3501,8 +3532,20 @@ ol {
 			font-weight: bold;
 		}
 		a{
+			font-family: Roboto;
+			font-style: normal;
+			font-weight: normal;
+			font-size: 16px;
+			line-height: 19px;
+			color: #3B8EC9;
 			text-decoration: underline;
 			margin-top: 15px;
+			
+			@media only screen and (max-width: 420px) {
+				&:last-child{
+					display: none;
+				}
+			}
 		}
 		img{
 			width: 25px;
