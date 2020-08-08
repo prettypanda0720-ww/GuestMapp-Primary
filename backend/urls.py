@@ -30,6 +30,7 @@ urlpatterns = [
     path('api/auth/', include('users.urls')),
     path('api/order/', include('order.urls')),
     path('api/scan/', include('scan.urls')),
+    path('api/price/', include('price.urls')),
 
     # for ajax handler
     path(r'ajax_login/', views.ajax_login, name = "ajax_login"),

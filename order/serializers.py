@@ -36,9 +36,3 @@ class OrderSerializer(serializers.Serializer):
         billing.transaction_code = self.validated_data['transaction_code']
         billing.save()
         return order
-
-class PriceSerializer(serializers.Serializer):
-    title = serializers.CharField()
-    price = serializers.FloatField()
-    old_price = serializers.FloatField()
-    unit = serializers.CharField()

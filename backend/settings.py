@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'scan',
     'users',
     'contact',
+    'price',
 
     # thirdparty
     'rest_framework',
