@@ -16,8 +16,13 @@ function show_blueprint_submitted()
     $("#modal_form_blueprint_submitted").modal('show');
 }
 
-function show_upload_photos()
+function show_photos_list()
 {
+    $("#modal_form_upload_photos").modal('hide');
+    $("#modal_form_photos_list").modal('show');
+}
+
+function show_upload_photos(){
     $("#modal_form_blueprint_submitted").modal('hide');
     $("#modal_form_upload_photos").modal('show');
 }

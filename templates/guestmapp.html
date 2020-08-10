@@ -336,7 +336,7 @@ for Android ones </p>
             <div class="modal-content">
                 <div class="modal-body form">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <form action="#" id="blueprint-form" class="form-horizontal">
+                    <form action="#" id="blueprint-form-submitted" class="form-horizontal">
                         {% csrf_token %}
                         <label class="modal-title">Uploading scan</label>
                     
@@ -344,11 +344,10 @@ for Android ones </p>
                             <img src="{% static 'img/success-check.png' %}">
                             <p class="mt-20">Blueprint uploaded</p>
                         </div>
-                        <div>
-                            <label class="modal-input-label">Save blueprint</label>
-                            <input id="airbnb" name="airbnb" placeholder="Project title" class="form-control" type="text">
+                        <div> 
+                            <p class="blueprint-title ta-left">Save blueprint</p>
+                            <input id="airbnb" name="airbnb" placeholder="Project title" class="form-control mt-5" type="text">
                             <a href="#" class="btn green-btn mt-30" onclick="show_upload_photos()">Next</a>
-                            {% comment %} <button type="submit" id="blueprint-upload-btn" class="btn green-btn mt-40">Upload</button> {% endcomment %}
                         </div>
                         
                         <div class="alert alert-danger" id="alert-div">
@@ -370,12 +369,28 @@ for Android ones </p>
                         {% csrf_token %}
                         <img src="{% static 'img/floorplan-2.png' %}">
                         <div class="projects-wrapper">
-                            <p class="paragraph">Project title</p>
-                            <h5 class="header-h5">waiting for photos</h5>
-                            <p class="paragraph">Please upload photos to continue</p>
-                            <a href="#" class="btn green-btn mt-30" onclick="show_blueprint_submitted()">Upload photos</a>
+                            <h4 class="proj-title ta-center">Project title</h4>
+                            <p class="proj-photo-summary">waiting for photos</p>
+                            <p class="proj-summary">Please upload photos to continue</p>
+                            <a href="#" id="show_photoslist_btn" class="btn green-btn mt-30" onclick="show_photos_list()">Upload photos</a>
                         </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="modal_form_photos_list" role="dialog">
+    <div class="d-flex justify-content-center align-items-center"> 
+        <div class="modal-dialog">
+            <div class="modal-body form">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <form action="#" id="photos-list-form" class="form-horizontal">
+                    {% csrf_token %}
+                    <label class="modal-title">Add photos</label>
+                    {% comment %} <button type="submit" id="blueprint-upload-btn" class="btn green-btn mt-40">Upload</button> {% endcomment %}
+                    <a href="#" class="btn green-btn" onclick="show_blueprint_submitted()">Upload</a>
+                </form>
             </div>
         </div>
     </div>

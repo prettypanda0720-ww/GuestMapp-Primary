@@ -16,7 +16,7 @@ class Order(models.Model):
     selected_theme = models.IntegerField()
     tires = models.IntegerField()
     currency = models.CharField(max_length=10)
-    price = models.FloatField()
+    price = models.FloatField(blank=True, null=True)
 
     statusChoices = (
         (0, 'pending'),
@@ -53,7 +53,7 @@ class Billing(models.Model):
     card_name = models.CharField(max_length=255)
     card_number = models.CharField(max_length=255)
     cvv = models.IntegerField()
-    price = models.FloatField()
+    price = models.FloatField(blank=True, null=True)
     expiry_date = models.CharField(max_length=255)
     transaction_code = models.CharField(max_length=255)
 

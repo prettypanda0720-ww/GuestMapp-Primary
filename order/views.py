@@ -2,13 +2,14 @@ from django.http import JsonResponse, HttpResponse
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic.base import TemplateView
-
+from django.shortcuts import get_object_or_404, render, redirect
 # Create your views here.
 from rest_framework import status, permissions
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
 from order.models import Order, Billing
+from price.models import Price
 from scan.models import ScanTable
 from order.serializers import OrderSerializer
 from decouple import config
@@ -59,7 +60,7 @@ class OrderViewSet(ModelViewSet):
                 order.delete()
                 return JsonResponse({
                 'success': False,
-                'message': 'Fail to create order',
+                'message': 'Fail to create order cause dating input format is wrong. Expected format is XX/XX',
                 'errCode': -1,
                 'data': None,
             })
@@ -71,7 +72,7 @@ class OrderViewSet(ModelViewSet):
                     "cvc": str(billing.cvv),
                 },
             )
-            
+            # 4000 0000 0000 0077 test card for payout
             # test
             # token = stripe.Token.create(
             #     card={
@@ -87,11 +88,21 @@ class OrderViewSet(ModelViewSet):
             )
             stripe.Charge.create(
                 customer = customer.id,
-                amount = int(order.price),
+                amount = order.price,
                 currency = 'usd',
                 description = 'description'
             )
-
+            # 
+            transfer = stripe.Transfer.create(
+                amount=order.price,
+                currency="usd",
+                destination="acct_1HDMiwFlRRirkg6s",
+                transfer_group=order.id,
+            )
+            billing.transaction_code = transfer.id
+            billing.price = order.price
+            billing.save()
+            
         except stripe.error.StripeError:
             order.delete()
             return JsonResponse({
@@ -99,9 +110,7 @@ class OrderViewSet(ModelViewSet):
                 'message': 'Fail to create order',
                 'errCode': -1,
                 'data': None,
-                
             })
-        
 
         return JsonResponse({
             "success": True,

@@ -584,6 +584,236 @@ label, p {
   cursor: pointer;
   vertical-align: top; }
 
+/* for custom modal*/
+#modal_form_blueprint {
+  justify-content: center;
+  align-items: center;
+  display: none; }
+  #modal_form_blueprint.show {
+    padding-right: 0px !important;
+    display: flex !important; }
+  #modal_form_blueprint .modal-body {
+    position: relative;
+    background: #EEF1F3;
+    border-radius: 4px;
+    padding: 27px 28px 85px 27px; }
+    #modal_form_blueprint .modal-body .close {
+      color: #FF0000;
+      font-size: 35px; }
+    #modal_form_blueprint .modal-body p {
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 26px;
+      color: #3B4A54;
+      text-align: center; }
+    #modal_form_blueprint .modal-body a {
+      text-decoration: underline; }
+    @media only screen and (max-width: 420px) {
+      #modal_form_blueprint .modal-body {
+        padding: 20px; }
+        #modal_form_blueprint .modal-body p {
+          font-size: 15px; } }
+  #modal_form_blueprint .modal-body {
+    width: 456px;
+    height: 670px; }
+    #modal_form_blueprint .modal-body a {
+      text-decoration: none; }
+    #modal_form_blueprint .modal-body .blueprint-drag {
+      background-color: #bfcdd6;
+      border: 2px dotted #0B85A1;
+      color: #92AAB0;
+      padding: 10px 10px 10 10px;
+      margin-bottom: 10px;
+      font-size: 200%;
+      display: flex;
+      flex-direction: column; }
+      #modal_form_blueprint .modal-body .blueprint-drag img {
+        width: 100px;
+        height: 80px;
+        margin-top: 30px;
+        margin-left: auto;
+        margin-right: auto; }
+      #modal_form_blueprint .modal-body .blueprint-drag p {
+        color: #FFFFFF;
+        margin-top: 10px; }
+    #modal_form_blueprint .modal-body .lbl-from {
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 19px;
+      text-decoration: underline;
+      color: #3B8EC9; }
+      #modal_form_blueprint .modal-body .lbl-from:hover {
+        cursor: pointer; }
+    @media only screen and (max-width: 420px) {
+      #modal_form_blueprint .modal-body {
+        width: 300px;
+        height: 500px; }
+        #modal_form_blueprint .modal-body .modal-title {
+          font-size: 25px;
+          display: inline-block; }
+        #modal_form_blueprint .modal-body .forgot-password a {
+          display: block; } }
+
+#modal_form_blueprint_submitted {
+  justify-content: center;
+  align-items: center;
+  display: none; }
+  #modal_form_blueprint_submitted.show {
+    padding-right: 0px !important;
+    display: flex !important; }
+  #modal_form_blueprint_submitted .modal-body {
+    position: relative;
+    background: #EEF1F3;
+    border-radius: 4px;
+    padding: 27px 28px 85px 27px; }
+    #modal_form_blueprint_submitted .modal-body .close {
+      color: #FF0000;
+      font-size: 35px; }
+    #modal_form_blueprint_submitted .modal-body p {
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 26px;
+      color: #3B4A54;
+      text-align: center; }
+    #modal_form_blueprint_submitted .modal-body a {
+      text-decoration: underline; }
+    @media only screen and (max-width: 420px) {
+      #modal_form_blueprint_submitted .modal-body {
+        padding: 20px; }
+        #modal_form_blueprint_submitted .modal-body p {
+          font-size: 15px; } }
+  #modal_form_blueprint_submitted a {
+    text-decoration: none; }
+  #modal_form_blueprint_submitted .close {
+    position: absolute;
+    top: 20px;
+    right: 20px; }
+  #modal_form_blueprint_submitted .modal-body {
+    width: 456px;
+    height: 550px;
+    padding: 27px; }
+    #modal_form_blueprint_submitted .modal-body form {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%; }
+      #modal_form_blueprint_submitted .modal-body form p {
+        color: #679724; }
+      #modal_form_blueprint_submitted .modal-body form .blueprint-title {
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 26px;
+        color: #000000; }
+
+#modal_form_upload_photos {
+  justify-content: center;
+  align-items: center;
+  display: none; }
+  #modal_form_upload_photos.show {
+    padding-right: 0px !important;
+    display: flex !important; }
+  #modal_form_upload_photos .modal-body {
+    position: relative;
+    background: #EEF1F3;
+    border-radius: 4px;
+    padding: 27px 28px 85px 27px; }
+    #modal_form_upload_photos .modal-body .close {
+      color: #FF0000;
+      font-size: 35px; }
+    #modal_form_upload_photos .modal-body p {
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 26px;
+      color: #3B4A54;
+      text-align: center; }
+    #modal_form_upload_photos .modal-body a {
+      text-decoration: underline; }
+    @media only screen and (max-width: 420px) {
+      #modal_form_upload_photos .modal-body {
+        padding: 20px; }
+        #modal_form_upload_photos .modal-body p {
+          font-size: 15px; } }
+  #modal_form_upload_photos .modal-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    width: 456px;
+    height: 550px;
+    padding: 0px; }
+    #modal_form_upload_photos .modal-body a {
+      text-decoration: none; }
+    #modal_form_upload_photos .modal-body .projects-wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      padding: 20px;
+      height: calc(100% - 300px); }
+    #modal_form_upload_photos .modal-body .proj-title {
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 23px;
+      color: #000000; }
+    #modal_form_upload_photos .modal-body .proj-photo-summary {
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 26px;
+      color: #DF4F21; }
+    #modal_form_upload_photos .modal-body .proj-summary {
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 22px;
+      text-align: center;
+      color: #000000; }
+    #modal_form_upload_photos .modal-body p {
+      color: #679724; }
+    #modal_form_upload_photos .modal-body img {
+      height: 300px; }
+    #modal_form_upload_photos .modal-body .close {
+      position: absolute;
+      right: 15px;
+      top: 15px; }
+
+#modal_form_photos_list {
+  justify-content: center;
+  align-items: center;
+  display: none; }
+  #modal_form_photos_list.show {
+    padding-right: 0px !important;
+    display: flex !important; }
+  #modal_form_photos_list .modal-body {
+    position: relative;
+    background: #EEF1F3;
+    border-radius: 4px;
+    width: 456px;
+    height: 762px;
+    padding: 25px; }
+    #modal_form_photos_list .modal-body .photos-wrapper .photo-item {
+      position: absolute;
+      width: 190px;
+      height: 120px;
+      left: 23px;
+      top: 97px;
+      background: url(1487140755196692398.jpg);
+      filter: drop-shadow(0px 4px 0px rgba(61, 93, 107, 0.25));
+      border-radius: 4px; }
+
 /******************************************************************
   Template Name: Deerhost
   Description:  Deerhost Hosting HTML Template
@@ -1209,261 +1439,6 @@ ol {
   color: #ffffff;
   text-transform: uppercase;
   margin-bottom: 0; }
-
-/*---------------------
-  Work Section
------------------------*/
-.work-section {
-  margin-top: -405px;
-  position: relative;
-  z-index: 9;
-  border-top: 1px solid #62677d;
-  padding-bottom: 0; }
-
-.work-section .section-title {
-  margin-bottom: 82px; }
-
-.work-section .section-title h3 {
-  color: #ffffff; }
-
-.work__text {
-  -webkit-box-shadow: 0px 5px 10px rgba(18, 8, 81, 0.1);
-  box-shadow: 0px 5px 10px rgba(18, 8, 81, 0.1);
-  padding: 70px;
-  background: #ffffff;
-  position: relative; }
-
-.work__text:after {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: -6px;
-  margin: 0 auto;
-  height: 15px;
-  width: 15px;
-  background: #ffffff;
-  -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  transform: rotate(45deg);
-  content: ""; }
-
-.work__item {
-  text-align: center; }
-
-.work__item i {
-  font-size: 53px;
-  color: #4c57d6; }
-
-.work__item span {
-  display: block;
-  font-size: 14px;
-  color: #4c57d6;
-  margin-bottom: 6px;
-  margin-top: 32px; }
-
-.work__item h3 {
-  color: #111111;
-  font-weight: 700;
-  margin-bottom: 20px; }
-
-.work__item p {
-  margin-bottom: 32px; }
-
-/*---------------------
-  Choose Plan
------------------------*/
-.choose-plan-section.pricing-page {
-  background: #f5f5f5; }
-
-.plan__text {
-  padding-left: 20px; }
-
-.plan__text h3 {
-  color: #111111;
-  font-weight: 700;
-  line-height: 39px;
-  margin-bottom: 18px; }
-
-.plan__text ul {
-  margin-bottom: 35px; }
-
-.plan__text ul li {
-  list-style: none;
-  font-size: 16px;
-  font-weight: 500;
-  color: #111111;
-  line-height: 40px; }
-
-.plan__text ul li span {
-  margin-right: 5px;
-  color: #4c57d6; }
-
-/* ----------------------------------- Other Pages Styles ----------------------------------- */
-/*---------------------
-  Breadcrumb
------------------------*/
-.breadcrumb__option {
-  border-bottom: 1px solid #ebebeb;
-  padding: 15px 0; }
-
-.breadcrumb__option a {
-  font-size: 15px;
-  color: #111111;
-  font-weight: 500;
-  margin-right: 20px;
-  display: inline-block;
-  position: relative; }
-
-.breadcrumb__option a:after {
-  position: absolute;
-  right: -18px;
-  top: 0;
-  content: "5";
-  font-family: "ElegantIcons"; }
-
-.breadcrumb__option a span {
-  color: #111111;
-  margin-right: 5px; }
-
-.breadcrumb__option span {
-  font-size: 15px;
-  color: #888888;
-  font-weight: 500;
-  display: inline-block; }
-
-/*---------------------
-  About
------------------------*/
-.about__text {
-  padding-top: 20px; }
-
-.about__text h2 {
-  color: #111111;
-  font-weight: 700;
-  text-transform: uppercase;
-  margin-bottom: 15px; }
-
-.about__text p {
-  color: #111111;
-  margin-bottom: 26px; }
-
-.about__text .about__achievement .about__achieve__item {
-  display: inline-block;
-  margin-right: 95px;
-  margin-bottom: 30px; }
-
-.about__text .about__achievement .about__achieve__item:last-child {
-  margin-right: 0; }
-
-.about__text .about__achievement .about__achieve__item span {
-  font-size: 30px;
-  color: #4c57d6; }
-
-.about__text .about__achievement .about__achieve__item h4 {
-  color: #111111;
-  font-weight: 700;
-  margin-top: 12px; }
-
-.about__text .about__achievement .about__achieve__item p {
-  font-size: 13px;
-  text-transform: uppercase;
-  color: #444444;
-  margin-bottom: 0; }
-
-/*---------------------
-  About
------------------------*/
-.feature-section {
-  background: #f5f5f5;
-  padding-bottom: 70px; }
-
-.feature__item {
-  background: #ffffff;
-  -webkit-box-shadow: 0px 0px 10px rgba(18, 8, 81, 0.15);
-  box-shadow: 0px 0px 10px rgba(18, 8, 81, 0.15);
-  padding: 30px 35px 32px 35px;
-  text-align: center;
-  -webkit-transition: all 0.3s;
-  -o-transition: all 0.3s;
-  transition: all 0.3s;
-  margin-bottom: 30px; }
-
-.feature__item:hover {
-  -webkit-box-shadow: 0px 8px 30px rgba(18, 8, 81, 0.2);
-  box-shadow: 0px 8px 30px rgba(18, 8, 81, 0.2); }
-
-.feature__item span {
-  font-size: 42px;
-  color: #4c57d6; }
-
-.feature__item h5 {
-  font-size: 20px;
-  color: #111111;
-  font-weight: 700;
-  margin-top: 18px;
-  margin-bottom: 10px; }
-
-.feature__item p {
-  color: #111111;
-  margin-bottom: 0; }
-
-/*---------------------
-  Team
------------------------*/
-.team-section {
-  padding-bottom: 70px; }
-
-.team__btn {
-  text-align: right; }
-
-.team__item {
-  border: 1px solid #d7d7d7;
-  padding: 30px 20px 20px 30px;
-  margin-bottom: 30px; }
-
-.team__item .team__pic {
-  float: left;
-  margin-right: 30px; }
-
-.team__item .team__pic img {
-  height: 120px;
-  width: 120px;
-  border-radius: 50%; }
-
-.team__item .team__text {
-  overflow: hidden; }
-
-.team__item .team__text h5 {
-  font-size: 20px;
-  color: #111111;
-  font-weight: 700;
-  margin-bottom: 5px; }
-
-.team__item .team__text span {
-  font-size: 14px;
-  display: block;
-  color: #4c57d6;
-  margin-bottom: 6px; }
-
-.team__item .team__text .team__social a {
-  display: inline-block;
-  font-size: 16px;
-  margin-right: 20px; }
-
-.team__item .team__text .team__social a.facebook {
-  color: #3263af; }
-
-.team__item .team__text .team__social a.twitter {
-  color: #40c4ff; }
-
-.team__item .team__text .team__social a.youtube {
-  color: #ff0000; }
-
-.team__item .team__text .team__social a.instagram {
-  color: #b309d7; }
-
-.team__item .team__text .team__social a:last-child {
-  margin-right: 0; }
 
 /*---------------------
   Testimonial
@@ -3498,175 +3473,6 @@ ol {
         #modal_form_resetpassword .modal-footer img {
           width: 30px;
           height: 30px; } }
-
-#modal_form_blueprint {
-  justify-content: center;
-  align-items: center;
-  display: none; }
-  #modal_form_blueprint.show {
-    padding-right: 0px !important;
-    display: flex !important; }
-  #modal_form_blueprint .modal-body {
-    position: relative;
-    background: #EEF1F3;
-    border-radius: 4px;
-    padding: 27px 28px 85px 27px; }
-    #modal_form_blueprint .modal-body .close {
-      color: #FF0000;
-      font-size: 35px; }
-    #modal_form_blueprint .modal-body p {
-      font-family: Roboto;
-      font-style: normal;
-      font-weight: normal;
-      font-size: 16px;
-      line-height: 26px;
-      color: #3B4A54;
-      text-align: center; }
-    #modal_form_blueprint .modal-body a {
-      text-decoration: underline; }
-    @media only screen and (max-width: 420px) {
-      #modal_form_blueprint .modal-body {
-        padding: 20px; }
-        #modal_form_blueprint .modal-body p {
-          font-size: 15px; } }
-  #modal_form_blueprint .modal-body {
-    width: 456px;
-    height: 670px; }
-    #modal_form_blueprint .modal-body .blueprint-drag {
-      background-color: #bfcdd6;
-      border: 2px dotted #0B85A1;
-      width: 400px;
-      color: #92AAB0;
-      text-align: left;
-      vertical-align: middle;
-      padding: 10px 10px 10 10px;
-      margin-bottom: 10px;
-      font-size: 200%;
-      display: flex;
-      justify-content: center;
-      flex-direction: column; }
-      #modal_form_blueprint .modal-body .blueprint-drag img {
-        width: 100px;
-        height: 80px;
-        margin-top: 30px;
-        margin-left: auto;
-        margin-right: auto; }
-      #modal_form_blueprint .modal-body .blueprint-drag p {
-        color: #FFFFFF;
-        margin-top: 10px; }
-    #modal_form_blueprint .modal-body .lbl-from {
-      font-family: Roboto;
-      font-style: normal;
-      font-weight: normal;
-      font-size: 16px;
-      line-height: 19px;
-      text-decoration: underline;
-      color: #3B8EC9; }
-      #modal_form_blueprint .modal-body .lbl-from:hover {
-        cursor: pointer; }
-    @media only screen and (max-width: 420px) {
-      #modal_form_blueprint .modal-body {
-        width: 300px;
-        height: 395px; }
-        #modal_form_blueprint .modal-body .modal-title {
-          font-size: 25px;
-          display: inline-block; }
-        #modal_form_blueprint .modal-body .forgot-password a {
-          display: block; } }
-
-#modal_form_blueprint_submitted {
-  justify-content: center;
-  align-items: center;
-  display: none; }
-  #modal_form_blueprint_submitted.show {
-    padding-right: 0px !important;
-    display: flex !important; }
-  #modal_form_blueprint_submitted .modal-body {
-    position: relative;
-    background: #EEF1F3;
-    border-radius: 4px;
-    padding: 27px 28px 85px 27px; }
-    #modal_form_blueprint_submitted .modal-body .close {
-      color: #FF0000;
-      font-size: 35px; }
-    #modal_form_blueprint_submitted .modal-body p {
-      font-family: Roboto;
-      font-style: normal;
-      font-weight: normal;
-      font-size: 16px;
-      line-height: 26px;
-      color: #3B4A54;
-      text-align: center; }
-    #modal_form_blueprint_submitted .modal-body a {
-      text-decoration: underline; }
-    @media only screen and (max-width: 420px) {
-      #modal_form_blueprint_submitted .modal-body {
-        padding: 20px; }
-        #modal_form_blueprint_submitted .modal-body p {
-          font-size: 15px; } }
-  #modal_form_blueprint_submitted .modal-body {
-    width: 456px;
-    height: 550px;
-    padding: 27px; }
-    #modal_form_blueprint_submitted .modal-body form {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      height: 100%; }
-      #modal_form_blueprint_submitted .modal-body form p {
-        color: #679724; }
-
-#modal_form_upload_photos {
-  justify-content: center;
-  align-items: center;
-  display: none; }
-  #modal_form_upload_photos.show {
-    padding-right: 0px !important;
-    display: flex !important; }
-  #modal_form_upload_photos .modal-body {
-    position: relative;
-    background: #EEF1F3;
-    border-radius: 4px;
-    padding: 27px 28px 85px 27px; }
-    #modal_form_upload_photos .modal-body .close {
-      color: #FF0000;
-      font-size: 35px; }
-    #modal_form_upload_photos .modal-body p {
-      font-family: Roboto;
-      font-style: normal;
-      font-weight: normal;
-      font-size: 16px;
-      line-height: 26px;
-      color: #3B4A54;
-      text-align: center; }
-    #modal_form_upload_photos .modal-body a {
-      text-decoration: underline; }
-    @media only screen and (max-width: 420px) {
-      #modal_form_upload_photos .modal-body {
-        padding: 20px; }
-        #modal_form_upload_photos .modal-body p {
-          font-size: 15px; } }
-  #modal_form_upload_photos .modal-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
-    width: 456px;
-    height: 700px;
-    padding: 0px; }
-    #modal_form_upload_photos .modal-body .projects-wrapper {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 20px; }
-    #modal_form_upload_photos .modal-body p {
-      color: #679724; }
-    #modal_form_upload_photos .modal-body img {
-      height: 300px; }
-    #modal_form_upload_photos .modal-body .close {
-      position: absolute;
-      right: 15px;
-      top: 15px; }
 
 .modal-title {
   font-family: Roboto Slab;
