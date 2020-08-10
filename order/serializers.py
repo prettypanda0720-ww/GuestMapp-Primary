@@ -25,7 +25,6 @@ class OrderSerializer(serializers.Serializer):
         order.price = self.validated_data['price']
         order.status = 0
         order.save()
-
         billing = Billing()
         billing.order = order
         billing.card_name = self.validated_data['card_name']

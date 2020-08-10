@@ -8,9 +8,10 @@ from rest_framework import status, permissions
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
-from order.models import Order
+from order.models import Order, Billing
 from scan.models import ScanTable
 from order.serializers import OrderSerializer
+from decouple import config
 import stripe
 
 class OrderViewSet(ModelViewSet):
@@ -44,11 +45,69 @@ class OrderViewSet(ModelViewSet):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         order = serializer.save(user=request.user)
+        billing = Billing.objects.get(order=order)
+        
+        try:
+            stripe.api_key = settings.STRIPE_SECRET_KEY
+            customer = stripe.Customer.create(
+                email = order.user.email,
+                description="Customer",
+            )
+            billing_str = billing.expiry_date
+            exp_date = billing_str.split("/")
+            if exp_date.__len__() != 2:
+                order.delete()
+                return JsonResponse({
+                'success': False,
+                'message': 'Fail to create order',
+                'errCode': -1,
+                'data': None,
+            })
+            token = stripe.Token.create(
+                card={
+                    "number": billing.card_number,
+                    "exp_month": exp_date[0],
+                    "exp_year": "20" + exp_date[1],
+                    "cvc": str(billing.cvv),
+                },
+            )
+            
+            # test
+            # token = stripe.Token.create(
+            #     card={
+            #         "number": "4242424242424242",
+            #         "exp_month": 8,
+            #         "exp_year": 2021,
+            #         "cvc": "314",
+            #     },
+            # )
+            stripe.Customer.create_source(
+                customer.id,
+                source=token,
+            )
+            stripe.Charge.create(
+                customer = customer.id,
+                amount = int(order.price),
+                currency = 'usd',
+                description = 'description'
+            )
+
+        except stripe.error.StripeError:
+            order.delete()
+            return JsonResponse({
+                'success': False,
+                'message': 'Fail to create order',
+                'errCode': -1,
+                'data': None,
+                
+            })
+        
+
         return JsonResponse({
             "success": True,
             "message": "success to create new order",
             "errCode": -1,
-            "data": order.to_dict()
+            "data": order.to_dict(),
         }, status=status.HTTP_200_OK)
 
 
@@ -58,17 +117,6 @@ class OrderCommit(APIView):
     def post(self, request, *args, **kwargs):
         order_id = self.request.data['order_id']
         status = self.request.data['status']
-
-        try:
-            order = Order.objects.get(id=order_id)
-        except:
-            return JsonResponse({
-                'success': False,
-                'message': 'Order is not exist',
-                'errCode': -1,
-                'data': None
-            })
-
         order.status = status
         order.save()
         return JsonResponse({
@@ -77,7 +125,6 @@ class OrderCommit(APIView):
             'errCode': -1,
             'data': None
         })
-
 
 @csrf_exempt
 def stripe_config(request):
@@ -88,7 +135,7 @@ def stripe_config(request):
 @csrf_exempt
 def create_checkout_session(request):
     if request.method == 'GET':
-        domain_url = 'http://localhost:8000/'
+        domain_url = 'http://127.0.0.1:8000/'
         stripe.api_key = settings.STRIPE_SECRET_KEY
         try:
             # Create new Checkout Session for the order

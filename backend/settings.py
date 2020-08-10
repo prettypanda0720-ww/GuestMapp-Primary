@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'users',
     'contact',
     'price',
-
+    
     # thirdparty
     'rest_framework',
     'rest_framework.authtoken'
