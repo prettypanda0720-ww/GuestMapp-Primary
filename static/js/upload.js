@@ -1,5 +1,9 @@
+$(document).ready(function(){
+
+
 $(".upload-btn").on("click", function(event){
-    $("#modal_form_blueprint").modal('show');
+    // $("#modal_form_blueprint").modal('show');
+    $("#modal_form_photos_list").modal('show');
 });
 
 $("#blueprint-upload-btn").on("submit", function(event){
@@ -8,7 +12,12 @@ $("#blueprint-upload-btn").on("submit", function(event){
     // $("#modal_form_blueprint").modal('hide');
     // $("#modal_form_blueprint_submitted").modal('show');
 });
-
+console.log($("#photos-list-form"))
+$("#photos-list-form").on('click', ".btn-remove",function(event){
+    event.preventDefault();
+    alert('asdfasdf');
+    $(this).parents('.photo-item').remove();
+})
 
 function show_blueprint_submitted()
 {
@@ -170,3 +179,5 @@ $(document).on('drop', function (e)
 });
  
 });
+
+})

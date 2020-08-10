@@ -10,6 +10,25 @@ body {
 	overflow: overlay;
 }
 
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #dde4e9;
+}
+
+/* Works on Chrome/Edge/Safari */
+*::-webkit-scrollbar {
+  width: 4px;
+}
+*::-webkit-scrollbar-track {
+  background: #dde4e9;
+}
+*::-webkit-scrollbar-thumb {
+  // background-color: #045FA3;
+  background-color: #dde4e9;
+  border-radius: 10px;
+  border: 1px solid #dde4e9;
+}
+
 *,
 *::before,
 *::after {

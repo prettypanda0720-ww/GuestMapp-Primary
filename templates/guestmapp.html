@@ -383,14 +383,54 @@ for Android ones </p>
 <div class="modal" id="modal_form_photos_list" role="dialog">
     <div class="d-flex justify-content-center align-items-center"> 
         <div class="modal-dialog">
-            <div class="modal-body form">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <form action="#" id="photos-list-form" class="form-horizontal">
-                    {% csrf_token %}
-                    <label class="modal-title">Add photos</label>
-                    {% comment %} <button type="submit" id="blueprint-upload-btn" class="btn green-btn mt-40">Upload</button> {% endcomment %}
-                    <a href="#" class="btn green-btn" onclick="show_blueprint_submitted()">Upload</a>
-                </form>
+            <div class="modal-content">
+                <div class="modal-body form">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <form action="#" id="photos-list-form" class="form-horizontal">
+                        {% csrf_token %}
+                        <label class="modal-title">Add photos</label>
+                        <ul class="photos-wrapper row mt-30">
+                            <li class="photo-item col-lg-6 col-md-6 col-sm-6 col-6">
+                                <img class="photo" src="{% static 'img/kitchen.png' %}">
+                                <div class="photo-action">
+                                    <span class="title">Kitchen</span>
+                                    <img class="btn-remove" src="{% static 'img/garbage.png' %}">
+                                </div>
+                            </li>
+                            <li class="photo-item col-lg-6 col-md-6 col-sm-6 col-6">
+                                <img class="photo" src="{% static 'img/kitchen.png' %}">
+                                <div class="photo-action">
+                                    <span class="title">Kitchen</span>
+                                    <img class="btn-remove" src="{% static 'img/garbage.png' %}">
+                                </div>
+                            </li>
+                            <li class="photo-item col-lg-6 col-md-6 col-sm-6 col-6">
+                                <img class="photo" src="{% static 'img/kitchen.png' %}">
+                                <div class="photo-action">
+                                    <span class="title">Kitchen</span>
+                                    <img class="btn-remove" src="{% static 'img/garbage.png' %}">
+                                </div>
+                            </li>
+                            <li class="photo-item col-lg-6 col-md-6 col-sm-6 col-6">
+                                <img class="photo" src="{% static 'img/kitchen.png' %}">
+                                <div class="photo-action">
+                                    <span class="title">Kitchen</span>
+                                    <img class="btn-remove" src="{% static 'img/garbage.png' %}">
+                                </div>
+                            </li>
+                            <li class="photo-item col-lg-6 col-md-6 col-sm-6 col-6">
+                                <img class="photo" src="{% static 'img/kitchen.png' %}">
+                                <div class="photo-action">
+                                    <span class="title">Kitchen</span>
+                                    <img class="btn-remove" src="{% static 'img/garbage.png' %}">
+                                </div>
+                            </li>
+                        </ul>
+                        <p class="summary">Please provide a minimum of 2 pictures per room taken from different perspectives. Ensure all furniture is visible.</p>
+                        <!-- <button type="submit" id="blueprint-upload-btn" class="btn green-btn mt-40">Upload</button> -->
+                        <a href="#" class="btn green-btn mt-40" onclick="show_blueprint_submitted()">Upload</a>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

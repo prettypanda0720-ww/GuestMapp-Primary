@@ -125,7 +125,8 @@ class OrderCommit(APIView):
 
     def post(self, request, *args, **kwargs):
         order_id = self.request.data['order_id']
-        status = self.request.data['status']
+        status = self.request.data['status'] 
+        order = get_object_or_404(Order, pk = order_id)
         order.status = status
         order.save()
         return JsonResponse({
