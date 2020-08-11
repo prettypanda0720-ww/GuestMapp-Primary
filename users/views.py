@@ -187,7 +187,7 @@ def ajax_register(request):
         username = request.POST.get('username', '').strip()
         password = request.POST.get('password', '').strip()
         email = request.POST.get('email', '').strip()
-
+        
         if username and password:
             user = authenticate(username=username, password=password)
             if user is not None:

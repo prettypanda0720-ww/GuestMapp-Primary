@@ -6,7 +6,7 @@ from django.db import models
 class User(AbstractUser):
     email = models.EmailField(max_length=255)
     password = models.CharField(max_length=255)
-    isFirstUser = models.BooleanField(default=False)
+    isFirstUser = models.BooleanField(default=True)
     first_name = models.CharField(
         blank=True,
         null=True,

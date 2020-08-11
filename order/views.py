@@ -10,6 +10,7 @@ from rest_framework.viewsets import ModelViewSet
 
 from order.models import Order, Billing
 from price.models import Price
+from users.models import User
 from scan.models import ScanTable
 from order.serializers import OrderSerializer
 from decouple import config
@@ -102,6 +103,11 @@ class OrderViewSet(ModelViewSet):
             )
             billing.transaction_code = transfer.id
             billing.save()
+
+            # user = get_object_or_404(User, pk = request.user.id)
+            user = request.user
+            user.isFirstUser = False
+            user.save()
             
         except stripe.error.StripeError:
             order.delete()

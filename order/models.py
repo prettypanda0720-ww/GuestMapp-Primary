@@ -13,7 +13,8 @@ class Order(models.Model):
         (3, 'Custom mobile home 3D'),
     )
     product_type = models.IntegerField(default=0, choices=choices)
-    selected_theme = models.IntegerField()
+    # selected_theme = models.IntegerField()
+    metadata = models.CharField(max_length=1024,null = True)
     tires = models.IntegerField()
     currency = models.CharField(max_length=10)
     price = models.FloatField(blank=True, null=True)
@@ -40,7 +41,8 @@ class Order(models.Model):
         return {
             'id': self.id,
             'productType': self.product_type,
-            'selectedTheme': self.selected_theme,
+            # 'selectedTheme': self.selected_theme,
+            'metadata': self.metadata,
             'tires': self.tires,
             'price': self.price,
             'status': self.status,
