@@ -7,7 +7,7 @@ class OrderSerializer(serializers.Serializer):
     productType = serializers.IntegerField()
     selectedTheme = serializers.IntegerField()
     tires = serializers.IntegerField()
-
+    price = serializers.FloatField()
     card_name = serializers.CharField()
     card_number = serializers.CharField()
     cvv = serializers.IntegerField()
@@ -27,6 +27,7 @@ class OrderSerializer(serializers.Serializer):
 
         billing = Billing()
         billing.order = order
+        billing.price = self.validated_data['price']
         billing.card_name = self.validated_data['card_name']
         billing.card_number = self.validated_data['card_number']
         billing.cvv = self.validated_data['cvv']

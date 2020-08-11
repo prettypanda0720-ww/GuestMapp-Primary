@@ -82,25 +82,25 @@ class OrderViewSet(ModelViewSet):
             #         "cvc": "314",
             #     },
             # )
+            product_price = int(billing.price * 100)
             stripe.Customer.create_source(
                 customer.id,
                 source=token,
             )
             stripe.Charge.create(
                 customer = customer.id,
-                amount = order.price,
+                amount = product_price,
                 currency = 'usd',
                 description = 'description'
             )
             # 
             transfer = stripe.Transfer.create(
-                amount=order.price,
+                amount=product_price,
                 currency="usd",
                 destination="acct_1HDMiwFlRRirkg6s",
                 transfer_group=order.id,
             )
             billing.transaction_code = transfer.id
-            billing.price = order.price
             billing.save()
             
         except stripe.error.StripeError:
@@ -155,7 +155,7 @@ def create_checkout_session(request):
             # [payment_intent_data] - lets capture the payment later
             # [customer_email] - lets you prefill the email input in the form
             # For full details see https:#stripe.com/docs/api/checkout/sessions/create
-
+            print(request[customer_email])
             # ?session_id={CHECKOUT_SESSION_ID} means the redirect will have the session ID set as a query param
             checkout_session = stripe.checkout.Session.create(
                 success_url=domain_url + 'success?session_id={CHECKOUT_SESSION_ID}',

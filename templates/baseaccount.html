@@ -63,7 +63,7 @@
                         <div class="header__info-left">
                             <ul>
                                 <li><a href="{% url 'ownguestmapp' %}">Your Guestmaps</a></li>
-                                <li><a href="#">Contact to support</a></li>
+                                <li><a href="#" id="contact_support_btn">Contact to support</a></li>
                             </ul>
                         </div>
                     </div>
@@ -135,6 +135,39 @@
     <script src="{% static 'js/jquery.slicknav.js' %}"></script>
     <script src="{% static 'js/owl.carousel.min.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
+
+    <div class="modal" id="modal_form_contact" role="dialog">
+        <div class="d-flex justify-content-center align-items-center">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body form">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <form action="#" id="contact-support-form" class="form-horizontal">
+                            {% csrf_token %}
+                            <div class="form-body">
+                                <div class="form-group">
+                                    <label class="modal-title">Contact for support</label>
+                                    <div class="modal-input-group mt-36">
+                                        <label class="modal-input-label">Your email</label>
+                                        <input id="con_email" name="contact_email" placeholder="email" class="form-control" type="email">
+                                    </div>                                    
+                                    <div class="modal-input-group">
+                                        <label class="modal-input-label">Write your message here</label> 
+                                        <input id="con_message" name="contact_message" placeholder="message" class="form-control" type="textarea">
+                                    </div>
+                                </div>
+                                <div class="alert alert-danger" id="alert-div">
+                                    <button id="msg-btn" type="button" class="close">&times;</button>
+                                </div>
+                            </div>
+                            {% comment %} <button type="submit" id="blueprint-upload-btn" class="btn green-btn mt-40">Upload</button> {% endcomment %}
+                            <a href="#" class="btn green-btn">Send message</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     {% block script %}
     {% endblock script %}
 </body>

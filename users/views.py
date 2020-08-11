@@ -9,7 +9,8 @@ from users.models import User
 from users.serializers import LoginSerializer, SignUpSerializer
 
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth import authenticate, logout
+from django.contrib.auth import logout
+from users.backends import authenticate
 from django.contrib.auth import login as auth_login
 from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponse, JsonResponse
@@ -162,7 +163,7 @@ def ajax_login(request):
             
             if user is not None:
                 if user.is_active:
-                    auth_login(request, user)
+                    auth_login(request, user, backend='users.backends.EmailOrUsernameModelBackend')
                     try:
                         order = Order.objects.filter(user = request.user)
                     except Order.DoesNotExist:

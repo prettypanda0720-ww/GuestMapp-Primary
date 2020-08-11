@@ -821,7 +821,7 @@ label, p {
     height: 762px;
     padding: 25px; }
     #modal_form_photos_list .modal-body #photos-list-form .photos-wrapper {
-      height: 420px;
+      height: 365px;
       overflow-y: scroll; }
       #modal_form_photos_list .modal-body #photos-list-form .photos-wrapper .photo-item {
         margin-bottom: 30px; }
@@ -839,7 +839,7 @@ label, p {
             font-size: 16px;
             line-height: 20px;
             color: #778792; }
-    #modal_form_photos_list .modal-body .summary {
+    #modal_form_photos_list .modal-body #photos-list-form .summary {
       margin-top: 35px;
       font-family: Roboto;
       font-style: normal;
@@ -847,6 +847,141 @@ label, p {
       font-size: 16px;
       line-height: 20px;
       color: #474D50; }
+    #modal_form_photos_list .modal-body #photos-list-form .green-reverse-btn {
+      margin-top: 60px; }
+    @media only screen and (max-width: 420px) {
+      #modal_form_photos_list .modal-body {
+        width: 300px;
+        height: 500px;
+        overflow-y: scroll;
+        padding: 20px 15px; }
+        #modal_form_photos_list .modal-body .photos-wrapper {
+          margin-top: 20px; }
+        #modal_form_photos_list .modal-body .summary {
+          margin-top: 10px !important; }
+        #modal_form_photos_list .modal-body .green-reverse-btn {
+          margin-top: 30px !important; } }
+
+#modal_form_photos_add {
+  justify-content: center;
+  align-items: center;
+  display: none; }
+  #modal_form_photos_add.show {
+    padding-right: 0px !important;
+    display: flex !important; }
+  #modal_form_photos_add .modal-body {
+    position: relative;
+    background: #EEF1F3;
+    border-radius: 4px;
+    padding: 27px 28px 85px 27px; }
+    #modal_form_photos_add .modal-body .close {
+      color: #FF0000;
+      font-size: 35px; }
+    #modal_form_photos_add .modal-body p {
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 26px;
+      color: #3B4A54;
+      text-align: center; }
+    #modal_form_photos_add .modal-body a {
+      text-decoration: underline; }
+    @media only screen and (max-width: 420px) {
+      #modal_form_photos_add .modal-body {
+        padding: 20px; }
+        #modal_form_photos_add .modal-body p {
+          font-size: 15px; } }
+  #modal_form_photos_add .modal-body {
+    width: 456px;
+    height: 800px; }
+    #modal_form_photos_add .modal-body a {
+      text-decoration: none; }
+    #modal_form_photos_add .modal-body .back-btn {
+      position: relative; }
+      #modal_form_photos_add .modal-body .back-btn:before {
+        position: absolute;
+        top: -18px;
+        left: 0px;
+        color: #004FAA; }
+    #modal_form_photos_add .modal-body .paragraph {
+      color: #474D50;
+      font-weight: 600; }
+    #modal_form_photos_add .modal-body .sub-paragraph {
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 20px;
+      color: #474D50;
+      margin-top: 25px; }
+    #modal_form_photos_add .modal-body .blueprint-drag {
+      background-color: #bfcdd6;
+      border: 2px dotted #0B85A1;
+      color: #92AAB0;
+      padding: 10px 10px 10 10px;
+      margin-bottom: 10px;
+      font-size: 200%;
+      display: flex;
+      flex-direction: column; }
+      #modal_form_photos_add .modal-body .blueprint-drag img {
+        width: 100px;
+        height: 80px;
+        margin-top: 30px;
+        margin-left: auto;
+        margin-right: auto; }
+      #modal_form_photos_add .modal-body .blueprint-drag p {
+        color: #FFFFFF;
+        margin-top: 10px; }
+    #modal_form_photos_add .modal-body .lbl-from {
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 19px;
+      text-decoration: underline;
+      color: #3B8EC9; }
+      #modal_form_photos_add .modal-body .lbl-from:hover {
+        cursor: pointer; }
+    @media only screen and (max-width: 420px) {
+      #modal_form_photos_add .modal-body {
+        width: 300px;
+        height: 500px; }
+        #modal_form_photos_add .modal-body .modal-title {
+          font-size: 25px;
+          display: inline-block; }
+        #modal_form_photos_add .modal-body .forgot-password a {
+          display: block; } }
+
+#modal_form_contact {
+  justify-content: center;
+  align-items: center;
+  display: none; }
+  #modal_form_contact.show {
+    padding-right: 0px !important;
+    display: flex !important; }
+  #modal_form_contact .close {
+    color: #FF0000;
+    font-size: 35px; }
+  #modal_form_contact .modal-body {
+    position: relative;
+    background: #EEF1F3;
+    border-radius: 4px;
+    width: 456px;
+    height: 640px;
+    padding: 25px; }
+    #modal_form_contact .modal-body #contact-support-form #con_message {
+      height: 340px;
+      overflow: scroll; }
+      @media only screen and (max-width: 420px) {
+        #modal_form_contact .modal-body #contact-support-form #con_message {
+          height: 240px; } }
+    @media only screen and (max-width: 420px) {
+      #modal_form_contact .modal-body {
+        width: 300px;
+        height: 500px;
+        overflow-y: scroll;
+        padding: 20px 15px; } }
 
 /******************************************************************
   Template Name: Deerhost
@@ -3515,6 +3650,9 @@ ol {
   font-size: 30px;
   line-height: 40px;
   color: #004FAA; }
+  @media only screen and (max-width: 420px) {
+    .modal-title {
+      font-size: 20px; } }
 
 .modal-input-group {
   margin-bottom: 10px; }

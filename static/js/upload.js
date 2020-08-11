@@ -1,23 +1,68 @@
 $(document).ready(function(){
 
+    $(".upload-btn").on("click", function(event){
+        $("#modal_form_blueprint").modal('show');
+        // $("#modal_form_photos_list").modal('show');
+    });
 
-$(".upload-btn").on("click", function(event){
-    // $("#modal_form_blueprint").modal('show');
-    $("#modal_form_photos_list").modal('show');
-});
+    $("#blueprint-upload-btn").on("submit", function(event){
+        event.preventDefault();
+        $("#modal_form_blueprint").modal('hide');
+        $("#modal_form_blueprint_submitted").modal('show');
+    });
+    console.log($("#photos-list-form"))
+    $("#photos-list-form").on('click', ".btn-remove",function(event){
+        event.preventDefault();
+        $(this).parents('.photo-item').remove();
+    })
 
-$("#blueprint-upload-btn").on("submit", function(event){
-    event.preventDefault();
-    alert("asdf");
-    // $("#modal_form_blueprint").modal('hide');
-    // $("#modal_form_blueprint_submitted").modal('show');
-});
-console.log($("#photos-list-form"))
-$("#photos-list-form").on('click', ".btn-remove",function(event){
-    event.preventDefault();
-    alert('asdfasdf');
-    $(this).parents('.photo-item').remove();
-})
+
+    var obj = $(".blueprint-drag");
+    obj.on('dragenter', function (e) 
+    {
+        e.stopPropagation();
+        e.preventDefault();
+        $(this).css('border', '2px solid #0B85A1');
+    });
+    obj.on('dragover', function (e) 
+    {
+         e.stopPropagation();
+         e.preventDefault();
+    });
+    obj.on('drop', function (e) 
+    {
+         $(this).css('border', '2px dotted #0B85A1');
+         e.preventDefault();
+         var files = e.originalEvent.dataTransfer.files;
+         for(var i = 0; i < files.length; i++){
+            console.log(files[i]);
+         }
+         //We need to send dropped files to Server
+         handleFileUpload(files,obj);
+    });
+    
+    $(document).on('dragenter', function (e) 
+    {
+        e.stopPropagation();
+        e.preventDefault();
+    });
+    
+    $(document).on('dragover', function (e) 
+    {
+      e.stopPropagation();
+      e.preventDefault();
+      obj.css('border', '2px dotted #0B85A1');
+    });
+
+    $(document).on('drop', function (e) 
+    {
+        e.stopPropagation();
+        e.preventDefault();
+    });
+     
+}); 
+
+
 
 function show_blueprint_submitted()
 {
@@ -34,6 +79,12 @@ function show_photos_list()
 function show_upload_photos(){
     $("#modal_form_blueprint_submitted").modal('hide');
     $("#modal_form_upload_photos").modal('show');
+}
+
+function show_photos_add()
+{
+    $("#modal_form_photos_list").modal('hide');
+    $("#modal_form_photos_add").modal('show');
 }
 
 function sendFileToServer(formData,status)
@@ -122,6 +173,7 @@ function createStatusbar(obj)
         });
     }
 }
+
 function handleFileUpload(files,obj)
 {
    for (var i = 0; i < files.length; i++) 
@@ -135,49 +187,3 @@ function handleFileUpload(files,obj)
  
    }
 }
-$(document).ready(function()
-{
-var obj = $(".blueprint-drag");
-obj.on('dragenter', function (e) 
-{
-    e.stopPropagation();
-    e.preventDefault();
-    $(this).css('border', '2px solid #0B85A1');
-});
-obj.on('dragover', function (e) 
-{
-     e.stopPropagation();
-     e.preventDefault();
-});
-obj.on('drop', function (e) 
-{
- 
-     $(this).css('border', '2px dotted #0B85A1');
-     e.preventDefault();
-     var files = e.originalEvent.dataTransfer.files;
-     for(var i = 0; i < files.length; i++){
-        console.log(files[i]);
-     }
-     //We need to send dropped files to Server
-     handleFileUpload(files,obj);
-});
-$(document).on('dragenter', function (e) 
-{
-    e.stopPropagation();
-    e.preventDefault();
-});
-$(document).on('dragover', function (e) 
-{
-  e.stopPropagation();
-  e.preventDefault();
-  obj.css('border', '2px dotted #0B85A1');
-});
-$(document).on('drop', function (e) 
-{
-    e.stopPropagation();
-    e.preventDefault();
-});
- 
-});
-
-})

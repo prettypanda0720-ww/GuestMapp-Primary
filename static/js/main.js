@@ -198,6 +198,11 @@
             $('#modal_form_order_step2 #guestmapp_style').hide();
         }
     });
+
+    $('#contact_support_btn').on('click', function(event){
+        event.preventDefault();
+        $('#modal_form_contact').modal('show');
+    });
 })(jQuery);
 
 function doLogin()
