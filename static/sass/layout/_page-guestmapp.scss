@@ -4,6 +4,13 @@
 	.row .col-lg-5, .row.col-md-5 {
 		margin: 0 auto;
 	}
+
+	.card-header {
+		padding: 0px;
+		.btn {
+			justify-content: left;
+		}
+	}
 }
 
 .own-guestmapp-section{

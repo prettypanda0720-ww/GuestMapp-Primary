@@ -20,7 +20,7 @@ class OrderSerializer(serializers.Serializer):
         order.product_type = self.validated_data['productType']
         order.metadata = self.validated_data['metadata']
         order.tires = self.validated_data['tires']
-        price = get_object_or_404(Price, pk = order.product_type)
+        # price = get_object_or_404(Price, pk = (order.product_type+1))
         # order.price = int(price.price * order.tires * 100)
         order.price = int(self.validated_data['price'] * 100)
         order.status = 0

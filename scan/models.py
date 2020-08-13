@@ -8,11 +8,7 @@ from order.models import Order
 class ScanTable(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, blank=True, null=True)
     title = models.CharField(max_length=255)
-    scanImageRaw = models.ImageField(
-        upload_to='scan/',
-        blank=True,
-        null=True,
-    )
+    scanImageRaw = models.ImageField(upload_to='scan/%Y/%m/%d', blank=True, null=True)
     scanImageUrl = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
@@ -23,7 +19,7 @@ class ScanTable(models.Model):
             'id': self.id,
             'order_id': self.order.id,
             'title': self.title,
-            'scanImageRaw': settings.BASE_URL + self.scanImageRaw.url if self.scanImageRaw else None,
+            'scanImageRaw': settings.BASE_URL + self.scanImageRaw if self.scanImageRaw else None,
             'scanImageUrl': self.scanImageUrl
         }
 
@@ -49,3 +45,8 @@ class ScanDetailsTable(models.Model):
             'scanDetailImageRaw': settings.BASE_URL + self.scanDetailImageRaw.url if self.scanDetailImageRaw else None,
             'scanDetailImageUrl': self.scanDetailImageUrl
         }
+
+class Photo(models.Model):
+    title = models.CharField(max_length=255, blank=True)
+    file = models.ImageField(upload_to='scan/%Y/%m/%d')
+    uploaded_at = models.DateTimeField(auto_now_add=True)

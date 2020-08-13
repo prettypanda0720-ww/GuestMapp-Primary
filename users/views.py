@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from users.models import User
+from price.models import Price
 from users.serializers import LoginSerializer, SignUpSerializer
 
 from django.shortcuts import render, redirect, get_object_or_404
@@ -222,15 +223,35 @@ def home(request):
 
 @login_required
 def guestmapp(request):
-    return render(request, 'guestmapp.html')
+    orders =  Order.objects.filter(user=request.user)
+    order_exist = False
+    if orders.__len__():
+        order_exist = True
+    return render(request, 'guestmapp.html', { 'orders' : orders, 'order_exist' : order_exist, 'user': request.user})
 
 @login_required
 def planprices(request):
-    return render(request, 'planprices.html')
+    orders =  Order.objects.filter(user=request.user)
+    prices = Price.objects.all()
+    firstUser = 0
+    if request.user.isFirstUser:
+        firstUser = 1
+
+    order_exist = False
+    if orders.__len__():
+        order_exist = True
+    return render(request, 'planprices.html', 
+        {'order_exist' : order_exist, 'prices':prices, 'isFirstUser':firstUser})
 
 @login_required
 def ownguestmapp(request):
-    return render(request, 'ownguestmapp.html')
+    orders =  Order.objects.filter(user=request.user, status = 0)
+    order_exist = False
+    
+    print(orders)
+    if orders.__len__():
+        order_exist = True
+    return render(request, 'ownguestmapp.html', { 'orders' : orders})
 
 @login_required
 def newpassword(request):

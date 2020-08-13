@@ -20,3 +20,5 @@ class Price(models.Model):
             'old_price': self.old_price,
             'unit': self.unit,
         }
+    
+    

@@ -1,6 +1,6 @@
 from django.db import models
 from users.models import User
-
+from price.models import Price
 class Order(models.Model):
     """
     Order Model
@@ -37,6 +37,12 @@ class Order(models.Model):
     def __str__(self):
         return "order" + str(self.id)
 
+    def get_order(order_id):
+        try:
+            return Order.objects.get(pk=order_id)
+        except Order.DoesNotExist:
+            return None
+
     def to_dict(self):
         return {
             'id': self.id,
@@ -49,6 +55,25 @@ class Order(models.Model):
             'createdTime': self.created_date,
             'completedTime': self.completed_date,
         }
+
+    def productTitle(self):
+        productType={
+            0:'Blueprint',
+            1:'Themed 3D staging',
+            2:'Custom interio design 3D',
+            3:'Custom mobile home 3D'
+        }
+        return productType.get(self.status)
+
+    def productImage(self):
+        productImage={
+            0:'blueprint',
+            1:'eyeview',
+            2:'custom3d',
+            3:'custom3d'
+        }
+        return productImage.get(self.status)
+
 
 class Billing(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, blank=True, null=True)

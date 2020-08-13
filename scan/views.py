@@ -3,11 +3,13 @@ from django.http import JsonResponse
 from rest_framework import status, permissions
 from rest_framework.decorators import action
 from rest_framework.viewsets import ModelViewSet
-
+from django.contrib.auth.decorators import login_required
 from order.models import Order
-from scan.models import ScanTable, ScanDetailsTable
+from scan.models import ScanTable, ScanDetailsTable, Photo
 from scan.serializers import ScanTableSerializer, ScanDetailsTableSerializer
-
+from .forms import PhotoForm
+from backend import settings
+import time
 
 class ScanTableApiViewSet(ModelViewSet):
     """
@@ -112,3 +114,43 @@ class ScanDetailsTableApiViewSet(ModelViewSet):
             'errCode': 0,
             'data': None
         })
+
+@login_required
+def ProgressBarUpload(request):
+    time.sleep(1)
+
+    form = PhotoForm(request.POST, request.FILES)
+    if form.is_valid():
+        photo = form.save()
+        photo.title = photo.file.url
+        photo.save()
+        data = {'is_valid': True, 'name': photo.file.name, 'url': photo.file.url}
+    else:
+        data = {'is_valid': False}
+    return JsonResponse(data)
+
+@login_required
+def uploadscan(request):
+    data = {'success': False, 'message': None}
+    if request.method == 'POST':
+        rawImageUrl = request.POST.get('rawImageUrl', '').strip()
+        orderid = request.POST.get('orderid', '').strip()
+        airbnb = request.POST.get('airbnb', '').strip()
+        google_drive = request.POST.get('google_drive', '').strip()
+        if rawImageUrl:
+            imageUrl = rawImageUrl
+        elif airbnb:
+            imageUrl = airbnb
+        elif google_drive:
+            imageUrl = google_drive
+        else:
+            data = {'success': False, 'message': None}
+
+        scan, created = ScanTable.objects.get_or_create(order=Order.get_order(orderid))
+        if imageUrl:
+            scan.scanImageRaw = Photo.objects.get(title=imageUrl).file
+        scan.scanImageUrl = settings.BASE_URL + imageUrl
+        scan.save()  
+        data = {'success': True, 'message': 'scan has uploaded successfully'}
+
+    return JsonResponse(data)              

@@ -1,7 +1,7 @@
 {% extends 'baseaccount.html' %}
 
 {% load static %}
-
+{% load getprice %}
 
 {% block main %}
 
@@ -12,7 +12,7 @@
             <div class="container">
                 <div class="header__logo">
                     <div class="row">
-                        <a href="{% url 'planprices' %}"><img src="{% static 'img/logo.png' %}" alt=""></a>
+                        <a href="/"><img src="{% static 'img/logo.png' %}" alt=""></a>
                     </div>
                 </div>
                 <div class="canvas__open">
@@ -32,9 +32,10 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 col-md-12">
-                <h4 class="header-h4 ta-center" style="color: #679724;">Hello Name Surname</h4>
-                <h1 class="section-title mt-40">You haven't purchased any floorplans yet,<br/>
-                Please select one from three below</h1>
+                <h4 class="header-h4 ta-center" style="color: #679724;">Hello {{user}}</h4>
+                {% if order_exist == false %}
+                    <h1 class="section-title mt-40">You haven't purchased any floorplans yet,<br/>Please select one from three below</h1>
+                {% endif %}   
                 <h4 class="header-h4 mt-40 ta-center" style="color: #414F5F;">Please select from the four below</h4>
             </div>
         </div>
@@ -46,7 +47,7 @@
                 <div class="d-flex flex-column justify-content-between">
                     <div class="pricing__item">
                         <img src="{% static 'img/floorplan-1.png' %}" alt="">
-                        <h3 class="price ta-left">$15.90</h3>
+                        <h3 class="price ta-left">$49.99</h3>
                         <h4 class="header-h4">Features</h4>
                         <ul>
                             <li style="list-style-image: url('{% static '/img/list-check.png' %}');">
@@ -81,7 +82,7 @@
                 <div class="d-flex flex-column justify-content-between">
                     <div class="pricing__item">
                         <img src="{% static 'img/floorplan-2.png' %}" alt="">
-                        <h3 class="price ta-left">$15.90</h3>
+                        <h3 class="price ta-left">$84.99</h3>
                         <h4 class="header-h4">Features</h4>
                         <ul>
                             <li style="list-style-image: url('{% static 'img/list-check.png' %}');">
@@ -113,7 +114,7 @@
                 <div class="d-flex flex-column justify-content-between">
                     <div class="pricing__item">
                         <img src="{% static 'img/floorplan-3.png' %}" alt="">
-                        <h3 class="price ta-left">$15.90</h3>
+                        <h3 class="price ta-left">$99.99</h3>
                         <h4 class="header-h4">Features</h4>
                         <ul>
                             <li style="list-style-image: url('{% static '/img/list-check.png' %}');">
@@ -151,7 +152,7 @@
                 <div class="d-flex flex-column justify-content-between">
                     <div class="pricing__item">
                         <img src="{% static 'img/floorplan-4.png' %}" alt="">
-                        <h3 class="price ta-left">$15.90</h3>
+                        <h3 class="price ta-left">$74.99</h3>
                         <h4 class="header-h4">Features</h4>
                         <ul>
                             <li style="list-style-image: url('{% static '/img/list-check.png' %}');">
@@ -189,13 +190,14 @@
 {% endblock main %}
 
 {% block script %}
-<div class="modal" id="modal_form_order_step1" role="dialog" style="display: none;">
+<div class="modal" id="modal_form_order_step1" role="dialog" data-keyboard="false" data-backdrop="static" style="display: none;">
     <div class="d-flex justify-content-center align-items-center">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body form">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <form action="#" id="form" class="form-horizontal">
+                        {% csrf_token %}
                         <div class="form-body">
                             <div class="form-group">
                                 <!-- <span class="fa fa-arrow-left back-btn" onclick="doLogin()"></span> -->
@@ -242,13 +244,14 @@
     </div>
 </div>
 
-<div class="modal" id="modal_form_order_step2" role="dialog" style="display: none;">
+<div class="modal" id="modal_form_order_step2" role="dialog" data-keyboard="false" data-backdrop="static" style="display: none;">
     <div class="d-flex justify-content-center align-items-center">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body form">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <form action="#" id="form" class="form-horizontal">
+                        {% csrf_token %}
                         <div class="form-body">
                             <div class="form-group">
                                 <span class="fa fa-arrow-left back-btn" onclick="backOrderStep1()"></span>
@@ -265,67 +268,75 @@
                                                 <option value="0">Blueprint</option>
                                                 <option value="1">Theme 3D staging</option>
                                                 <option value="2">Custom interior design 3D</option>
-                                                <option value="3">Custom 3D mobiel home</option>
+                                                <option value="3">Custom 3D mobile home</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-md-9 col-3">
                                         <div class="modal-input-group">
                                             <label class="modal-input-label">Tiers</label> 
-                                            <input name="title" placeholder="1" class="form-control" type="text">
+                                            <input name="tires" min="1" max="10" class="form-control" type="number">
                                         </div>
                                     </div>
                                 </div>
                                 <div id="guestmapp_style" style="display: none;">
                                     <label class="modal-input-label">Please select Guestmapp style</label>
                                     <div class="row mt-5">
-                                        <div class="col-lg-10"> 
+                                        <div class="col-lg-10 col-md-10 col-sm-10 col-10"> 
                                             <div class="modal-input-group">
                                                 <select name="product" class="form-control">
-                                                    <option>Selected theme</option>
+                                                    <option>Contemporary</option>
+                                                    <option>Cozy/Rustic</option>
+                                                    <option>Light and Spacious Exploration</option>
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-lg-2">
+                                        <div class="col-lg-2 col-md-2 col-sm-2 col-2">
                                             <img src="{% static 'img/success-alert.png' %}">
                                         </div>
                                     </div> 
                                 </div>
-                                <div class="modal-input-group">
+                                {% comment %} <div class="modal-input-group">
                                     <label class="modal-input-label">Currency</label> 
                                     <select name="product" class="form-control">
                                         <option>CAD - Canadian dollars</option>
                                         <option>USD - United State's dollars</option>
                                     </select>
-                                </div>       
+                                </div>        {% endcomment %}
                                 <div class="modal-input-group d-flex justify-content-between mt-63">
                                     <label class="modal-input-label">Payment amount</label>
-                                    <h3 class="price">$99 USD</h3>
+                                    <div class="currency-wrapper">
+                                        <span class="currency-unit">$</span>
+                                        <h3 class="price"></h3>
+                                    </div>
                                 </div>                             
                                 <div class="modal-input-group">
                                     <label class="modal-input-label">Name of card</label> 
                                     <div class="mastercard">
-                                        <input name="title" placeholder="Name Surname" class="form-control" type="text">
+                                        <input name="cardname" placeholder="Name Surname" class="form-control" type="text">
                                         <img src="{% static 'img/mastercard.png' %}">
                                     </div>
                                 </div>                                    
                                 <div class="modal-input-group">
                                     <label class="modal-input-label">Card number</label>
-                                    <input name="title" placeholder="0000 0000 0000 0000" class="form-control" type="text">
+                                    <input name="cardnumber" placeholder="0000 0000 0000 0000" class="form-control" type="number">
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6 col-6">
                                         <div class="modal-input-group">
                                             <label class="modal-input-label">Expiry date</label> 
-                                            <input name="title" placeholder="10 / 22" class="form-control" type="text">
+                                            <input name="expiry_date" placeholder="10 / 22" class="form-control" type="text">
                                         </div>                                    
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-6">
                                         <div class="modal-input-group">
                                             <label class="modal-input-label">Security code</label> 
-                                            <input name="title" placeholder="123" class="form-control" type="text">
+                                            <input name="cvv" placeholder="123" class="form-control" type="text">
                                         </div>   
                                     </div>
+                                </div>
+                                <div class="alert alert-danger mt-20" id="alert-div">
+                                    <button id="msg-btn" type="button" class="close">&times;</button>
                                 </div>
                             </div>
                         </div>
@@ -333,8 +344,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button id="submitBtn" class="btn green-btn mt-40">Pay only $99 USD</button>
-                    {% comment %} <button type="submit" class="btn green-btn mt-40">Pay only $99 USD</button> {% endcomment %}
+                    <button type="submit" class="btn green-btn mt-40" disabled><span class="loader"></span>Pay only&nbsp;<span class="totalPrice">0.0</span>&nbsp;USD</button>
                     {% comment %} <a class="btn green-btn" onclick="doPay()">Pay only $99 USD</a> {% endcomment %}
                 </div>
             </div><!-- /.modal-content -->
@@ -342,7 +352,7 @@
     </div>
 </div>
 
-<div class="modal" id="modal_form_order_complete" role="dialog" style="display: none;">
+<div class="modal" id="modal_form_order_complete" role="dialog" data-keyboard="false" data-backdrop="static" style="display: none;">
     <div class="d-flex justify-content-center align-items-center">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -352,7 +362,7 @@
                         <img src="{% static 'img/success-check.png' %}">
                     </div>
                     <div class="success-content">
-                        <h3 class="price">$99 USD</h3>
+                        <h3 class="price"></h3>
                         <h4>Your payment is complete</h4>
                     </div>
                     <p class="email-paragraph">Check your email address for proff of purchase</p>
@@ -366,6 +376,55 @@
         </div><!-- /.modal-dialog -->
     </div>
 </div>
-<script src="https://js.stripe.com/v3/"></script>  <!-- new -->
 <script src="{% static 'js/order.js' %}"></script>
+
+<script>
+$('#modal_form_order_step2 #product_type').on('change', function(){
+    var product_type = $(this).find("option:selected").val();
+    if (product_type === "1") {
+            $('#modal_form_order_step2 #guestmapp_style').show();
+    } else {
+        $('#modal_form_order_step2 #guestmapp_style').hide();
+    }
+    calc();
+});
+
+function calc(){
+    var product_type = $("#modal_form_order_step2 #product_type").find("option:selected").val();
+    var price = 0, discount = 0;
+    var tires = $("#modal_form_order_step2 input[name='tires']").val();
+    if(tires <= 0 || tires > 11){
+        tires = 1; 
+        $("#modal_form_order_step2 input[name='tires']").val(tires);
+    }
+    switch(product_type){
+        case "0":
+            price = {{prices.0.price}};
+            break;
+        case "1":
+            price = {{prices.1.price}};
+            break;
+        case "2":
+            price = {{prices.2.price}};
+            if({{isFirstUser}} == 1){
+                discount = -20;
+            }
+            break;
+        case "3":
+            price = {{prices.3.price}};
+            if({{isFirstUser}} == 1){
+                discount = -20;
+            }
+            break;
+    }
+    var totalPrice = (price * tires) + discount;
+    $("#modal_form_order_step2 button[type='submit']").removeAttr('disabled');
+    $('#modal_form_order_step2 .currency-unit').addClass('active');
+    $('#modal_form_order_step2 .price').text(Number((totalPrice).toFixed(2)));
+    $('#modal_form_order_step2 .totalPrice').text(Number((totalPrice).toFixed(2)));
+}
+$("#modal_form_order_step2 input[name='tires']").on('input', function(){
+    calc();    
+});
+</script>
 {% endblock script %}

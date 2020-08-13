@@ -2604,20 +2604,6 @@ ol {
 				}
 			}
 		}
-
-		.loader{
-			display: none;
-			width: 30px;
-			height: 30px;
-			position: absolute;
-			top: 50%;
-			left: 50%;
-			margin-top: -13px;
-			margin-left: -13px;
-			border-radius: 60px;
-			animation: loader 0.8s linear infinite;
-			-webkit-animation: loader 0.8s linear infinite;
-		}
     }
     .modal-footer {
 		background-color: $color-blue-dark;
@@ -2799,6 +2785,24 @@ ol {
 			    top: 10px;
 			}
 		}
+		.currency-wrapper{
+			display: flex;
+			// flex-direction: row;
+		}
+		.currency-unit {
+			display: none;
+			font-family: Roboto;
+			font-style: normal;
+			font-weight: 300;
+			font-size: 48px;
+			line-height: 30px;
+			align-items: center;
+			color: #81B948;
+
+			&.active {
+				display: block;
+			}
+		}
 		@media only screen and (max-width: 420px) {
 			width: 300px;
 		    height: 460px;
@@ -2815,10 +2819,16 @@ ol {
 			.paragraph{
 				margin-top: 0px;
 			}
-
+			.currency-unit {
+				font-size: 30px;
+			}
 			.price{
 				font-size: 30px;
 			}
+		}
+		@media (min-width: 420px) and (max-width: 1200px) {
+			height: 460px;
+			overflow: scroll;
 		}
     }
 	.modal-footer{
@@ -2900,6 +2910,10 @@ ol {
 			.suggest-paragraph{
 				width: initial;
 			}
+		}
+		@media (min-width: 420px) and (max-width: 1200px) {
+			height: 550px;
+			overflow: scroll;
 		}
 	}
 }

@@ -3,6 +3,7 @@ from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic.base import TemplateView
 from django.shortcuts import get_object_or_404, render, redirect
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 from rest_framework import status, permissions
 from rest_framework.views import APIView
@@ -46,6 +47,7 @@ class OrderViewSet(ModelViewSet):
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
+        
         order = serializer.save(user=request.user)
         billing = Billing.objects.get(order=order)
         
@@ -109,11 +111,13 @@ class OrderViewSet(ModelViewSet):
             user.isFirstUser = False
             user.save()
             
-        except stripe.error.StripeError:
+        except stripe.error.StripeError as e:
+            body = e.json_body
+            err  = body['error']
             order.delete()
             return JsonResponse({
                 'success': False,
-                'message': 'Fail to create order',
+                'message': err['message'],
                 'errCode': -1,
                 'data': None,
             })
@@ -142,47 +146,108 @@ class OrderCommit(APIView):
             'data': None
         })
 
-@csrf_exempt
-def stripe_config(request):
-    if request.method == 'GET':
-        stripe_config = {'publicKey': settings.STRIPE_PUBLISHABLE_KEY}
-        return JsonResponse(stripe_config, safe=False)
+@login_required
+def payout(request):
+    if request.method == 'POST':
+        productType = request.POST.get('productType', '').strip()
+        metadata = request.POST.get('metadata', '').strip()
+        tires = request.POST.get('tires', '').strip()
+        price = request.POST.get('price', '').strip()
+        card_name = request.POST.get('card_name', '').strip()
+        card_number = request.POST.get('card_number', '').strip()
+        cvv = request.POST.get('cvv', '').strip()
+        expiry_date = request.POST.get('expiry_date', '').strip()
+        
+        product_price = int(float(price) * 100)
 
-@csrf_exempt
-def create_checkout_session(request):
-    if request.method == 'GET':
-        domain_url = 'http://127.0.0.1:8000/'
-        stripe.api_key = settings.STRIPE_SECRET_KEY
+        order = Order()
+        order.user = request.user
+        order.product_type = productType
+        order.metadata = metadata
+        order.tires = tires
+        order.price = product_price
+        order.status = 0
+        order.save()
+
+        billing = Billing()
+        billing.order = order
+        billing.price = product_price
+        billing.card_name = card_name
+        billing.card_number = card_number
+        billing.cvv = cvv
+        billing.expiry_date = expiry_date
+        billing.save()
+
         try:
-            # Create new Checkout Session for the order
-            # Other optional params include:
-            # [billing_address_collection] - to display billing address details on the page
-            # [customer] - if you have an existing Stripe Customer ID
-            # [payment_intent_data] - lets capture the payment later
-            # [customer_email] - lets you prefill the email input in the form
-            # For full details see https:#stripe.com/docs/api/checkout/sessions/create
-            print(request[customer_email])
-            # ?session_id={CHECKOUT_SESSION_ID} means the redirect will have the session ID set as a query param
-            checkout_session = stripe.checkout.Session.create(
-                success_url=domain_url + 'success?session_id={CHECKOUT_SESSION_ID}',
-                cancel_url=domain_url + 'cancelled/',
-                payment_method_types=['card'],
-                mode='payment',
-                line_items=[
-                    {
-                        'name': 'BluePrint',
-                        'quantity': 1,
-                        'currency': 'usd',
-                        'amount': '3000',
-                    }
-                ]
+            stripe.api_key = settings.STRIPE_SECRET_KEY
+            customer = stripe.Customer.create(
+                email = order.user.email,
+                description="Customer",
             )
-            return JsonResponse({'sessionId': checkout_session['id']})
-        except Exception as e:
-            return JsonResponse({'error': str(e)})
+            billing_str = billing.expiry_date
+            exp_date = billing_str.split("/")
+            if exp_date.__len__() != 2:
+                order.delete()
+                return JsonResponse({
+                'success': False,
+                'message': 'Fail to create order cause dating input format is wrong. Expected format is XX/XX',
+                'errCode': -1,
+                'data': None,
+            })
+            token = stripe.Token.create(
+                card={
+                    "number": billing.card_number,
+                    "exp_month": exp_date[0],
+                    "exp_year": "20" + exp_date[1],
+                    "cvc": str(billing.cvv),
+                },
+            )
+            
+            stripe.Customer.create_source(
+                customer.id,
+                source=token,
+            )
+            stripe.Charge.create(
+                customer = customer.id,
+                amount = product_price,
+                currency = 'usd',
+                description = 'description'
+            )
+            
+            transfer = stripe.Transfer.create(
+                amount=product_price,
+                currency="usd",
+                destination="acct_1HDMiwFlRRirkg6s",
+                transfer_group=order.id,
+            )
+            billing.transaction_code = transfer.id
+            billing.save()
 
-class SuccessView(TemplateView):
-    template_name = 'success.html'
+            user = request.user
+            user.isFirstUser = False
+            user.save()
+            
+        except stripe.error.StripeError as e:
+            body = e.json_body
+            err  = body['error']
+            order.delete()
+            return JsonResponse({
+                'success': False,
+                'message': err['message'],
+                'errCode': -1,
+                'data': None,
+            })
 
-class CancelledView(TemplateView):
-    template_name = 'cancelled.html'
+        return JsonResponse({
+            "success": True,
+            "message": "success to create new order",
+            "errCode": -1,
+            "data": order.to_dict(),
+        }, status=status.HTTP_200_OK)
+
+    return JsonResponse({
+        'success': False,
+        'message': 'Fail to create order',
+        'errCode': -1,
+        'data': None,
+    })

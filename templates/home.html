@@ -52,7 +52,7 @@
 <!-- Hero Section Begin -->
 <section class="hero-section">
     <!-- <div class="hero__slider owl-carousel"> -->
-        <div class="hero__item set-bg" data-setbg="{% static 'img/hero/hero-1.jpg' %}">
+        <div class="hero__item set-bg" data-setbg="{% static 'img/hero/hero-1.png' %}">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-5">
@@ -448,7 +448,7 @@
 
 {% block script %}
     <!-- Bootstrap modal -->
-    <div class="modal" id="modal_form" role="dialog">
+    <div class="modal" id="modal_form" data-keyboard="false" data-backdrop="static" role="dialog">
         <div class="d-flex justify-content-center align-items-center">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -489,7 +489,7 @@
         </div>
     </div><!-- /.modal -->
     <!-- Signup modal -->
-    <div class="modal" id="modal_form_signup" role="dialog" style="display: none;">
+    <div class="modal" id="modal_form_signup" data-keyboard="false" data-backdrop="static" role="dialog" style="display: none;">
         <div class="d-flex justify-content-center align-items-center">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -540,7 +540,7 @@
     <!-- /.modal -->
 
     <!-- Signup modal -->
-    <div class="modal" id="modal_form_resetpassword" role="dialog" style="display: none;">
+    <div class="modal" id="modal_form_resetpassword" data-keyboard="false" data-backdrop="static" role="dialog" style="display: none;">
         <div class="d-flex justify-content-center align-items-center">
             <div class="modal-dialog">
                 <div class="modal-content">

@@ -19,6 +19,7 @@ from django.urls import path, include
 from django.views.static import serve
 from users import views
 from order import views as order_views
+from scan import views as scan_views
 from backend import settings
 from django.conf.urls.static import static
 
@@ -36,7 +37,13 @@ urlpatterns = [
     path(r'ajax_login/', views.ajax_login, name = "ajax_login"),
     path(r'ajax_register/', views.ajax_register, name = "ajax_register"),
     path(r'ajax_logout/', views.ajax_logout, name="ajax_logout"),
+    # for stripe integrtion
+    path(r'payout/', order_views.payout, name="payout"),
 
+    # upload scan
+    path(r'progress_bar_upload/', scan_views.ProgressBarUpload, name='progress_bar_upload'),
+    path(r'uploadscan/', scan_views.uploadscan, name='uploadscan'),
+    
     # for web template
     path(r'', views.home, name = "home"),
     path(r'planprices/', views.planprices, name = "planprices"),
@@ -44,11 +51,7 @@ urlpatterns = [
     path(r'guestmapp/', views.guestmapp, name = "guestmapp"),
     path(r'newpassword/', views.newpassword),
 
-    # for stripe integrtion
-    path(r'config/', order_views.stripe_config),
-    path(r'create-checkout-session/', order_views.create_checkout_session), # new
-    path(r'success/', order_views.SuccessView.as_view()), # new
-    path(r'cancelled/', order_views.CancelledView.as_view()), # new
+    
 
     # media part
     url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT, }),

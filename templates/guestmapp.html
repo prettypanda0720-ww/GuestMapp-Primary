@@ -31,31 +31,38 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-5 col-md-5">
-                <h1 class="header-h4 ta-center" style="color: #679724;">Hello Name Surname</h4>
+                <h1 class="header-h4 ta-center" style="color: #679724;">Hello {{user}}</h4>
                 <h1 class="section-title mt-40">Your Prepaid Guestmapp</h1>
             </div>
-            <div class="col-lg-12 col-md-12">
-                <table class="table custom-table custom-table-striped mt-30">
-                    <tbody>
-                        <tr>
-                            <td><img src="{% static 'img/custom3d.png' %}" class="mr-10">Custom 3D mobile home</td>
-                        </tr>
-                        <tr>
-                            <td><img src="{% static 'img/blueprint.png' %}" class="mr-10">Blueprint</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="col-lg-12 col-md-12 mt-30">
+                <div class="accordion" id="accordionExample">
+                {% if order_exist == True %}
+                    {% for order in orders %}
+                    <div class="card" type="{{order.product_type}}" orderid="{{order.id}}">
+                        <div class="card-header" id="heading-{{order.id}}">
+                            <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse-{{order.id}}" aria-expanded="false" aria-controls="collapse-{{order.id}}">
+                                <img src="/static/img/{{order.productImage}}.png" class="mr-10">{{ order.productTitle}} - {{order.id}}
+                            </button>
+                        </div>
+                        <div id="collapse-{{order.id}}" class="collapse" aria-labelledby="heading-{{order.id}}" data-parent="#accordionExample">
+                            <div class="card-body">
+                                <h1 class="section-title mt-30">Upload blueprint</h1>
+                                <h4 class="header-h4-normal mt-20 ta-center" style="color: #414F5F;">If you have your Blueprint please upload it</h4>
+                                <input type="hidden" class="oderId" value="{{order.id}}">
+                                <div class="ta-center">
+                                    <img src="{% static 'img/upload-blueprint.png' %}" class="upload-btn">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="paragraph ta-center">There are no prepaid guestmapps!</p>
+                {% endif %}
+                </div>
             </div>
             <div class="col-lg-5 col-md-5">
                 <a href="{% url 'planprices' %}" class="btn green-btn mt-30">Order new project</a>
-                <h1 class="section-title mt-68">Upload blueprint</h1>
-                <h4 class="header-h4-normal mt-20 ta-center" style="color: #414F5F;">If you have your Blueprint please upload it</h4>
-                <div class="ta-center">
-                    {% comment %} <label for="fileselect"> {% endcomment %}
-                        <img src="{% static 'img/upload-blueprint.png' %}" class="upload-btn">
-                    {% comment %} </label> {% endcomment %}
-                    {% comment %} <input type="file" id="fileselect" name="fileselect" accept=".pdf" style="visibility: hidden;" /> {% endcomment %}
-                </div>
             </div>
             <div class="col-lg-12 col-md-12">
                 <p class="paragraph mt-30">To scan tiers, please use the <a href="#" class="underline">GuestMapp App</a>&nbsp;on your mobile device. If you did not install the app yet, you can get it for free on the <a href="#" class="underline">App Store</a>&nbsp;for iOS devices or on the <a href="#" class="underline">Play Market</a>
@@ -286,27 +293,29 @@ for Android ones </p>
 {% endblock main %}
 
 {% block script %}
-<script src="{% static 'js/upload.js' %}"></script>
+{% comment %} <script src="{% static 'js/upload.js' %}"></script> {% endcomment %}
 
-<div class="modal" id="modal_form_blueprint" role="dialog">
+<div class="modal" id="modal_form_blueprint" data-keyboard="false" data-backdrop="static" role="dialog">
     <div class="d-flex justify-content-center align-items-center">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body form">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <form action="#" id="blueprint-form" class="form-horizontal">
+                    <form action="#" id="blueprint-form" enctype="multipart/form-data" class="form-horizontal">
                         {% csrf_token %}
                         <div class="form-body">
                             <div class="form-group">
                                 <label class="modal-title">Uploading scan</label>
+                                <input type="hidden" name="rawImageUrl" value=""/>
+                                <input type="hidden" name="orderid" value=""/>
                                 <div class="ta-center mt-30">
-                                    <div class="blueprint-drag" for="fileselect">
+                                    <div class="blueprint-drag" for="fileupload">
                                         <img src="{% static 'img/upload.png' %}">
                                         <p>Drag and drop your photo</p>
-                                        <input type="file" id="fileselect" name="fileselect" style="visibility: hidden;" />
+                                        <input id="fileupload" type="file" name="file" style="display: none;" data-url="{% url 'progress_bar_upload' %}" data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
                                     </div>
-                                    <label for="fileselect" class="mt-20"><span class="lbl-from">Upload a blueprint from computer</span></label>
-                                    <div id="status1"></div>
+                                    <label for="fileupload" class="mt-20"><span class="lbl-from">Upload a blueprint from computer</span></label>
+                                    <div id="upload_filename"></div>
                                 </div>
                                 <div class="modal-input-group mt-36">
                                     <label class="modal-input-label">Or upload from Airbnb</label>
@@ -321,8 +330,8 @@ for Android ones </p>
                                 <button id="msg-btn" type="button" class="close">&times;</button>
                             </div>
                         </div>
-                        {% comment %} <button type="submit" id="blueprint-upload-btn" class="btn green-btn mt-40">Upload</button> {% endcomment %}
-                        <a href="#" class="btn green-btn" onclick="show_blueprint_submitted()">Upload</a>
+                        <button id="blueprint-upload-btn" class="btn green-btn mt-40">Upload</button>
+                        {% comment %} <a href="#" class="btn green-btn" onclick="show_blueprint_submitted()">Upload</a> {% endcomment %}
                     </form>
                 </div>
             </div>
@@ -330,7 +339,7 @@ for Android ones </p>
     </div>
 </div> 
 
-<div class="modal" id="modal_form_blueprint_submitted" role="dialog" style="display: none;">
+<div class="modal" id="modal_form_blueprint_submitted" data-keyboard="false" data-backdrop="static" role="dialog" style="display: none;">
     <div class="d-flex justify-content-center align-items-center">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -347,7 +356,8 @@ for Android ones </p>
                         <div> 
                             <p class="blueprint-title ta-left">Save blueprint</p>
                             <input id="airbnb" name="airbnb" placeholder="Project title" class="form-control mt-5" type="text">
-                            <a href="#" class="btn green-btn mt-30" onclick="show_upload_photos()">Next</a>
+                            <a href="#" class="btn green-btn mt-30">Next</a>
+                            {% comment %} <a href="#" class="btn green-btn mt-30" onclick="show_upload_photos()">Next</a> {% endcomment %}
                         </div>
                         
                         <div class="alert alert-danger" id="alert-div">
@@ -360,7 +370,7 @@ for Android ones </p>
     </div>
 </div>
 
-<div class="modal" id="modal_form_upload_photos" role="dialog" style="display: none;">
+<div class="modal" id="modal_form_upload_photos" data-keyboard="false" data-backdrop="static" role="dialog" style="display: none;">
     <div class="d-flex justify-content-center align-items-center">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -380,7 +390,7 @@ for Android ones </p>
     </div>
 </div>
 
-<div class="modal" id="modal_form_photos_add" role="dialog">
+<div class="modal" id="modal_form_photos_add" data-keyboard="false" data-backdrop="static" role="dialog">
     <div class="d-flex justify-content-center align-items-center">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -427,7 +437,7 @@ for Android ones </p>
     </div>
 </div> 
 
-<div class="modal" id="modal_form_photos_list" role="dialog">
+<div class="modal" id="modal_form_photos_list" data-keyboard="false" data-backdrop="static" role="dialog">
     <div class="d-flex justify-content-center align-items-center"> 
         <div class="modal-dialog">
             <div class="modal-content">
@@ -483,5 +493,20 @@ for Android ones </p>
         </div>
     </div>
 </div>
-
+<div class="modal fade" id="modal-progress" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: 0%;">0%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<script src="{% static 'js/jquery-file-upload/vendor/jquery.ui.widget.js' %}"></script>
+<script src="{% static 'js/jquery-file-upload/jquery.iframe-transport.js' %}"></script>
+<script src="{% static 'js/jquery-file-upload/jquery.fileupload.js' %}"></script>
+<script src="{% static 'js/upload/progress-bar-upload.js' %}"></script>
+<script src="{% static 'js/upload/upload.js' %}"></script>
 {% endblock script %}

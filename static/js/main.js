@@ -1,14 +1,3 @@
-/*  ---------------------------------------------------
-  Template Name: Deerhost
-  Description:  Deerhost Hosting HTML Template
-  Author: Colorlib
-  Author URI: https://colorlib.com
-  Version: 1.0
-  Created: Colorlib
----------------------------------------------------------  */
-
-'use strict';
-
 (function ($) {
 
     /*------------------
@@ -56,22 +45,6 @@
         prependTo: '#mobile-menu-wrap',
         allowParentLinks: true
     });
-
-    /*------------------
-        Carousel Slider
-    --------------------*/
-    // var hero_s = $(".hero__slider");
-    // hero_s.owlCarousel({
-    //     loop: true,
-    //     margin: 0,
-    //     items: 1,
-    //     dots: true,
-    //     animateOut: 'fadeOut',
-    //     animateIn: 'fadeIn',
-    //     smartSpeed: 1200,
-    //     autoHeight: false,
-    //     autoplay: true
-    // });
 
     /*------------------
         Testimonial Slider
@@ -187,15 +160,6 @@
                 dots:true,
                 nav:true,
             }
-        }
-    });
-
-    $('#modal_form_order_step2 #product_type').on('change', function(){
-        var product_type = $(this).find("option:selected").val();
-        if (product_type == 1) {
-            $('#modal_form_order_step2 #guestmapp_style').show();
-        } else {
-            $('#modal_form_order_step2 #guestmapp_style').hide();
         }
     });
 
