@@ -129,6 +129,7 @@ def ProgressBarUpload(request):
         data = {'is_valid': False}
     return JsonResponse(data)
 
+
 @login_required
 def uploadscan(request):
     data = {'success': False, 'message': None}
@@ -137,6 +138,7 @@ def uploadscan(request):
         orderid = request.POST.get('orderid', '').strip()
         airbnb = request.POST.get('airbnb', '').strip()
         google_drive = request.POST.get('google_drive', '').strip()
+
         if rawImageUrl:
             imageUrl = rawImageUrl
         elif airbnb:
@@ -147,10 +149,28 @@ def uploadscan(request):
             data = {'success': False, 'message': None}
 
         scan, created = ScanTable.objects.get_or_create(order=Order.get_order(orderid))
-        if imageUrl:
+        if rawImageUrl:
             scan.scanImageRaw = Photo.objects.get(title=imageUrl).file
         scan.scanImageUrl = settings.BASE_URL + imageUrl
         scan.save()  
         data = {'success': True, 'message': 'scan has uploaded successfully'}
 
-    return JsonResponse(data)              
+    return JsonResponse(data)
+
+
+@login_required
+def uploadtitle(request):
+    """ returns jsonresponse add title after uploading one photo to scan model """
+    data = {'success': False, 'message': None}
+    if request.method == 'POST':
+        orderid = request.POST.get('orderid', '').strip()
+        productTitle = request.POST.get('productTitle', '').strip()
+        order = Order.get_order(orderid)
+        scan, created = ScanTable.objects.get_or_create(order=order)
+        scan.title = productTitle
+        scan.save()
+        productType = order.product_type
+
+        data = {'success': True, 'type': productType,"scan":scan.to_dict(),  'message': 'scan has uploaded successfully'}
+
+    return JsonResponse(data)

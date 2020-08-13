@@ -355,8 +355,8 @@ for Android ones </p>
                         </div>
                         <div> 
                             <p class="blueprint-title ta-left">Save blueprint</p>
-                            <input id="airbnb" name="airbnb" placeholder="Project title" class="form-control mt-5" type="text">
-                            <a href="#" class="btn green-btn mt-30">Next</a>
+                            <input id="productTitle" name="productTitle" placeholder="Project title" class="form-control mt-5" type="text">
+                            <a href="#" id="productTitleBtn" class="btn green-btn mt-30">Next</a>
                             {% comment %} <a href="#" class="btn green-btn mt-30" onclick="show_upload_photos()">Next</a> {% endcomment %}
                         </div>
                         
@@ -377,7 +377,7 @@ for Android ones </p>
                 <div class="modal-body form">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         {% csrf_token %}
-                        <img src="{% static 'img/floorplan-2.png' %}">
+                        <img class="proj-scan-img" src="{% static 'img/floorplan-2.png' %}">
                         <div class="projects-wrapper">
                             <h4 class="proj-title ta-center">Project title</h4>
                             <p class="proj-photo-summary">waiting for photos</p>
@@ -509,4 +509,5 @@ for Android ones </p>
 <script src="{% static 'js/jquery-file-upload/jquery.fileupload.js' %}"></script>
 <script src="{% static 'js/upload/progress-bar-upload.js' %}"></script>
 <script src="{% static 'js/upload/upload.js' %}"></script>
+
 {% endblock script %}

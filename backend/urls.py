@@ -43,6 +43,7 @@ urlpatterns = [
     # upload scan
     path(r'progress_bar_upload/', scan_views.ProgressBarUpload, name='progress_bar_upload'),
     path(r'uploadscan/', scan_views.uploadscan, name='uploadscan'),
+    path(r'uploadtitle/', scan_views.uploadtitle, name='uploadtitle'),
     
     # for web template
     path(r'', views.home, name = "home"),

@@ -157,7 +157,8 @@ LOGOUT_REDIRECT_URL = 'home'
 
 STATIC_URL = '/static/'
 
-BASE_URL = 'http://162.214.124.207:8000'
+# BASE_URL = 'http://162.214.124.207:8000'
+BASE_URL = 'http://127.0.0.1:8000'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'

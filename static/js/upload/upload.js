@@ -22,23 +22,64 @@ $(document).ready(function(){
         var google_drive = $("#modal_form_blueprint input[name='google_drive']").val();
         
         $.ajax({
-                url: '/uploadscan/',
+            url: '/uploadscan/',
+            method: 'POST',
+            data: {
+                rawImageUrl: rawImageUrl,
+                orderid: orderid,
+                airbnb: airbnb,
+                google_drive:google_drive,
+                csrfmiddlewaretoken:$('#modal_form_blueprint input[name=csrfmiddlewaretoken]').val(),
+            },
+
+            success:function(response){
+                if(response.success == true){
+                    $('#modal_form_blueprint').modal('hide');
+                    $('#modal_form_blueprint_submitted').modal('show');
+                }
+            }
+        })
+    });
+
+    // uploading detail after being saved scanTitle
+    $('#productTitleBtn').on("click", function(){
+        var orderid = $("#modal_form_blueprint input[name='orderid']").val();
+        var productTitle = $('#modal_form_blueprint_submitted #productTitle').val();
+        if(productTitle){
+            $.ajax({
+                url: '/uploadtitle/',
                 method: 'POST',
                 data: {
-                    rawImageUrl: rawImageUrl,
                     orderid: orderid,
-                    airbnb: airbnb,
-                    google_drive:google_drive,
-                    csrfmiddlewaretoken:$('#modal_form_blueprint input[name=csrfmiddlewaretoken]').val(),
+                    productTitle: productTitle,
+                    csrfmiddlewaretoken:$('#modal_form_blueprint_submitted input[name=csrfmiddlewaretoken]').val(),
                 },
-
                 success:function(response){
                     if(response.success == true){
-                        $('#modal_form_blueprint').modal('hide');
-                        $('#modal_form_blueprint_submitted').modal('show');
+                        console.log(response.type);
+                        var scanTitle = response.scan.title;
+                        console.log(scanTitle);
+                        switch (response.type) {
+                            case 2:
+                            case 3:
+                                $("#modal_form_blueprint_submitted").modal("hide");
+                                $('#modal_form_upload_photos').modal("show");
+                                break;
+                            case 1:
+                                $("#modal_form_blueprint_submitted").modal("hide");
+                                break;
+                            case 0:
+                                break;
+                            default:
+                                break;
+                        }
+                        $('#modal_form_upload_photos .proj-title').text(response.scan.title);
+                        $('#modal_form_upload_photos .proj-scan-img').attr("src", response.scan.scanImageUrl);
                     }
                 }
-        })
+            })
+        }
+
     });
 
     // console.log($("#photos-list-form"))
