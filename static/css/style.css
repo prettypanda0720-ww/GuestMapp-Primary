@@ -753,6 +753,84 @@ label, p {
         line-height: 26px;
         color: #000000; }
 
+#modal_form_photo_description {
+  justify-content: center;
+  align-items: center;
+  display: none; }
+  #modal_form_photo_description.show {
+    padding-right: 0px !important;
+    display: flex !important; }
+  #modal_form_photo_description .modal-body {
+    position: relative;
+    background: #EEF1F3;
+    border-radius: 4px;
+    padding: 27px 28px 85px 27px; }
+    #modal_form_photo_description .modal-body .close {
+      color: #FF0000;
+      font-size: 35px; }
+    #modal_form_photo_description .modal-body p {
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 26px;
+      color: #3B4A54;
+      text-align: center; }
+    #modal_form_photo_description .modal-body a {
+      text-decoration: underline; }
+    @media only screen and (max-width: 420px) {
+      #modal_form_photo_description .modal-body {
+        padding: 20px; }
+        #modal_form_photo_description .modal-body p {
+          font-size: 15px; } }
+    #modal_form_photo_description .modal-body .loader {
+      display: none;
+      width: 30px;
+      height: 30px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-top: -13px;
+      margin-left: -13px;
+      border-radius: 60px;
+      animation: loader 0.8s linear infinite;
+      -webkit-animation: loader 0.8s linear infinite; }
+  #modal_form_photo_description a {
+    text-decoration: none; }
+  #modal_form_photo_description .close {
+    position: absolute;
+    top: 20px;
+    right: 20px; }
+  #modal_form_photo_description .modal-body {
+    width: 456px;
+    height: 550px;
+    padding: 0px; }
+    #modal_form_photo_description .modal-body form {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%; }
+      #modal_form_photo_description .modal-body form span {
+        position: absolute;
+        color: #FF0000;
+        left: 20px;
+        top: 20px; }
+      #modal_form_photo_description .modal-body form img {
+        height: 300px; }
+      #modal_form_photo_description .modal-body form p {
+        color: #679724; }
+      #modal_form_photo_description .modal-body form .description-wrapper {
+        padding-left: 25px;
+        padding-right: 25px;
+        padding-bottom: 30px; }
+      #modal_form_photo_description .modal-body form .blueprint-title {
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 26px;
+        color: #000000; }
+
 #modal_form_upload_photos {
   justify-content: center;
   align-items: center;

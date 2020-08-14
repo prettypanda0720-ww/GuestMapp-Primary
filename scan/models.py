@@ -36,7 +36,7 @@ class ScanDetailsTable(models.Model):
     scanDetailImageRaw = models.ImageField(
         blank=True,
         null=True,
-        upload_to='scan/',
+        upload_to='scan/%Y/%m/%d'
     )
     scanDetailImageUrl = models.CharField(max_length=255, blank=True, null=True)
 

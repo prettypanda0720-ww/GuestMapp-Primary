@@ -370,6 +370,34 @@ for Android ones </p>
     </div>
 </div>
 
+<div class="modal" id="modal_form_photo_description" data-keyboard="false" data-backdrop="static" role="dialog" style="display: none;">
+    <div class="d-flex justify-content-center align-items-center">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body form">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <form action="#" id="blueprint-form-submitted" class="form-horizontal">
+                        {% csrf_token %}
+                        <span class="fa fa-arrow-left back-btn" onclick="doLogin()"></span>
+                        <input type="hidden" name="scanDetailId" value="" />
+                        <img src="{% static 'img/kitchen.png' %}">
+                        <div class="description-wrapper"> 
+                            <p class="blueprint-title ta-center">Photo description</p>
+                            <input id="productDetailTitle" name="productDetailTitle" placeholder="for example kitchen" class="form-control mt-5" type="text">
+                            <a href="#" id="photoDescBtn" class="btn green-btn mt-30">Upload</a>
+                            {% comment %} <a href="#" class="btn green-btn mt-30" onclick="show_upload_photos()">Next</a> {% endcomment %}
+                        </div>
+                        
+                        <div class="alert alert-danger" id="alert-div">
+                            <button id="msg-btn" type="button" class="close">&times;</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal" id="modal_form_upload_photos" data-keyboard="false" data-backdrop="static" role="dialog" style="display: none;">
     <div class="d-flex justify-content-center align-items-center">
         <div class="modal-dialog">
@@ -433,7 +461,7 @@ for Android ones </p>
                             </div>
                         </div>
                         {% comment %} <button type="submit" id="blueprint-upload-btn" class="btn green-btn mt-40">Upload</button> {% endcomment %}
-                        <a href="#" class="btn green-btn" onclick="show_blueprint_submitted()">Upload</a>
+                        <a href="#" id="uploadDetailBtn" class="btn green-btn" >Upload</a>
                     </form>
                 </div>
             </div>
@@ -462,7 +490,7 @@ for Android ones </p>
                         <p class="summary">Please provide a minimum of 2 pictures per room taken from different perspectives. Ensure all furniture is visible.</p>
                         <!-- <button type="submit" id="blueprint-upload-btn" class="btn green-btn mt-40">Upload</button> -->
                         <a href="#" class="btn green-reverse-btn" onclick="show_photos_add()">Add one more photo</a>
-                        <a href="#" class="btn green-btn mt-30" onclick="show_blueprint_submitted()">Submit</a>
+                        <a href="#" class="btn green-btn mt-30">Submit</a>
                     </form>
                 </div>
             </div>

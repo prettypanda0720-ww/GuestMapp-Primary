@@ -33,7 +33,6 @@ $(document).ready(function(){
             },
 
             success:function(response){
-                
                 if(response.success == true){
                     $('#modal_form_blueprint').modal('hide');
                     $('#modal_form_blueprint_submitted').modal('show');
@@ -57,17 +56,15 @@ $(document).ready(function(){
                 },
                 success:function(response){
                     if(response.success == true){
-                        console.log(response.type);
                         var scanTitle = response.scan.title;
-                        console.log(scanTitle);
+                        $("#modal_form_blueprint_submitted").modal("hide");
                         switch (response.type) {
                             case 2:
                             case 3:
-                                $("#modal_form_blueprint_submitted").modal("hide");
                                 $('#modal_form_upload_photos').modal("show");
                                 break;
+
                             case 1:
-                                $("#modal_form_blueprint_submitted").modal("hide");
                                 break;
                             case 0:
                                 break;
@@ -86,7 +83,7 @@ $(document).ready(function(){
 
     // ajax for get detail list with respect to scan 
     // get : scan_id  ----- put : detail list
-    $('#modal_form_upload_photos #show_photoslist_btn').on('click', function(){
+    $('#show_photoslist_btn').on('click', function(){
         var scan_id = $("#modal_form_upload_photos input[name='proj-scan-id']").val();
         if(scan_id){
             $.ajax({
@@ -100,9 +97,9 @@ $(document).ready(function(){
                 success:function(response){
                     if(response.success == true){
                         show_photos_list();
-                        console.log(response.details.length);
+                        console.log(response.details);
                         for(var index = 0; index < response.details.length; index++){
-                            $("#modal_form_photos_list .photos-wrapper").append('<li class="photo-item col-lg-6 col-md-6 col-sm-6 col-6"><img class="photo" src="'+response.details[index].scanDetailImageRaw+'"><div class="photo-action"><span class="title">Kitchen</span><img class="btn-remove" src="/static/img/garbage.png"></div></li>');
+                            $("#modal_form_photos_list .photos-wrapper").append('<li class="photo-item col-lg-6 col-md-6 col-sm-6 col-6"><img class="photo" src="'+response.details[index].scanDetailImageRaw+'"><div class="photo-action"><input type="hidden" class="detailId" value="'+response.details[index].id+'"><span class="title">'+response.details[index].title+'</span><img class="btn-remove" src="/static/img/garbage.png"></div></li>');
                         }
                     }
                 }
@@ -111,12 +108,86 @@ $(document).ready(function(){
     });
 
     // upload detail image and description of course title
-    // get : scan_id, image url --- response : detial id, success 
+    // get : scan_id, image url --- response : detial id, success
+    $("#uploadDetailBtn").on("click", function(event){
+        var rawImageUrl = $("#modal_form_photos_add input[name='rawImageUrl']").val();
+        var scanid = $("#modal_form_upload_photos input[name='proj-scan-id']").val();
+        var airbnb = $("#modal_form_photos_add input[name='airbnb']").val();
+        var google_drive = $("#modal_form_photos_add input[name='google_drive']").val();
+        
+        $.ajax({
+            url: '/uploadscandetail/',
+            method: 'POST',
+            data: {
+                rawImageUrl: rawImageUrl,
+                scanid: scanid,
+                airbnb: airbnb,
+                google_drive:google_drive,
+                csrfmiddlewaretoken:$('#modal_form_photos_add input[name=csrfmiddlewaretoken]').val(),
+            },
 
+            success:function(response){
+                if(response.success == true){
+                    $("#modal_form_photo_description img").attr("src", response.scandetail.scanDetailImageUrl);
+                    $("#modal_form_photo_description input[name='scanDetailId']").val(response.scandetail.id);
+                    show_form_photo_description();
+                }
+                else{
+                    $('#modal_form_photos_add').modal('hide');
+                    $("#modal_form_photos_list").modal('show');
+                }
+            }
+        });
+    });
+
+    // upload title to scandetailtable with respect to detail ID
+    // get : scanDetailId --- response : success, to modal_form_photos_add
+    $("#photoDescBtn").on("click", function(event){
+
+        var scanDetailId = $("#modal_form_photo_description input[name='scanDetailId']").val();
+        var productDetailTitle = $("#modal_form_photo_description input[name='productDetailTitle").val();
+        if(productDetailTitle){
+            $.ajax({
+                url: '/uploadDetialTitle/',
+                method: 'POST',
+                data: {
+                    scanDetailId: scanDetailId,
+                    productDetailTitle: productDetailTitle,
+                    csrfmiddlewaretoken:$('#modal_form_photo_description input[name=csrfmiddlewaretoken]').val(),
+                },
+
+                success:function(response){
+                    if(response.success == true){
+                        $('#show_photoslist_btn').click();
+                    }
+                }
+            });
+        }
+    });
+
+    
     // console.log($("#photos-list-form"))
     $("#photos-list-form").on('click', ".btn-remove",function(event){
         event.preventDefault();
-        $(this).parents('.photo-item').remove();
+        var detailId = $(this).parent().find('.detailId').val();
+        var item = $(this).parents('.photo-item');
+        item.remove();
+        if(detailId){
+            $.ajax({
+                url: '/removeDetail/',
+                method: 'POST',
+                data: {
+                    detailId: detailId,
+                    csrfmiddlewaretoken:$('#photos-list-form input[name=csrfmiddlewaretoken]').val(),
+                },
+
+                success:function(response){
+                    if(response.success == true){
+                        item.remove();
+                    }
+                }
+            });
+        }
     })
 
 
@@ -165,7 +236,10 @@ $(document).ready(function(){
      
 }); 
 
-
+function show_form_photo_description(){
+    $('#modal_form_photos_add').modal('hide');
+    $('#modal_form_photo_description').modal('show');
+}
 
 function show_blueprint_submitted()
 {
@@ -186,6 +260,7 @@ function show_upload_photos(){
 
 function show_photos_add()
 {
+    $('#upload_detailfilename').text('');
     $("#modal_form_photos_list").modal('hide');
     $("#modal_form_photos_add").modal('show');
 }
@@ -289,4 +364,9 @@ function handleFileUpload(files,obj)
         // sendFileToServer(fd,status);
  
    }
+}
+
+function show_photo_description()
+{
+    $('#modal_form_photo_description').modal('show');
 }

@@ -161,6 +161,51 @@
 	}
 }
 
+#modal_form_photo_description{
+	@include auth-modal;
+	a{
+		text-decoration: none;
+	}
+	.close{
+		position: absolute;
+		top: 20px;
+		right: 20px;
+	}
+    .modal-body{
+    	width: 456px;
+		height: 550px;
+		padding: 0px;
+
+		form{
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			height: 100%;
+			span{
+				position: absolute;
+				color: #FF0000;
+				left: 20px;
+				top: 20px;
+			}
+			img{
+				height: 300px;
+			}
+			p{
+				color: $color-green-dark;
+			}
+			.description-wrapper {
+				padding-left: 25px;
+				padding-right: 25px;
+				padding-bottom: 30px;
+			}
+			.blueprint-title{
+				@include base-paragraph;
+				color: #000000;
+			}
+		}
+	}
+}
+
 #modal_form_upload_photos{
 	@include auth-modal;
     .modal-body{

@@ -45,7 +45,10 @@ urlpatterns = [
     path(r'uploadscan/', scan_views.uploadscan, name='uploadscan'),
     path(r'uploadtitle/', scan_views.uploadtitle, name='uploadtitle'),
     path(r'getDatailbyId/', scan_views.getDatailbyId, name='getDatailbyId'),
-    
+    path(r'uploadscandetail/', scan_views.uploadscandetail, name='uploadscandetail'),
+    path(r'uploadDetialTitle/', scan_views.uploadDetialTitle, name='uploadDetialTitle'),
+    path(r'removeDetail/', scan_views.removeDetail, name='removeDetail'),
+
     # for web template
     path(r'', views.home, name = "home"),
     path(r'planprices/', views.planprices, name = "planprices"),

@@ -161,11 +161,44 @@ def uploadscan(request):
 
     return JsonResponse(data)
 
+@login_required
+def uploadscandetail(request):
+    data = {'success': False, 'message': None}
+    if request.method == 'POST' :
+        rawImageUrl = request.POST.get('rawImageUrl', '').strip()
+        scanid = request.POST.get('scanid', '').strip()
+        airbnb = request.POST.get('airbnb', '').strip()
+        google_drive = request.POST.get('google_drive', '').strip()
+        imageUrl = ''
+        if rawImageUrl:
+            imageUrl = rawImageUrl
+        elif airbnb:
+            imageUrl = airbnb
+        elif google_drive:
+            imageUrl = google_drive
+        
+        if imageUrl == '' or scanid == '':
+            data = {'success': False, 'message': None}
+            return JsonResponse(data)
+        print(rawImageUrl)
+        print(imageUrl)
+        scandetail = ScanDetailsTable()
+        scandetail.scan = ScanTable.get_scan(scanid)
+
+        if rawImageUrl:
+            scandetail.scanDetailImageRaw = Photo.objects.get(title=imageUrl).file
+        scandetail.scanDetailImageUrl = settings.BASE_URL + imageUrl
+        scandetail.save()
+        data = {'success': True, "scandetail":scandetail.to_dict(), 'message': 'scan detail has uploaded successfully'}
+
+    return JsonResponse(data)
 
 @login_required
 def uploadtitle(request):
     """ returns jsonresponse add title after uploading one photo to scan model """
+
     data = {'success': False, 'message': None}
+
     if request.method == 'POST':
         orderid = request.POST.get('orderid', '').strip()
         productTitle = request.POST.get('productTitle', '').strip()
@@ -174,15 +207,47 @@ def uploadtitle(request):
         scan.title = productTitle
         scan.save()
         productType = order.product_type
-
         data = {'success': True, 'type': productType,"scan":scan.to_dict(),  'message': 'scan has uploaded successfully'}
 
     return JsonResponse(data)
 
+@login_required
+def uploadDetialTitle(request):
+    """ returns jsonresponse add title after uploading one photo to scan detail model """
+
+    data = {'success': False, 'message': None}
+
+    if request.method == 'POST':
+        scanDetailId = request.POST.get('scanDetailId', '').strip()
+        productDetailTitle = request.POST.get('productDetailTitle', '').strip()
+        
+        scanDetail = ScanDetailsTable.objects.get(id = scanDetailId)
+        scanDetail.title = productDetailTitle
+        scanDetail.save()
+        
+        data = {'success': True, 'message': 'scanDetails has uploaded successfully'}
+
+    return JsonResponse(data)
+
+@login_required
+def removeDetail(request):
+    """ remove detail by detail id"""
+
+    data = {'success': False, 'message': None}
+
+    if request.method == 'POST':
+        detailId = request.POST.get('detailId', '').strip()
+        scanDetail = ScanDetailsTable.objects.get(id=detailId)
+        scanDetail.delete()
+        data = {'success': True, 'message': 'Details successfully removed!'}
+    return JsonResponse(data)   
 
 @login_required
 def getDatailbyId(request):
+    """ get details by scan id"""
+
     data = {'success': False, 'message': None}
+
     if request.method == 'POST':
         scan_id = request.POST.get('scan_id', '').strip()
         scanDetails = ScanDetailsTable.objects.filter(scan = ScanTable.get_scan(scan_id))
