@@ -3,7 +3,9 @@ from django.http import JsonResponse
 from rest_framework import status, permissions
 from rest_framework.decorators import action
 from rest_framework.viewsets import ModelViewSet
+
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404, render, redirect
 from order.models import Order
 from scan.models import ScanTable, ScanDetailsTable, Photo
 from scan.serializers import ScanTableSerializer, ScanDetailsTableSerializer
@@ -138,15 +140,17 @@ def uploadscan(request):
         orderid = request.POST.get('orderid', '').strip()
         airbnb = request.POST.get('airbnb', '').strip()
         google_drive = request.POST.get('google_drive', '').strip()
-
+        imageUrl = ''
         if rawImageUrl:
             imageUrl = rawImageUrl
         elif airbnb:
             imageUrl = airbnb
         elif google_drive:
             imageUrl = google_drive
-        else:
+        
+        if imageUrl == '':
             data = {'success': False, 'message': None}
+            return JsonResponse(data)
 
         scan, created = ScanTable.objects.get_or_create(order=Order.get_order(orderid))
         if rawImageUrl:
@@ -173,4 +177,15 @@ def uploadtitle(request):
 
         data = {'success': True, 'type': productType,"scan":scan.to_dict(),  'message': 'scan has uploaded successfully'}
 
+    return JsonResponse(data)
+
+
+@login_required
+def getDatailbyId(request):
+    data = {'success': False, 'message': None}
+    if request.method == 'POST':
+        scan_id = request.POST.get('scan_id', '').strip()
+        scanDetails = ScanDetailsTable.objects.filter(scan = ScanTable.get_scan(scan_id))
+        
+        data = {'success': True, "details":ScanDetailsTable.array_to_dict(scanDetails), 'message': 'Details with respect to scan id successfully retrived!'}
     return JsonResponse(data)

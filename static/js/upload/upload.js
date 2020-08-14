@@ -33,12 +33,13 @@ $(document).ready(function(){
             },
 
             success:function(response){
+                
                 if(response.success == true){
                     $('#modal_form_blueprint').modal('hide');
                     $('#modal_form_blueprint_submitted').modal('show');
                 }
             }
-        })
+        });
     });
 
     // uploading detail after being saved scanTitle
@@ -75,12 +76,42 @@ $(document).ready(function(){
                         }
                         $('#modal_form_upload_photos .proj-title').text(response.scan.title);
                         $('#modal_form_upload_photos .proj-scan-img').attr("src", response.scan.scanImageUrl);
+                        $("#modal_form_upload_photos input[name='proj-scan-id']").val(response.scan.id);
                     }
                 }
             })
         }
 
     });
+
+    // ajax for get detail list with respect to scan 
+    // get : scan_id  ----- put : detail list
+    $('#modal_form_upload_photos #show_photoslist_btn').on('click', function(){
+        var scan_id = $("#modal_form_upload_photos input[name='proj-scan-id']").val();
+        if(scan_id){
+            $.ajax({
+                url: '/getDatailbyId/',
+                method: 'POST',
+                data: {
+                    scan_id: scan_id,
+                    csrfmiddlewaretoken:$('#modal_form_upload_photos input[name=csrfmiddlewaretoken]').val(),
+                },
+
+                success:function(response){
+                    if(response.success == true){
+                        show_photos_list();
+                        console.log(response.details.length);
+                        for(var index = 0; index < response.details.length; index++){
+                            $("#modal_form_photos_list .photos-wrapper").append('<li class="photo-item col-lg-6 col-md-6 col-sm-6 col-6"><img class="photo" src="'+response.details[index].scanDetailImageRaw+'"><div class="photo-action"><span class="title">Kitchen</span><img class="btn-remove" src="/static/img/garbage.png"></div></li>');
+                        }
+                    }
+                }
+            });
+        }
+    });
+
+    // upload detail image and description of course title
+    // get : scan_id, image url --- response : detial id, success 
 
     // console.log($("#photos-list-form"))
     $("#photos-list-form").on('click', ".btn-remove",function(event){

@@ -44,6 +44,7 @@ urlpatterns = [
     path(r'progress_bar_upload/', scan_views.ProgressBarUpload, name='progress_bar_upload'),
     path(r'uploadscan/', scan_views.uploadscan, name='uploadscan'),
     path(r'uploadtitle/', scan_views.uploadtitle, name='uploadtitle'),
+    path(r'getDatailbyId/', scan_views.getDatailbyId, name='getDatailbyId'),
     
     # for web template
     path(r'', views.home, name = "home"),

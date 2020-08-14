@@ -14,6 +14,12 @@ class ScanTable(models.Model):
     class Meta:
         db_table = "scan_table"
 
+    def get_scan(scan_id):
+        try:
+            return ScanTable.objects.get(pk=scan_id)
+        except ScanTable.DoesNotExist:
+            return None
+
     def to_dict(self):
         return {
             'id': self.id,
@@ -45,6 +51,19 @@ class ScanDetailsTable(models.Model):
             'scanDetailImageRaw': settings.BASE_URL + self.scanDetailImageRaw.url if self.scanDetailImageRaw else None,
             'scanDetailImageUrl': self.scanDetailImageUrl
         }
+    
+    def array_to_dict(scans):
+        details = []
+        for ascan in scans:
+            temp = {
+                'id': ascan.id,
+                'scan_id': ascan.scan.id,
+                'title': ascan.title,
+                'scanDetailImageRaw': settings.BASE_URL + ascan.scanDetailImageRaw.url if ascan.scanDetailImageRaw else None,
+                'scanDetailImageUrl': ascan.scanDetailImageUrl
+            }
+            details.append(temp)
+        return details
 
 class Photo(models.Model):
     title = models.CharField(max_length=255, blank=True)

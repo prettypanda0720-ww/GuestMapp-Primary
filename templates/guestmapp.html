@@ -378,11 +378,13 @@ for Android ones </p>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         {% csrf_token %}
                         <img class="proj-scan-img" src="{% static 'img/floorplan-2.png' %}">
+                        <input type="hidden" name="proj-scan-id" value="" />
                         <div class="projects-wrapper">
                             <h4 class="proj-title ta-center">Project title</h4>
                             <p class="proj-photo-summary">waiting for photos</p>
                             <p class="proj-summary">Please upload photos to continue</p>
-                            <a href="#" id="show_photoslist_btn" class="btn green-btn mt-30" onclick="show_photos_list()">Upload photos</a>
+                            <a href="#" id="show_photoslist_btn" class="btn green-btn mt-30"">Upload photos</a>
+                            {% comment %} <a href="#" id="show_photoslist_btn" class="btn green-btn mt-30" onclick="show_photos_list()">Upload photos</a> {% endcomment %}
                         </div>
                 </div>
             </div>
@@ -406,13 +408,15 @@ for Android ones </p>
                                 <p class="sub-paragraph">
                                     Please provide a minimum of 2 pictures per room taken from different perspectives. Ensure all funiture is visible.
                                 </p>
+                                <input type="hidden" name="rawImageUrl" value=""/>
                                 <div class="ta-center mt-30">
-                                    <div class="photos-drag" for="fileselect">
+                                    <div class="photos-drag" for="detailfileupload">
                                         <img src="{% static 'img/upload.png' %}">
                                         <p>Drag and drop your photo</p>
-                                        <input type="file" id="fileselect" name="fileselect" style="visibility: hidden;" />
+                                        <input id="detailfileupload" type="file" name="file" style="display: none;" data-url="{% url 'progress_bar_upload' %}" data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
                                     </div>
-                                    <label for="fileselect" class="mt-20"><span class="lbl-from">Upload a blueprint from computer</span></label>
+                                    <div id="upload_detailfilename"></div>
+                                    <label for="detailfileupload" class="mt-20"><span class="lbl-from">Upload a blueprint from computer</span></label>
                                     <div id="status1"></div>
                                 </div>
                                 <div class="modal-input-group mt-36">
@@ -447,41 +451,13 @@ for Android ones </p>
                         {% csrf_token %}
                         <label class="modal-title">Add photos</label>
                         <ul class="photos-wrapper row mt-30">
-                            <li class="photo-item col-lg-6 col-md-6 col-sm-6 col-6">
+                            {% comment %} <li class="photo-item col-lg-6 col-md-6 col-sm-6 col-6">
                                 <img class="photo" src="{% static 'img/kitchen.png' %}">
                                 <div class="photo-action">
                                     <span class="title">Kitchen</span>
                                     <img class="btn-remove" src="{% static 'img/garbage.png' %}">
                                 </div>
-                            </li>
-                            <li class="photo-item col-lg-6 col-md-6 col-sm-6 col-6">
-                                <img class="photo" src="{% static 'img/kitchen.png' %}">
-                                <div class="photo-action">
-                                    <span class="title">Kitchen</span>
-                                    <img class="btn-remove" src="{% static 'img/garbage.png' %}">
-                                </div>
-                            </li>
-                            <li class="photo-item col-lg-6 col-md-6 col-sm-6 col-6">
-                                <img class="photo" src="{% static 'img/kitchen.png' %}">
-                                <div class="photo-action">
-                                    <span class="title">Kitchen</span>
-                                    <img class="btn-remove" src="{% static 'img/garbage.png' %}">
-                                </div>
-                            </li>
-                            <li class="photo-item col-lg-6 col-md-6 col-sm-6 col-6">
-                                <img class="photo" src="{% static 'img/kitchen.png' %}">
-                                <div class="photo-action">
-                                    <span class="title">Kitchen</span>
-                                    <img class="btn-remove" src="{% static 'img/garbage.png' %}">
-                                </div>
-                            </li>
-                            <li class="photo-item col-lg-6 col-md-6 col-sm-6 col-6">
-                                <img class="photo" src="{% static 'img/kitchen.png' %}">
-                                <div class="photo-action">
-                                    <span class="title">Kitchen</span>
-                                    <img class="btn-remove" src="{% static 'img/garbage.png' %}">
-                                </div>
-                            </li>
+                            </li> {% endcomment %}
                         </ul>
                         <p class="summary">Please provide a minimum of 2 pictures per room taken from different perspectives. Ensure all furniture is visible.</p>
                         <!-- <button type="submit" id="blueprint-upload-btn" class="btn green-btn mt-40">Upload</button> -->
@@ -493,17 +469,19 @@ for Android ones </p>
         </div>
     </div>
 </div>
+
 <div class="modal fade" id="modal-progress" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-body">
-          <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: 0%;">0%</div>
-          </div>
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: 0%;">0%</div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
+</div>
+
 <script src="{% static 'js/jquery-file-upload/vendor/jquery.ui.widget.js' %}"></script>
 <script src="{% static 'js/jquery-file-upload/jquery.iframe-transport.js' %}"></script>
 <script src="{% static 'js/jquery-file-upload/jquery.fileupload.js' %}"></script>
