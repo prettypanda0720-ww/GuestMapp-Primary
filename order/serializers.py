@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from rest_framework import serializers
 from order.models import Order, Billing
 from price.models import Price
+from datetime import datetime
 
 class OrderSerializer(serializers.Serializer):
     productType = serializers.IntegerField()
@@ -17,9 +18,11 @@ class OrderSerializer(serializers.Serializer):
     def save(self, user):
         order = Order()
         order.user = user
+        
         order.product_type = self.validated_data['productType']
         order.metadata = self.validated_data['metadata']
         order.tires = self.validated_data['tires']
+        order.completed_date = datetime.now()
         # price = get_object_or_404(Price, pk = (order.product_type+1))
         # order.price = int(price.price * order.tires * 100)
         order.price = int(self.validated_data['price'] * 100)

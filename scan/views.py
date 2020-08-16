@@ -11,6 +11,7 @@ from scan.models import ScanTable, ScanDetailsTable, Photo
 from scan.serializers import ScanTableSerializer, ScanDetailsTableSerializer
 from .forms import PhotoForm
 from backend import settings
+from datetime import datetime
 import time
 
 class ScanTableApiViewSet(ModelViewSet):
@@ -141,6 +142,7 @@ def uploadscan(request):
         airbnb = request.POST.get('airbnb', '').strip()
         google_drive = request.POST.get('google_drive', '').strip()
         imageUrl = ''
+
         if rawImageUrl:
             imageUrl = rawImageUrl
         elif airbnb:
@@ -151,11 +153,18 @@ def uploadscan(request):
         if imageUrl == '':
             data = {'success': False, 'message': None}
             return JsonResponse(data)
+        order = Order.get_order(orderid)
+        scan, created = ScanTable.objects.get_or_create(order=order)
+        if order.product_type == 0 or order.product_type == 1:
+            order.status = 1
+            order.save()
 
-        scan, created = ScanTable.objects.get_or_create(order=Order.get_order(orderid))
         if rawImageUrl:
             scan.scanImageRaw = Photo.objects.get(title=imageUrl).file
-        scan.scanImageUrl = settings.BASE_URL + imageUrl
+            scan.scanImageUrl = settings.BASE_URL + imageUrl
+        else:
+            scan.scanImageUrl = imageUrl
+
         scan.save()  
         data = {'success': True, 'message': 'scan has uploaded successfully'}
 
@@ -164,7 +173,7 @@ def uploadscan(request):
 @login_required
 def uploadscandetail(request):
     data = {'success': False, 'message': None}
-    if request.method == 'POST' :
+    if request.method == 'POST' : 
         rawImageUrl = request.POST.get('rawImageUrl', '').strip()
         scanid = request.POST.get('scanid', '').strip()
         airbnb = request.POST.get('airbnb', '').strip()
@@ -180,14 +189,15 @@ def uploadscandetail(request):
         if imageUrl == '' or scanid == '':
             data = {'success': False, 'message': None}
             return JsonResponse(data)
-        print(rawImageUrl)
-        print(imageUrl)
+        
         scandetail = ScanDetailsTable()
         scandetail.scan = ScanTable.get_scan(scanid)
 
         if rawImageUrl:
             scandetail.scanDetailImageRaw = Photo.objects.get(title=imageUrl).file
-        scandetail.scanDetailImageUrl = settings.BASE_URL + imageUrl
+            scandetail.scanDetailImageUrl = settings.BASE_URL + imageUrl
+        else:
+            scandetail.scanDetailImageUrl = imageUrl
         scandetail.save()
         data = {'success': True, "scandetail":scandetail.to_dict(), 'message': 'scan detail has uploaded successfully'}
 
@@ -253,4 +263,35 @@ def getDatailbyId(request):
         scanDetails = ScanDetailsTable.objects.filter(scan = ScanTable.get_scan(scan_id))
         
         data = {'success': True, "details":ScanDetailsTable.array_to_dict(scanDetails), 'message': 'Details with respect to scan id successfully retrived!'}
+    return JsonResponse(data)
+
+@login_required
+def orderReady(request):
+    """ update status to ready with respect to order id"""
+    data = {'success': False, 'message': None}
+
+    if request.method == 'POST':
+        orderid = request.POST.get('orderid', '').strip()
+        order = Order.objects.get(id=orderid)
+        order.status = 1
+        order.save()
+        scan, created = ScanTable.objects.get_or_create(order=order)
+
+        data = {'success': True,"scan":scan.to_dict(),  'message': 'Order status updated to ready!'}
+    return JsonResponse(data)
+
+@login_required
+def orderConfirmed(request):
+    """ update status to confirmed with respect to order id"""
+    data = {'success': False, 'message': None}
+
+    if request.method == 'POST':
+        orderid = request.POST.get('orderid', '').strip()
+        order = Order.objects.get(id=orderid)
+        order.status = 5
+        order.completed_date = datetime.now()
+        order.save()
+        scan, created = ScanTable.objects.get_or_create(order=order)
+
+        data = {'success': True,"scan":scan.to_dict(),  'message': 'Order status updated to ready!'}
     return JsonResponse(data)

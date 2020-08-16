@@ -1,10 +1,8 @@
 from django.db import models
-
-# Create your models here.
 from backend import settings
 from order.models import Order
 
-
+# Create your models here.
 class ScanTable(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, blank=True, null=True)
     title = models.CharField(max_length=255)

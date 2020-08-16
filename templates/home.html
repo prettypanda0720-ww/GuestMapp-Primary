@@ -52,14 +52,15 @@
 <!-- Hero Section Begin -->
 <section class="hero-section">
     <!-- <div class="hero__slider owl-carousel"> -->
-        <div class="hero__item set-bg" data-setbg="{% static 'img/hero/hero-1.png' %}">
+        {% comment %} <div class="hero__item set-bg" data-setbg="{% static 'img/hero/hero-1.png' %}"> {% endcomment %}
+        <div class="hero__item set-bg" data-setbg="{% static 'img/hero/hero-1.svg' %}">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-5">
                         <div class="hero__text">
                             <div class="header__logo">
                                 <div class="row">
-                                    <a href="{% url 'home' %}"><img src="{% static 'img/logo.png' %}" alt=""></a>
+                                    <a href="{% url 'home' %}"><img class="site-logo" src="{% static 'img/logo.png' %}" alt=""></a>
                                 </div>
                             </div>
                             <div class="canvas__open">

@@ -44,11 +44,16 @@ urlpatterns = [
     path(r'progress_bar_upload/', scan_views.ProgressBarUpload, name='progress_bar_upload'),
     path(r'uploadscan/', scan_views.uploadscan, name='uploadscan'),
     path(r'uploadtitle/', scan_views.uploadtitle, name='uploadtitle'),
+    # upload detail
     path(r'getDatailbyId/', scan_views.getDatailbyId, name='getDatailbyId'),
     path(r'uploadscandetail/', scan_views.uploadscandetail, name='uploadscandetail'),
     path(r'uploadDetialTitle/', scan_views.uploadDetialTitle, name='uploadDetialTitle'),
+    path(r'orderReady/', scan_views.orderReady, name='orderReady'),
+    path(r'orderConfirmed/', scan_views.orderConfirmed, name='orderConfirmed'),
+    
+    # order ready state
     path(r'removeDetail/', scan_views.removeDetail, name='removeDetail'),
-
+    
     # for web template
     path(r'', views.home, name = "home"),
     path(r'planprices/', views.planprices, name = "planprices"),

@@ -1,5 +1,5 @@
 from rest_framework.authtoken.models import Token
-
+from django.db.models import Q
 from rest_framework import status
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.response import Response
@@ -227,7 +227,21 @@ def guestmapp(request):
     order_exist = False
     if orders.__len__():
         order_exist = True
-    return render(request, 'guestmapp.html', { 'orders' : orders, 'order_exist' : order_exist, 'user': request.user})
+    
+    order_completed = False
+    orders_completed =  Order.objects.filter(user=request.user, status =3)
+    if orders_completed:
+        order_completed = True
+    
+    order_progress = False
+    for order in orders:
+        if order.status == 0 or order.status ==1:
+            if order.getImageUrl != "":
+                order_progress = True
+                break
+    
+    return render(request, 'guestmapp.html', { 'orders' : orders, 'order_exist' : order_exist, \
+        'order_completed':order_completed, 'order_progress':order_progress, 'user': request.user})
 
 @login_required
 def planprices(request):
@@ -245,10 +259,9 @@ def planprices(request):
 
 @login_required
 def ownguestmapp(request):
-    orders =  Order.objects.filter(user=request.user, status = 0)
+    orders =  Order.objects.filter(user=request.user).filter(Q(status = 3)|Q(status = 5))
     order_exist = False
-    
-    print(orders)
+
     if orders.__len__():
         order_exist = True
     return render(request, 'ownguestmapp.html', { 'orders' : orders})

@@ -1,6 +1,7 @@
 from django.db import models
 from users.models import User
 from price.models import Price
+
 class Order(models.Model):
     """
     Order Model
@@ -55,6 +56,15 @@ class Order(models.Model):
             'createdTime': self.created_date,
             'completedTime': self.completed_date,
         }
+    def getImageUrl(self):
+        from scan.models import ScanTable
+        scan, created = ScanTable.objects.get_or_create(order=self)
+        return scan.scanImageUrl
+    
+    def getProjectTitle(self):
+        from scan.models import ScanTable
+        scan, created = ScanTable.objects.get_or_create(order=self)
+        return scan.title
 
     def productTitle(self):
         productType={
@@ -63,16 +73,17 @@ class Order(models.Model):
             2:'Custom interio design 3D',
             3:'Custom mobile home 3D'
         }
-        return productType.get(self.status)
+        return productType.get(self.product_type)
 
     def productImage(self):
+        
         productImage={
             0:'blueprint',
             1:'eyeview',
             2:'custom3d',
             3:'custom3d'
         }
-        return productImage.get(self.status)
+        return productImage.get(self.product_type)
 
 
 class Billing(models.Model):

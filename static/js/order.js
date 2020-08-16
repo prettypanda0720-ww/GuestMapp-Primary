@@ -1,8 +1,8 @@
 $("#modal_form_order_step2 button[type='submit']").on('click', function(event){
     event.preventDefault();
-    var productType = "1"
-    var metadata = "1"
-    var tires = "3"
+    var productType = $('#modal_form_order_step2 #product_type').find(":selected").val();
+    var metadata = ""
+    var tires = $('#modal_form_order_step2 input[name="tires"]').val();
     var price = $("#modal_form_order_step2 .price").text();
     var card_name = $("#modal_form_order_step2 input[name='cardname']").val()
     var card_number = $("#modal_form_order_step2 input[name='cardnumber']").val()

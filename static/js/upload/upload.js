@@ -1,6 +1,8 @@
 $(document).ready(function(){
 
     $(".upload-btn").on("click", function(event){
+        $("input[type='file']").val('');
+        $("input[type='text']").val('');
         $("#modal_form_blueprint").modal('show');
         // console.log($(this).parent().parent().find('.oderId').val());
         $("#modal_form_blueprint input[name='orderid']").val($(this).parent().parent().find('.oderId').val());
@@ -10,7 +12,6 @@ $(document).ready(function(){
         $("#modal_form_blueprint input[name='airbnb']").text('');
         $("#modal_form_blueprint input[name='google_drive']").removeAttr("disabled");
         $("#modal_form_blueprint input[name='google_drive']").text('');
-
     });
 
     $("#blueprint-upload-btn").on("click", function(event){
@@ -45,6 +46,7 @@ $(document).ready(function(){
     $('#productTitleBtn').on("click", function(){
         var orderid = $("#modal_form_blueprint input[name='orderid']").val();
         var productTitle = $('#modal_form_blueprint_submitted #productTitle').val();
+        $('#modal_form_upload_photos .proj-scan-img').attr("src", "");
         if(productTitle){
             $.ajax({
                 url: '/uploadtitle/',
@@ -61,19 +63,26 @@ $(document).ready(function(){
                         switch (response.type) {
                             case 2:
                             case 3:
+                                $('#modal_form_upload_photos .proj-title').text(response.scan.title);
+                                $('#modal_form_upload_photos .proj-scan-img').attr("src", response.scan.scanImageUrl);
+                                $("#modal_form_upload_photos input[name='proj-scan-id']").val(response.scan.id);
                                 $('#modal_form_upload_photos').modal("show");
                                 break;
 
                             case 1:
-                                break;
                             case 0:
+                                $('#modal_form_scan_submitted .proj-title').text(response.scan.title);
+                                $('#modal_form_scan_submitted .preview-img').attr("src", "");
+                                $('#modal_form_scan_submitted .preview-img').attr("src", response.scan.scanImageUrl);
+                                $('#modal_form_scan_submitted').modal('show');
+                                setTimeout(() => {
+                                    window.location.href = "/guestmapp";
+                                }, 3000);
                                 break;
                             default:
                                 break;
                         }
-                        $('#modal_form_upload_photos .proj-title').text(response.scan.title);
-                        $('#modal_form_upload_photos .proj-scan-img').attr("src", response.scan.scanImageUrl);
-                        $("#modal_form_upload_photos input[name='proj-scan-id']").val(response.scan.id);
+                        
                     }
                 }
             })
@@ -98,8 +107,9 @@ $(document).ready(function(){
                     if(response.success == true){
                         show_photos_list();
                         console.log(response.details);
+                        $("#modal_form_photos_list .photos-wrapper").children().remove();
                         for(var index = 0; index < response.details.length; index++){
-                            $("#modal_form_photos_list .photos-wrapper").append('<li class="photo-item col-lg-6 col-md-6 col-sm-6 col-6"><img class="photo" src="'+response.details[index].scanDetailImageRaw+'"><div class="photo-action"><input type="hidden" class="detailId" value="'+response.details[index].id+'"><span class="title">'+response.details[index].title+'</span><img class="btn-remove" src="/static/img/garbage.png"></div></li>');
+                            $("#modal_form_photos_list .photos-wrapper").append('<li class="photo-item col-lg-6 col-md-6 col-sm-6 col-6"><img class="photo" src="'+response.details[index].scanDetailImageUrl+'"><div class="photo-action"><input type="hidden" class="detailId" value="'+response.details[index].id+'"><span class="title">'+response.details[index].title+'</span><img class="btn-remove" src="/static/img/garbage.png"></div></li>');
                         }
                     }
                 }
@@ -114,7 +124,7 @@ $(document).ready(function(){
         var scanid = $("#modal_form_upload_photos input[name='proj-scan-id']").val();
         var airbnb = $("#modal_form_photos_add input[name='airbnb']").val();
         var google_drive = $("#modal_form_photos_add input[name='google_drive']").val();
-        
+        $("#modal_form_photo_description img").attr("src", "");
         $.ajax({
             url: '/uploadscandetail/',
             method: 'POST',
@@ -128,14 +138,18 @@ $(document).ready(function(){
 
             success:function(response){
                 if(response.success == true){
+                    $("input[type='file']").val('');
+                    $("input[type='text']").val('');
                     $("#modal_form_photo_description img").attr("src", response.scandetail.scanDetailImageUrl);
                     $("#modal_form_photo_description input[name='scanDetailId']").val(response.scandetail.id);
+                    $('#modal_form_photo_description').modal('hide');
                     show_form_photo_description();
                 }
                 else{
                     $('#modal_form_photos_add').modal('hide');
                     $("#modal_form_photos_list").modal('show');
                 }
+
             }
         });
     });
@@ -158,6 +172,7 @@ $(document).ready(function(){
 
                 success:function(response){
                     if(response.success == true){
+                        $('#modal_form_photo_description').modal('hide');
                         $('#show_photoslist_btn').click();
                     }
                 }
@@ -188,8 +203,73 @@ $(document).ready(function(){
                 }
             });
         }
-    })
+    });
 
+    // submit order to ready
+    $('#ProjectCompletedBtn').on('click', function(){
+        var orderid = $("#modal_form_blueprint input[name='orderid']").val();
+        
+        $.ajax({
+            url: '/orderReady/',
+            method: 'POST',
+            data: {
+                orderid: orderid,
+                csrfmiddlewaretoken:$('#modal_form_photos_list input[name=csrfmiddlewaretoken]').val(),
+            },
+
+            success:function(response){
+                console.log(response);
+                if(response.success == true){
+                    $('#modal_form_photos_list').modal('hide');
+                    $('#modal_form_scan_submitted .proj-title').text(response.scan.title);
+                    $('#modal_form_scan_submitted .preview-img').attr("src", "");
+                    $('#modal_form_scan_submitted .preview-img').attr("src", response.scan.scanImageUrl);
+                    $('#modal_form_scan_submitted').modal('show');
+                    setTimeout(() => {
+                        window.location.href = "/guestmapp";
+                    }, 3000);
+                }
+
+            }
+        });
+    });
+
+    // order status changed to confirmed with respect to order id
+    $('#orderConfirmed').on("click", function(){
+        var orderid = $('#modal_form_project_completed input[name=orderId]').val();
+        $.ajax({
+            url: '/orderConfirmed/',
+            method: 'POST',
+            data: {
+                orderid: orderid,
+                csrfmiddlewaretoken:$('#modal_form_project_completed input[name=csrfmiddlewaretoken]').val(),
+            },
+
+            success:function(response){
+                if(response.success == true){
+                    $('#modal_form_project_completed').modal('hide');
+                    setTimeout(() => {
+                        window.location.href = "/guestmapp";
+                    }, 3000);
+                }
+
+            }
+        });
+    });
+
+    $('.adjustProjBtn').on('click', function(){
+        var title = $(this).parent().find(".proj-title").val();
+        var orderid = $(this).parent().find(".order-id").val();
+        var imgUrl = $(this).parent().parent().find("img").attr("src");
+        
+        $('#modal_form_project_completed input[name=orderId]').val(orderid);
+        $('#modal_form_project_completed .proj-title').text(title);
+        $('#modal_form_project_completed .preview-img').attr("src","");
+        $('#modal_form_project_completed .preview-img').attr("src",imgUrl);
+
+        showProjectComplete();
+    });
+    
 
     var obj = $(".blueprint-drag");
     obj.on('dragenter', function (e) 
@@ -260,7 +340,13 @@ function show_upload_photos(){
 
 function show_photos_add()
 {
+    // resset
     $('#upload_detailfilename').text('');
+    $("#modal_form_photos_add input[name='airbnb']").removeAttr("disabled");
+    $("#modal_form_photos_add input[name='airbnb']").text('');
+    $("#modal_form_photos_add input[name='google_drive']").removeAttr("disabled");
+    $("#modal_form_photos_add input[name='google_drive']").text('');
+    $("#detailfileupload").val('');
     $("#modal_form_photos_list").modal('hide');
     $("#modal_form_photos_add").modal('show');
 }
@@ -369,4 +455,15 @@ function handleFileUpload(files,obj)
 function show_photo_description()
 {
     $('#modal_form_photo_description').modal('show');
+}
+
+function showDetailComplete()
+{
+    $('#modal_form_scan_submitted').modal('show');
+}
+
+function showProjectComplete()
+{
+    $('#modal_form_photos_list').modal('hide');
+    $('#modal_form_project_completed').modal('show');
 }

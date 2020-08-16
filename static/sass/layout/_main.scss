@@ -509,7 +509,8 @@ ol {
 }
 
 .hero__item {
-	height: 945px;
+	// height: 945px;
+	height: 1250px;
 	display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex;
@@ -2001,83 +2002,19 @@ ol {
 	color: #444444;
 }
 
-/*---------------------
-  404
------------------------*/
-
-.text__404 {
-	text-align: center;
-}
-
-.text__404 h3 {
-	color: #111111;
-	font-weight: 700;
-	margin-top: 45px;
-	margin-bottom: 13px;
-}
-
-.text__404 p {
-	font-weight: 500;
-	margin-bottom: 35px;
-}
-
-.text__404 form {
-	width: 500px;
-	position: relative;
-	margin: 0 auto;
-}
-
-.text__404 form input {
-	width: 100%;
-	font-size: 14px;
-	font-weight: 700;
-	padding-left: 30px;
-	height: 50px;
-	border: none;
-	background: #4c57d6;
-	color: #ffffff;
-	border-radius: 50px;
-}
-
-.text__404 form input::-webkit-input-placeholder {
-	color: #ffffff;
-}
-
-.text__404 form input::-moz-placeholder {
-	color: #ffffff;
-}
-
-.text__404 form input:-ms-input-placeholder {
-	color: #ffffff;
-}
-
-.text__404 form input::-ms-input-placeholder {
-	color: #ffffff;
-}
-
-.text__404 form input::placeholder {
-	color: #ffffff;
-}
-
-.text__404 form button {
-	font-size: 16px;
-	color: #ffffff;
-	background: transparent;
-	border: none;
-	position: absolute;
-	right: 30px;
-	top: 0;
-	height: 50px;
-}
-
 /*--------------------------------- Responsive Media Quaries -----------------------------*/
 
-@media only screen and (min-width: 1200px) {
+@media only screen and (min-width: 1440px) {
+	.container {
+		max-width: 1400px;
+	}
+}
+
+@media only screen and (max-width: 1200px) and (max-width: 1440px) {
 	.container {
 		max-width: 1170px;
 	}
 }
-
 /* Wide Mobile = 480px */
 
 @media only screen and (max-width: 767px) {
@@ -2443,7 +2380,14 @@ ol {
 				    @media (min-width: 992px) and (max-width: 1199px) {
 				    	position: absolute;
 			    	    z-index: 10;
-			    	    top: 196px;
+						top: 196px;
+						width: 55%;
+					}
+					@media (min-width: 1200px) and (max-width: 1368px) {
+				    	position: absolute;
+			    	    z-index: 10;
+						top: 130px;
+						width: 55%;
 				    }
 				}
 				.hero__comment__text {
@@ -2484,6 +2428,17 @@ ol {
 			@media only screen and (max-width: 767px) {
 				width: 100%;	
 				margin-top:	25px;
+			}
+		}
+		@media only screen and (max-width: 1368px) {
+			height: auto;
+			padding-bottom: 130px;
+
+			.header-h1 {
+				font-size: 38px;
+			}
+			.header-h4 {
+				font-size: 18px;
 			}
 		}
 		@media only screen and (max-width: 767px) {
@@ -2807,7 +2762,7 @@ ol {
 			width: 300px;
 		    height: 460px;
 		    padding: 20px;
-		    overflow: scroll;
+		    overflow-y: scroll;
 		    // label{
 		    // 	display: none;
 		    // }
@@ -2828,7 +2783,7 @@ ol {
 		}
 		@media (min-width: 420px) and (max-width: 1200px) {
 			height: 460px;
-			overflow: scroll;
+			overflow-y: scroll;
 		}
     }
 	.modal-footer{
@@ -2913,7 +2868,7 @@ ol {
 		}
 		@media (min-width: 420px) and (max-width: 1200px) {
 			height: 550px;
-			overflow: scroll;
+			overflow-y: scroll;
 		}
 	}
 }
@@ -3121,6 +3076,11 @@ ol {
 	&.active{
 		display: flex;
 	}
+}
+
+.site-logo{
+	width: 140px;
+	height: 120px;
 }
 // .error-wrapper.active{
 // 	display: flex !important;

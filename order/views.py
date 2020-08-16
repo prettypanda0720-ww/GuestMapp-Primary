@@ -8,7 +8,6 @@ from django.contrib.auth.decorators import login_required
 from rest_framework import status, permissions
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
-
 from order.models import Order, Billing
 from price.models import Price
 from users.models import User
@@ -50,7 +49,14 @@ class OrderViewSet(ModelViewSet):
         
         order = serializer.save(user=request.user)
         billing = Billing.objects.get(order=order)
-        
+        if int(request.data['productType']) < 0 or int(request.data['productType']) > 4:
+            return JsonResponse({
+                'success': False,
+                'message': "Product Type is invalid",
+                'errCode': -1,
+                'data': None,
+            })
+
         try:
             stripe.api_key = settings.STRIPE_SECRET_KEY
             customer = stripe.Customer.create(
@@ -229,6 +235,7 @@ def payout(request):
             
         except stripe.error.StripeError as e:
             body = e.json_body
+            
             err  = body['error']
             order.delete()
             return JsonResponse({

@@ -206,6 +206,126 @@
 	}
 }
 
+#modal_form_scan_submitted {
+	@include auth-modal;
+	a{
+		text-decoration: none;
+	}
+	.close{
+		position: absolute;
+		top: 20px;
+		right: 20px;
+	}
+    .modal-body{
+    	width: 456px;
+		height: 650px;
+		padding: 0px;
+
+		form{
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			height: 100%;
+
+			.message-wrapper{
+				display: flex;
+				flex-direction: column;
+				justify-content: space-around;
+				padding-left: 15px;
+				padding-right: 15px;
+				height: calc(100% - 300px);
+			}
+			.preview-img{
+				height: 300px;
+			}
+			.success-img{
+				height: 80px;
+			}
+			.proj-title{
+				@include base-h4;
+				color: $color-black;
+			}
+			.success-msg {
+				@include base-paragraph;
+				color: $color-green-dark;
+			}
+			.success-summary {
+				font-family: Roboto;
+				font-style: normal;
+				font-weight: normal;
+				font-size: 16px;
+				line-height: 20px;
+				text-align: center;
+				color: #3B4A54;
+			}
+			p{
+				color: $color-green-dark;
+			}
+		}
+	}
+} 
+
+#modal_form_project_completed {
+	@include auth-modal;
+	a{
+		text-decoration: none;
+	}
+	.close{
+		position: absolute;
+		top: 20px;
+		right: 20px;
+	}
+    .modal-body{
+    	width: 456px;
+		height: 700px;
+		padding: 0px;
+
+		form{
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			height: 100%;
+			a{
+				text-decoration: none;
+			}	
+			.project-wrapper{
+				display: flex;
+				flex-direction: column;
+				justify-content: space-around;
+				padding-left: 15px;
+				padding-right: 15px;
+				height: calc(100% - 300px);
+			}
+			.preview-img{
+				height: 300px;
+			}
+			.proj-title{
+				@include base-h4;
+				color: $color-black;
+			}
+			.success-msg {
+				@include base-paragraph;
+				color: $color-green-dark;
+			}
+			.contact-summary {
+				font-family: Roboto;
+				font-style: normal;
+				font-weight: normal;
+				font-size: 14px;
+				line-height: 20px;
+				text-align: center;
+				color: #000000;
+				padding-left: 80px;
+				padding-right: 80px;
+			}
+		}
+
+		@media (min-width: 1300px){
+			height: 640px;
+		}
+	}
+}
+
 #modal_form_upload_photos{
 	@include auth-modal;
     .modal-body{

@@ -32,10 +32,10 @@
 	padding-bottom: 140px;
 
 	.all-guestmapps{
-		margin-right: 0;
-	    margin-left: auto;
-		margin-top: -24px;
 		z-index: 9999;
+		display: block;
+		margin-top: 30px;
+		text-align: right;
 		
 	    a{
 	    	text-decoration: underline;

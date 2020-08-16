@@ -12,7 +12,7 @@
             <div class="container">
                 <div class="header__logo">
                     <div class="row">
-                        <a href="/"><img src="{% static 'img/logo.png' %}" alt=""></a>
+                        <a href="/"><img class="site-logo" src="{% static 'img/logo.png' %}" alt=""></a>
                     </div>
                 </div>
                 <div class="canvas__open">
@@ -261,7 +261,7 @@
                                     Create a new payment
                                 </p>
                                 <div class="row">
-                                    <div class="col-lg-9 col-md-9 col-9"> 
+                                    <div class="col-lg-9 col-md-9 col-sm-8 col-8"> 
                                         <div class="modal-input-group">
                                             <label class="modal-input-label">Product</label> 
                                             <select name="product" class="form-control" id="product_type">
@@ -272,7 +272,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-lg-3 col-md-9 col-3">
+                                    <div class="col-lg-3 col-md-3 col-sm-4 col-4">
                                         <div class="modal-input-group">
                                             <label class="modal-input-label">Tiers</label> 
                                             <input name="tires" min="1" max="10" class="form-control" type="number">
