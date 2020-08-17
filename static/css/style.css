@@ -3744,7 +3744,9 @@ ol {
       -webkit-animation: loader 0.8s linear infinite; }
   #modal_form_order_step2 .modal-body {
     width: 456px;
-    height: 740px; }
+    height: 660px;
+    padding: 27px;
+    overflow-y: scroll; }
     #modal_form_order_step2 .modal-body .back-btn {
       position: relative; }
       #modal_form_order_step2 .modal-body .back-btn:before {
@@ -3799,6 +3801,10 @@ ol {
     @media (min-width: 420px) and (max-width: 1200px) {
       #modal_form_order_step2 .modal-body {
         height: 460px;
+        overflow-y: scroll; } }
+    @media (min-width: 1200px) and (max-width: 1440px) {
+      #modal_form_order_step2 .modal-body {
+        height: 520px;
         overflow-y: scroll; } }
   #modal_form_order_step2 .modal-footer {
     background-color: #EEF1F3; }

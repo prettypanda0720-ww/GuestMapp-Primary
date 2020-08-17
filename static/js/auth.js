@@ -37,36 +37,36 @@ $(document).ready(function(){
     //this method validates login
     function validate_register(e)
     {
-        if($('#signup-form #name').val()===''){
+        if($('#signup_name').val()===''){
             // e.preventDefault();
             $('#signup-form #msg-btn').html('<i class="fa fa-warning (alias)"></i>Name is required! &times');
             $('#signup-form #alert-div').addClass('active');
             return false;       
         }
 
-        if($('#signup-form #email').val()===''){
+        if($('#signup_email').val()===''){
             // e.preventDefault();
             $('#signup-form #msg-btn').html('<i class="fa fa-warning (alias)"></i> Email is required! &times');
             $('#signup-form #alert-div').addClass('active');
             return false;       
         } 
 
-        if($('#signup-form #password').val()===''){
+        if($('#signup_password').val()===''){
             // e.preventDefault();
             $('#signup-form #msg-btn').html('<i class="fa fa-warning (alias)"></i> Password is required! &times');
             $('#signup-form #alert-div').addClass('active');
             return false;       
         }
 
-        if($('#signup-form #cfm_password').val()===''){
+        if($('#signup_cfm_password').val()===''){
             // e.preventDefault();
             $('#signup-form #msg-btn').html('<i class="fa fa-warning (alias)"></i> Confirm Password is required! &times');
             $('#signup-form #alert-div').addClass('active');
             return false;       
         }
 
-        if($('#signup-form #cfm_password').val()!=='' && $('#signup-form #password').val() !==''){
-            if($('#signup-form #cfm_password').val() !== $('#signup-form #password').val()){
+        if($('#signup_cfm_password').val()!=='' && $('#signup_password').val() !==''){
+            if($('#signup_cfm_password').val() !== $('#signup_password').val()){
                 // e.preventDefault();
                 $('#signup-form #msg-btn').html('<i class="fa fa-warning (alias)"></i> Confirm Password is incorrect!&times');
                 $('#signup-form #alert-div').addClass('active');
@@ -122,9 +122,9 @@ $(document).ready(function(){
     $("#modal_form_signup button[type='submit']").on('click', function(event){
         event.preventDefault(event);
         if(validate_register(event)){
-            var name = $("#signup-form input[name='name']").val();
-            var email = $("#signup-form input[name='email']").val();
-            var password = $("#signup-form input[name='password']").val();
+            var name = $("input[name='signup_name']").val();
+            var email = $("input[name='signup_email']").val();
+            var password = $("input[name='signup_password']").val();
             console.log(name);
             console.log(email);
             console.log(password);
@@ -142,7 +142,10 @@ $(document).ready(function(){
 
                 success:function(response){
                     if(response.success == true){
-                        window.location.href = "/planprices/";
+                        $('#modal_form_signup').modal('hide');
+                        $("#modal_form").modal('show');
+                        $("#login-form #email").val(email);
+                        $("#login-form #password").val(password);
                     } else {
                         $('#signup-form #msg-btn').html(response.message + '&times');
                         $('#signup-form #alert-div').addClass('active');

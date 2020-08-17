@@ -250,7 +250,7 @@
             <div class="modal-content">
                 <div class="modal-body form">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <form action="#" id="form" class="form-horizontal">
+                    <form action="#" id="paymentForm" class="form-horizontal needs-validation" novalidate>
                         {% csrf_token %}
                         <div class="form-body">
                             <div class="form-group">
@@ -274,8 +274,8 @@
                                     </div>
                                     <div class="col-lg-3 col-md-3 col-sm-4 col-4">
                                         <div class="modal-input-group">
-                                            <label class="modal-input-label">Tiers</label> 
-                                            <input name="tires" min="1" max="10" class="form-control" type="number">
+                                            <label class="modal-input-label">Floors</label> 
+                                            <input name="tires" class="form-control" type="number">
                                         </div>
                                     </div>
                                 </div>
@@ -303,7 +303,7 @@
                                         <option>USD - United State's dollars</option>
                                     </select>
                                 </div>        {% endcomment %}
-                                <div class="modal-input-group d-flex justify-content-between mt-63">
+                                <div class="modal-input-group d-flex justify-content-between mt-40">
                                     <label class="modal-input-label">Payment amount</label>
                                     <div class="currency-wrapper">
                                         <span class="currency-unit">$</span>
@@ -313,25 +313,25 @@
                                 <div class="modal-input-group">
                                     <label class="modal-input-label">Name of card</label> 
                                     <div class="mastercard">
-                                        <input name="cardname" placeholder="Name Surname" class="form-control" type="text">
+                                        <input id="name_on_card" name="cardname" placeholder="Name Surname" class="form-control" type="text">
                                         <img src="{% static 'img/mastercard.png' %}">
                                     </div>
                                 </div>                                    
                                 <div class="modal-input-group">
                                     <label class="modal-input-label">Card number</label>
-                                    <input name="cardnumber" placeholder="0000 0000 0000 0000" class="form-control" type="number">
+                                    <input id= "card_number" name="cardnumber" placeholder="0000 0000 0000 0000" class="form-control" type="text">
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6 col-6">
                                         <div class="modal-input-group">
                                             <label class="modal-input-label">Expiry date</label> 
-                                            <input name="expiry_date" placeholder="10 / 22" class="form-control" type="text">
+                                            <input id= "expiry_date" name="expiry_date" maxlength="5" placeholder="MM/YY" class="form-control" type="text">
                                         </div>                                    
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-6">
                                         <div class="modal-input-group">
                                             <label class="modal-input-label">Security code</label> 
-                                            <input name="cvv" placeholder="123" class="form-control" type="text">
+                                            <input id="cvv" name="cvv" maxlength="3" placeholder="123" class="form-control" type="text">
                                         </div>   
                                     </div>
                                 </div>
@@ -376,6 +376,8 @@
         </div><!-- /.modal-dialog -->
     </div>
 </div>
+
+<script src="{% static 'js/jquery.creditCardValidator.js' %}"></script>
 <script src="{% static 'js/order.js' %}"></script>
 
 <script>
@@ -393,7 +395,7 @@ function calc(){
     var product_type = $("#modal_form_order_step2 #product_type").find("option:selected").val();
     var price = 0, discount = 0;
     var tires = $("#modal_form_order_step2 input[name='tires']").val();
-    if(tires <= 0 || tires > 11){
+    if(tires <= 0 || tires > 1000){
         tires = 1; 
         $("#modal_form_order_step2 input[name='tires']").val(tires);
     }
