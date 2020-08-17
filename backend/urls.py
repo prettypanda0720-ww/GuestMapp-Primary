@@ -22,17 +22,36 @@ from order import views as order_views
 from scan import views as scan_views
 from backend import settings
 from django.conf.urls.static import static
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     # admin part
     path('admin/', admin.site.urls),
     
+    url(r'^reset/$',
+        auth_views.PasswordResetView.as_view(
+            template_name='password_reset.html',
+            email_template_name='password_reset_email.html',
+            subject_template_name='password_reset_subject.txt'
+        ),
+        name='password_reset'),
+    url(r'^reset/done/$',
+        auth_views.PasswordResetDoneView.as_view(template_name='password_reset_done.html'),
+        name='password_reset_done'),
+    url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
+        auth_views.PasswordResetConfirmView.as_view(template_name='password_reset_confirm.html'),
+        name='password_reset_confirm'),
+    url(r'^reset/complete/$',
+        auth_views.PasswordResetCompleteView.as_view(template_name='password_reset_complete.html'),
+        name='password_reset_complete'),
+
+
     # api part
     path('api/auth/', include('users.urls')),
     path('api/order/', include('order.urls')),
     path('api/scan/', include('scan.urls')),
     path('api/price/', include('price.urls')),
-
+    path('api/hometype/', include('hometype.urls')),
     # for ajax handler
     path(r'ajax_login/', views.ajax_login, name = "ajax_login"),
     path(r'ajax_register/', views.ajax_register, name = "ajax_register"),

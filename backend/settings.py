@@ -36,14 +36,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    'widget_tweaks',
     # apps
     'order',
     'scan',
     'users',
     'contact',
     'price',
-    
+    'hometype',
     # thirdparty
     'rest_framework',
     'rest_framework.authtoken'
@@ -179,3 +179,14 @@ STATICFILES_DIRS = [
 
 STRIPE_PUBLISHABLE_KEY = 'pk_test_51HDLj6CtzgITtfkbEPLhgC6509Y7unmzkrmumjKgCxm7RIjzuqs0mwijA3uTjVVDYkvyyLdsQRL7rOcUUpPPgeWo00d6iOEhpg'
 STRIPE_SECRET_KEY = 'sk_test_51HDLj6CtzgITtfkbhTDhdQv1p4fq5MlC3i2MVWc25nx3PgsIb5pyX0D4MW2FogfOGcSP71eARYhPmDojevP7JT9j00giiscnFT'
+
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='')
+DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='')
+SERVER_EMAIL = config('SERVER_EMAIL', default='')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
+EMAIL_TIMEOUT=60
