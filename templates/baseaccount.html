@@ -11,8 +11,8 @@
     <title>GuestMapp</title>
 
     <!-- Google Font -->
-<!--     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700,800,900&display=swap"
-        rel="stylesheet"> -->
+    <!--     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700,800,900&display=swap"
+            rel="stylesheet"> -->
 
     <!-- Css Styles -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
@@ -25,151 +25,156 @@
 </head>
 
 <body>
-    <!-- Page Preloder -->
-    <div id="preloder">
-        <div class="loader"></div>
-    </div>
+<!-- Page Preloder -->
+<div id="preloder">
+    <div class="loader"></div>
+</div>
 
-    <!-- Offcanvas Menu Begin -->
-    <div class="offcanvas__menu__overlay"></div>
-    <div class="offcanvas__menu__wrapper">
-        <div class="canvas__close">
-            <span class="fa fa-times-circle-o"></span>
-        </div>
-        <div class="offcanvas__logo">
-            <a href="{% url 'home' %}"><img src="{% static 'img/logo.png' %}" alt=""></a>
-        </div>
-        <nav class="offcanvas__menu mobile-menu">
-            <ul>
-                <li><a href="{% url 'ownguestmapp' %}">Your Guestmaps</a></li>
-                <li><a href="#">Contact to support</a></li>
-            </ul>
-        </nav>
-        <div id="mobile-menu-wrap"></div>
-        <div class="offcanvas__auth">
-            <ul>
-                <li><a href="{% url 'ajax_logout' %}">Logout</a></li>
-            </ul>
-        </div>
+<!-- Offcanvas Menu Begin -->
+<div class="offcanvas__menu__overlay"></div>
+<div class="offcanvas__menu__wrapper">
+    <div class="canvas__close">
+        <span class="fa fa-times-circle-o"></span>
     </div>
-    <!-- Offcanvas Menu End -->
+    <div class="offcanvas__logo">
+        <a href="{% url 'home' %}"><img src="{% static 'img/logo.png' %}" alt=""></a>
+    </div>
+    <nav class="offcanvas__menu mobile-menu">
+        <ul>
+            <li><a href="{% url 'ownguestmapp' %}">Your Guestmaps</a></li>
+            <li><a href="#">Contact to support</a></li>
+        </ul>
+    </nav>
+    <div id="mobile-menu-wrap"></div>
+    <div class="offcanvas__auth">
+        <ul>
+            <li><a href="{% url 'ajax_logout' %}">Logout</a></li>
+        </ul>
+    </div>
+</div>
+<!-- Offcanvas Menu End -->
 
-    <!-- Header Section Begin -->
-    <header class="header-section">
-        <div class="header__info">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 col-md-6">
-                        <div class="header__info-left">
-                            <ul>
-                                <li><a href="{% url 'ownguestmapp' %}">Your Guestmaps</a></li>
-                                <li><a href="#" id="contact_support_btn">Contact to support</a></li>
-                            </ul>
-                        </div>
+<!-- Header Section Begin -->
+<header class="header-section">
+    <div class="header__info">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <div class="header__info-left">
+                        <ul>
+                            <li><a href="{% url 'ownguestmapp' %}">Your Guestmaps</a></li>
+                            <li><a href="#" id="contact_support_btn">Contact to support</a></li>
+                        </ul>
                     </div>
-                    <div class="col-lg-6 col-md-6">
-                        <div class="header__info-right">
-                            <ul>
-                                <li>
-                                    <img src="{% static 'img/user-avatar.png' %}">
-                                </li>
-                                <li>
-                                    <a href="{% url 'ajax_logout' %}" >Logout</a>
-                                </li>
-                            </ul>
-                        </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="header__info-right">
+                        <ul>
+                            <li>
+                                <img src="{% static 'img/user-avatar.png' %}">
+                            </li>
+                            <li>
+                                <a href="{% url 'ajax_logout' %}">Logout</a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
-    </header>
-    <!-- Header End -->
+    </div>
+</header>
+<!-- Header End -->
 
-    {% block main %}
-    {% endblock main%}
+{% block main %}
+{% endblock main%}
 
-    <!-- Footer Section Begin -->
-    <footer class="footer-section">
-        <div class="footer__text set-bg" data-setbg="{% static 'img/footer-bg.png' %}">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-3 col-md-3 col-sm-12 col-12">
-                        <div class="footer__text-about">
-                            <div class="footer__logo">
-                                <a href="/"><img src="{% static 'img/footer-logo.png' %}" alt=""></a>
-                            </div>
-                            <p class="mt-18">Create perfect floor plans for your guest</p>
+<!-- Footer Section Begin -->
+<footer class="footer-section">
+    <div class="footer__text set-bg" data-setbg="{% static 'img/footer-bg.png' %}">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-12 col-12">
+                    <div class="footer__text-about">
+                        <div class="footer__logo">
+                            <a href="/"><img src="{% static 'img/footer-logo.png' %}" alt=""></a>
                         </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                        <img src="{% static 'img/footer-main.png' %}" alt="">
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-sm-12 col-12">
-                        <div class="footer__text-about">
-                            <p class="mt-18">Create perfect floor plans for your guest</p>
-                            <div class="footer__social">
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-youtube-play"></i></a>
-                                <a href="#"><i class="fa fa-instagram"></i></a>
-                            </div>
-                        </div>
+                        <p class="mt-18">Create perfect floor plans for your guest</p>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 d-flex justify-content-center">
-                        <p class="footer__text-copyright">
-                            © GuestMapp. All rights reserved.<br/>
-                            1111 Finch Avenue West, Toronto, Canada
-                        </p>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                    <img src="{% static 'img/footer-main.png' %}" alt="">
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-12 col-12">
+                    <div class="footer__text-about">
+                        <p class="mt-18">Create perfect floor plans for your guest</p>
+                        <div class="footer__social">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-youtube-play"></i></a>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 d-flex justify-content-center">
+                    <p class="footer__text-copyright">
+                        © GuestMapp. All rights reserved.<br/>
+                        1111 Finch Avenue West, Toronto, Canada
+                    </p>
+                </div>
+            </div>
         </div>
-    </footer>
-    <!-- Footer Section End -->
+    </div>
+</footer>
+<!-- Footer Section End -->
 
-    <!-- Js Plugins -->
-    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'js/jquery.slicknav.js' %}"></script>
-    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
-    <script src="{% static 'js/main.js' %}"></script>
+<!-- Js Plugins -->
+<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/jquery.slicknav.js' %}"></script>
+<script src="{% static 'js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
 
-    <div class="modal" id="modal_form_contact" data-keyboard="false" data-backdrop="static" role="dialog">
-        <div class="d-flex justify-content-center align-items-center">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-body form">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <form action="#" id="contact-support-form" class="form-horizontal">
-                            {% csrf_token %}
-                            <div class="form-body">
-                                <div class="form-group">
-                                    <label class="modal-title">Contact for support</label>
-                                    <div class="modal-input-group mt-36">
-                                        <label class="modal-input-label">Your email</label>
-                                        <input id="con_email" name="contact_email" placeholder="email" class="form-control" type="email">
-                                    </div>                                    
-                                    <div class="modal-input-group">
-                                        <label class="modal-input-label">Write your message here</label> 
-                                        <input id="con_message" name="contact_message" placeholder="message" class="form-control" type="textarea">
-                                    </div>
+<div class="modal" id="modal_form_contact" data-keyboard="false" data-backdrop="static" role="dialog">
+    <div class="d-flex justify-content-center align-items-center">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body form">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <form action="#" id="contact-support-form" class="form-horizontal">
+                        {% csrf_token %}
+                        <div class="form-body">
+                            <div class="form-group">
+                                <label class="modal-title">Contact for support</label>
+                                <div class="modal-input-group mt-36">
+                                    <label class="modal-input-label">Your email</label>
+                                    <input id="con_email" name="contact_email" placeholder="email" class="form-control"
+                                           type="email">
                                 </div>
-                                <div class="alert alert-danger" id="alert-div">
-                                    <button id="msg-btn" type="button" class="close">&times;</button>
+                                <div class="modal-input-group">
+                                    <label class="modal-input-label">Write your message here</label>
+                                    <input id="con_message" name="contact_message" placeholder="message"
+                                           class="form-control" type="textarea">
                                 </div>
                             </div>
-                            {% comment %} <button type="submit" id="blueprint-upload-btn" class="btn green-btn mt-40">Upload</button> {% endcomment %}
-                            <a href="#" class="btn green-btn">Send message</a>
-                        </form>
-                    </div>
+                            <div class="alert alert-danger" id="alert-div">
+                                <button id="msg-btn" type="button" class="close">&times;</button>
+                            </div>
+                        </div>
+                        {% comment %}
+                        <button type="submit" id="blueprint-upload-btn" class="btn green-btn mt-40">Upload</button>
+                        {% endcomment %}
+                        <a href="#" class="btn green-btn">Send message</a>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-    {% block script %}
-    {% endblock script %}
+</div>
+{% block script %}
+{% endblock script %}
 </body>
 
 </html>

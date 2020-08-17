@@ -4,11 +4,9 @@ from rest_framework import status
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
 from users.models import User
 from price.models import Price
 from users.serializers import LoginSerializer, SignUpSerializer
-
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import logout
 from users.backends import authenticate
@@ -17,9 +15,6 @@ from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponse, JsonResponse
 from order.models import Order
 
-# stripe and env file
-from decouple import config
-import stripe
 
 class Login(ObtainAuthToken):
     serializer_class = LoginSerializer
@@ -28,9 +23,9 @@ class Login(ObtainAuthToken):
         return self.serializer_class()
 
     def post(self, request, *args, **kwargs):
-        
+
         serializer = self.serializer_class(data=request.data)
-        
+
         if serializer.is_valid():
             print("valid")
             user = User.objects.get(email=serializer.validated_data['email'])
@@ -153,29 +148,28 @@ class Update(APIView):
             }, status.HTTP_200_OK)
 
 
-
 def ajax_login(request):
     if request.method == 'POST':
         username = request.POST.get('email', '').strip()
         password = request.POST.get('password', '').strip()
-        
+
         if username and password:
             user = authenticate(username=username, password=password)
-            
+
             if user is not None:
                 if user.is_active:
                     auth_login(request, user, backend='users.backends.EmailOrUsernameModelBackend')
                     try:
-                        order = Order.objects.filter(user = request.user)
+                        order = Order.objects.filter(user=request.user)
                     except Order.DoesNotExist:
                         order = None
-                    
+
                     if order is not None:
                         exist_order = True
                     else:
                         exist_order = False
 
-                    data = {'success': True, 'order':exist_order}
+                    data = {'success': True, 'order': exist_order}
                 else:
                     data = {'success': False, 'message': 'User is not active'}
             else:
@@ -183,12 +177,13 @@ def ajax_login(request):
 
     return JsonResponse(data)
 
+
 def ajax_register(request):
     if request.method == 'POST':
         username = request.POST.get('username', '').strip()
         password = request.POST.get('password', '').strip()
         email = request.POST.get('email', '').strip()
-        
+
         if username and password:
             user = authenticate(username=username, password=password)
             if user is not None:
@@ -198,54 +193,59 @@ def ajax_register(request):
                     User.objects.create_user(username, email, password)
                     user = authenticate(username=username, password=password)
                     auth_login(request, user)
-                    
+
                 except:
                     data = {'success': False, 'message': 'Unexpected error occured.'}
-                
+
                 data = {'success': True, 'message': 'User create successfully'}
 
     return JsonResponse(data)
+
 
 def ajax_logout(request):
     logout(request)
 
     return redirect('home')
 
+
 def home(request):
     order = None
     if request.user.is_authenticated:
         try:
-            order = Order.objects.filter(user = request.user)
+            order = Order.objects.filter(user=request.user)
         except Order.DoesNotExist:
             order = None
 
-    return render(request, 'home.html', {'order':order})
+    return render(request, 'home.html', {'order': order})
+
 
 @login_required
 def guestmapp(request):
-    orders =  Order.objects.filter(user=request.user)
+    orders = Order.objects.filter(user=request.user)
     order_exist = False
     if orders.__len__():
         order_exist = True
-    
+
     order_completed = False
-    orders_completed =  Order.objects.filter(user=request.user, status =3)
+    orders_completed = Order.objects.filter(user=request.user, status=3)
     if orders_completed:
         order_completed = True
-    
+
     order_progress = False
     for order in orders:
-        if order.status == 0 or order.status ==1:
+        if order.status == 0 or order.status == 1:
             if order.getImageUrl != "":
                 order_progress = True
                 break
-    
-    return render(request, 'guestmapp.html', { 'orders' : orders, 'order_exist' : order_exist, \
-        'order_completed':order_completed, 'order_progress':order_progress, 'user': request.user})
+
+    return render(request, 'guestmapp.html', {'orders': orders, 'order_exist': order_exist, \
+                                              'order_completed': order_completed, 'order_progress': order_progress,
+                                              'user': request.user})
+
 
 @login_required
 def planprices(request):
-    orders =  Order.objects.filter(user=request.user)
+    orders = Order.objects.filter(user=request.user)
     prices = Price.objects.all()
     firstUser = 0
     if request.user.isFirstUser:
@@ -254,17 +254,19 @@ def planprices(request):
     order_exist = False
     if orders.__len__():
         order_exist = True
-    return render(request, 'planprices.html', 
-        {'order_exist' : order_exist, 'prices':prices, 'isFirstUser':firstUser})
+    return render(request, 'planprices.html',
+                  {'order_exist': order_exist, 'prices': prices, 'isFirstUser': firstUser})
+
 
 @login_required
 def ownguestmapp(request):
-    orders =  Order.objects.filter(user=request.user).filter(Q(status = 3)|Q(status = 5))
+    orders = Order.objects.filter(user=request.user).filter(Q(status=3) | Q(status=5))
     order_exist = False
 
     if orders.__len__():
         order_exist = True
-    return render(request, 'ownguestmapp.html', { 'orders' : orders})
+    return render(request, 'ownguestmapp.html', {'orders': orders})
+
 
 @login_required
 def newpassword(request):

@@ -101,27 +101,27 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 #     }
 # }
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'guestmapps',  # dbname
-        'USER': 'guestmapp',  # master username
-        'PASSWORD': 'guestmapp',  # master password
-        'HOST': 'localhost',  # Endpoint
-        'PORT': '3306',
-    }
-}
-
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
 #         'NAME': 'guestmapps',  # dbname
-#         'USER': 'root',  # master username
-#         'PASSWORD': '',  # master password
+#         'USER': 'guestmapp',  # master username
+#         'PASSWORD': 'guestmapp',  # master password
 #         'HOST': 'localhost',  # Endpoint
 #         'PORT': '3306',
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'guestmapps',  # dbname
+        'USER': 'root',  # master username
+        'PASSWORD': '',  # master password
+        'HOST': 'localhost',  # Endpoint
+        'PORT': '3306',
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -168,9 +168,9 @@ LOGOUT_REDIRECT_URL = 'home'
 
 STATIC_URL = '/static/'
 
-BASE_URL = 'http://162.214.124.207:8000'
-# BASE_URL = 'http://127.0.0.1:8000'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') 
+# BASE_URL = 'http://162.214.124.207:8000'
+BASE_URL = 'http://127.0.0.1:8000'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 STATICFILES_DIRS = [
@@ -189,4 +189,4 @@ EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='')
 DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='')
 SERVER_EMAIL = config('SERVER_EMAIL', default='')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
-EMAIL_TIMEOUT=60
+EMAIL_TIMEOUT = 60

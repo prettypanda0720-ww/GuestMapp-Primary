@@ -2,6 +2,7 @@ from django.db import models
 from backend import settings
 from order.models import Order
 
+
 # Create your models here.
 class ScanTable(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, blank=True, null=True)
@@ -49,7 +50,7 @@ class ScanDetailsTable(models.Model):
             'scanDetailImageRaw': settings.BASE_URL + self.scanDetailImageRaw.url if self.scanDetailImageRaw else None,
             'scanDetailImageUrl': self.scanDetailImageUrl
         }
-    
+
     def array_to_dict(scans):
         details = []
         for ascan in scans:
@@ -62,6 +63,7 @@ class ScanDetailsTable(models.Model):
             }
             details.append(temp)
         return details
+
 
 class Photo(models.Model):
     title = models.CharField(max_length=255, blank=True)

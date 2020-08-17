@@ -1,17 +1,16 @@
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
-
 from users.models import User
 
 
 class LoginSerializer(serializers.Serializer):
     email = serializers.EmailField()
     password = serializers.CharField()
-    
+
     def validate(self, attrs):
         email = attrs.get('email')
         password = attrs.get('password')
-        
+
         if email and password:
             print(email)
             try:

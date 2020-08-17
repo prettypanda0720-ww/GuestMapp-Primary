@@ -16,6 +16,7 @@ from order.serializers import OrderSerializer
 from decouple import config
 import stripe
 
+
 class OrderViewSet(ModelViewSet):
     http_method_names = ['post', 'get']
     serializer_class = OrderSerializer
@@ -30,10 +31,10 @@ class OrderViewSet(ModelViewSet):
         for order in orders:
             query = order.to_dict()
             try:
-                scans = ScanTable.objects.get(order = order.id)
-                query.update({"scan":scans.to_dict()})
+                scans = ScanTable.objects.get(order=order.id)
+                query.update({"scan": scans.to_dict()})
             except:
-                query.update({"scan":{}})
+                query.update({"scan": {}})
             orderses.append(query)
 
         return JsonResponse({
@@ -46,7 +47,7 @@ class OrderViewSet(ModelViewSet):
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        
+
         order = serializer.save(user=request.user)
         billing = Billing.objects.get(order=order)
         if int(request.data['productType']) < 0 or int(request.data['productType']) > 4:
@@ -60,7 +61,7 @@ class OrderViewSet(ModelViewSet):
         try:
             stripe.api_key = settings.STRIPE_SECRET_KEY
             customer = stripe.Customer.create(
-                email = order.user.email,
+                email=order.user.email,
                 description="Customer",
             )
             billing_str = billing.expiry_date
@@ -68,11 +69,11 @@ class OrderViewSet(ModelViewSet):
             if exp_date.__len__() != 2:
                 order.delete()
                 return JsonResponse({
-                'success': False,
-                'message': 'Fail to create order cause dating input format is wrong. Expected format is XX/XX',
-                'errCode': -1,
-                'data': None,
-            })
+                    'success': False,
+                    'message': 'Fail to create order cause dating input format is wrong. Expected format is XX/XX',
+                    'errCode': -1,
+                    'data': None,
+                })
             token = stripe.Token.create(
                 card={
                     "number": billing.card_number,
@@ -97,10 +98,10 @@ class OrderViewSet(ModelViewSet):
                 source=token,
             )
             stripe.Charge.create(
-                customer = customer.id,
-                amount = product_price,
-                currency = 'usd',
-                description = 'description'
+                customer=customer.id,
+                amount=product_price,
+                currency='usd',
+                description='description'
             )
             # 
             transfer = stripe.Transfer.create(
@@ -116,10 +117,10 @@ class OrderViewSet(ModelViewSet):
             user = request.user
             user.isFirstUser = False
             user.save()
-            
+
         except stripe.error.StripeError as e:
             body = e.json_body
-            err  = body['error']
+            err = body['error']
             order.delete()
             return JsonResponse({
                 'success': False,
@@ -141,8 +142,8 @@ class OrderCommit(APIView):
 
     def post(self, request, *args, **kwargs):
         order_id = self.request.data['order_id']
-        status = self.request.data['status'] 
-        order = get_object_or_404(Order, pk = order_id)
+        status = self.request.data['status']
+        order = get_object_or_404(Order, pk=order_id)
         order.status = status
         order.save()
         return JsonResponse({
@@ -151,6 +152,7 @@ class OrderCommit(APIView):
             'errCode': -1,
             'data': None
         })
+
 
 @login_required
 def payout(request):
@@ -163,7 +165,7 @@ def payout(request):
         card_number = request.POST.get('card_number', '').strip()
         cvv = request.POST.get('cvv', '').strip()
         expiry_date = request.POST.get('expiry_date', '').strip()
-        
+
         product_price = int(float(price) * 100)
 
         order = Order()
@@ -187,7 +189,7 @@ def payout(request):
         try:
             stripe.api_key = settings.STRIPE_SECRET_KEY
             customer = stripe.Customer.create(
-                email = order.user.email,
+                email=order.user.email,
                 description="Customer",
             )
             billing_str = billing.expiry_date
@@ -195,11 +197,11 @@ def payout(request):
             if exp_date.__len__() != 2:
                 order.delete()
                 return JsonResponse({
-                'success': False,
-                'message': 'Fail to create order cause dating input format is wrong. Expected format is XX/XX',
-                'errCode': -1,
-                'data': None,
-            })
+                    'success': False,
+                    'message': 'Fail to create order cause dating input format is wrong. Expected format is XX/XX',
+                    'errCode': -1,
+                    'data': None,
+                })
             token = stripe.Token.create(
                 card={
                     "number": billing.card_number,
@@ -208,18 +210,18 @@ def payout(request):
                     "cvc": str(billing.cvv),
                 },
             )
-            
+
             stripe.Customer.create_source(
                 customer.id,
                 source=token,
             )
             stripe.Charge.create(
-                customer = customer.id,
-                amount = product_price,
-                currency = 'usd',
-                description = 'description'
+                customer=customer.id,
+                amount=product_price,
+                currency='usd',
+                description='description'
             )
-            
+
             transfer = stripe.Transfer.create(
                 amount=product_price,
                 currency="usd",
@@ -232,11 +234,11 @@ def payout(request):
             user = request.user
             user.isFirstUser = False
             user.save()
-            
+
         except stripe.error.StripeError as e:
             body = e.json_body
-            
-            err  = body['error']
+
+            err = body['error']
             order.delete()
             return JsonResponse({
                 'success': False,
