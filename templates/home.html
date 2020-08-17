@@ -505,72 +505,72 @@
             </div><!-- /.modal-dialog -->
         </div>
     </div><!-- /.modal -->
-    <!-- Signup modal -->
-    <div class="modal" id="modal_form_signup" data-keyboard="false" data-backdrop="static" role="dialog" style="display: none;">
-        <div class="d-flex justify-content-center align-items-center">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-body form">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <form action="#" id="signup-form" class="form-horizontal">
-                            {% csrf_token %}
-                            <div class="form-body">
-                                <div class="form-group">
-                                    <span class="fa fa-arrow-left back-btn" onclick="doLogin()"></span>
-                                    <label class="modal-title ml-20">Create account</label>
-                                    <div class="modal-input-group mt-10">
-                                        <label class="modal-input-label">First and Last name</label> 
-                                        <input id="signup_name" name="signup_name" placeholder="Name" class="form-control" type="text">
-                                    </div>                                    
-                                    <div class="modal-input-group">
-                                        <label class="modal-input-label">Your email</label> 
-                                        <input id="signup_email" name="signup_email" placeholder="Email" class="form-control" type="email">
-                                    </div>                                    
-                                    <div class="modal-input-group">
-                                        <label class="modal-input-label">Your password</label> 
-                                        <input id="signup_password" name="signup_password" placeholder="Password" class="form-control" type="password">
-                                    </div>                                    
-                                    <div class="modal-input-group">
-                                        <label class="modal-input-label">Confirm password</label> 
-                                        <input id="signup_cfm_password" name="signup_cfm_password" placeholder="Confirm password" class="form-control" type="password">
-                                    </div>
-                                </div>
+</div>
+<!-- Signup modal -->
+<div class="modal" id="modal_form_signup" data-keyboard="false" data-backdrop="static" role="dialog" style="display: none;">
+    <div class="d-flex justify-content-center align-items-center">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body form">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <form action="#" id="signup-form" class="form-horizontal">
+                        {% csrf_token %}
+                        <div class="form-body">
+                            <div class="form-group">
+                                <span class="fa fa-arrow-left back-btn" onclick="doLogin()"></span>
+                                <label class="modal-title ml-20">Create account</label>
+                                <div class="modal-input-group mt-10">
+                                    <label class="modal-input-label">First and Last name</label> 
+                                    <input id="signup_name" name="signup_name" placeholder="Name" class="form-control" type="text">
+                                </div>                                    
                                 <div class="modal-input-group">
-                                    <label class="modal-input-label">Your email</label>
-                                    <input id="email" name="email" placeholder="Email" class="form-control"
-                                           type="email">
-                                </div>
+                                    <label class="modal-input-label">Your email</label> 
+                                    <input id="signup_email" name="signup_email" placeholder="Email" class="form-control" type="email">
+                                </div>                                    
                                 <div class="modal-input-group">
-                                    <label class="modal-input-label">Your password</label>
-                                    <input id="password" name="password" placeholder="Password" class="form-control"
-                                           type="password">
-                                </div>
+                                    <label class="modal-input-label">Your password</label> 
+                                    <input id="signup_password" name="signup_password" placeholder="Password" class="form-control" type="password">
+                                </div>                                    
                                 <div class="modal-input-group">
-                                    <label class="modal-input-label">Confirm password</label>
-                                    <input id="cfm_password" name="title" placeholder="Confirm password"
-                                           class="form-control" type="password">
+                                    <label class="modal-input-label">Confirm password</label> 
+                                    <input id="signup_cfm_password" name="signup_cfm_password" placeholder="Confirm password" class="form-control" type="password">
                                 </div>
                             </div>
-                            <div class="alert alert-danger" id="alert-div">
-                                <button id="msg-btn" type="button" class="close">&times;</button>
+                            <div class="modal-input-group">
+                                <label class="modal-input-label">Your email</label>
+                                <input id="email" name="email" placeholder="Email" class="form-control"
+                                        type="email">
+                            </div>
+                            <div class="modal-input-group">
+                                <label class="modal-input-label">Your password</label>
+                                <input id="password" name="password" placeholder="Password" class="form-control"
+                                        type="password">
+                            </div>
+                            <div class="modal-input-group">
+                                <label class="modal-input-label">Confirm password</label>
+                                <input id="cfm_password" name="title" placeholder="Confirm password"
+                                        class="form-control" type="password">
                             </div>
                         </div>
-                        <button type="submit" class="btn green-btn mt-30" aria-label="Close" id="signup-btn">Next<span
-                                class="loader"></span></button>
-                    </form>
-                    <p class="mt-15">If you already have an account, please <a href="#" onclick="doLogin()">login</a>
-                    </p>
-                </div>
-                <div class="modal-footer">
-                    <p>Or log in with</p>
-                    <div class="mt-15">
-                        <a class="mr-10" onclick=""><img src="{% static 'img/google.png' %}"></a>
-                        <a class="ml-10" onclick=""><img src="{% static 'img/facebook.png' %}"></a>
+                        <div class="alert alert-danger" id="alert-div">
+                            <button id="msg-btn" type="button" class="close">&times;</button>
+                        </div>
                     </div>
+                    <button type="submit" class="btn green-btn mt-30" aria-label="Close" id="signup-btn">Next<span
+                            class="loader"></span></button>
+                </form>
+                <p class="mt-15">If you already have an account, please <a href="#" onclick="doLogin()">login</a>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <p>Or log in with</p>
+                <div class="mt-15">
+                    <a class="mr-10" onclick=""><img src="{% static 'img/google.png' %}"></a>
+                    <a class="ml-10" onclick=""><img src="{% static 'img/facebook.png' %}"></a>
                 </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
 
