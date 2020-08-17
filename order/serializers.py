@@ -1,8 +1,7 @@
-from django.shortcuts import get_object_or_404, render, redirect
 from rest_framework import serializers
 from order.models import Order, Billing
-from price.models import Price
 from datetime import datetime
+
 
 class OrderSerializer(serializers.Serializer):
     productType = serializers.IntegerField()
@@ -13,12 +12,11 @@ class OrderSerializer(serializers.Serializer):
     card_number = serializers.CharField()
     cvv = serializers.IntegerField()
     expiry_date = serializers.CharField()
-    
 
     def save(self, user):
         order = Order()
         order.user = user
-        
+
         order.product_type = self.validated_data['productType']
         order.metadata = self.validated_data['metadata']
         order.tires = self.validated_data['tires']
