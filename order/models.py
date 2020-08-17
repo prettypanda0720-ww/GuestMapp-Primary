@@ -1,6 +1,6 @@
 from django.db import models
 from users.models import User
-from price.models import Price
+
 
 class Order(models.Model):
     """
@@ -15,7 +15,7 @@ class Order(models.Model):
     )
     product_type = models.IntegerField(default=0, choices=choices)
     # selected_theme = models.IntegerField()
-    metadata = models.CharField(max_length=1024,null = True)
+    metadata = models.CharField(max_length=1024, null=True)
     tires = models.IntegerField()
     currency = models.CharField(max_length=10)
     price = models.FloatField(blank=True, null=True)
@@ -56,32 +56,33 @@ class Order(models.Model):
             'createdTime': self.created_date,
             'completedTime': self.completed_date,
         }
+
     def getImageUrl(self):
         from scan.models import ScanTable
         scan, created = ScanTable.objects.get_or_create(order=self)
         return scan.scanImageUrl
-    
+
     def getProjectTitle(self):
         from scan.models import ScanTable
         scan, created = ScanTable.objects.get_or_create(order=self)
         return scan.title
 
     def productTitle(self):
-        productType={
-            0:'Blueprint',
-            1:'Themed 3D staging',
-            2:'Custom interio design 3D',
-            3:'Custom mobile home 3D'
+        productType = {
+            0: 'Blueprint',
+            1: 'Themed 3D staging',
+            2: 'Custom interio design 3D',
+            3: 'Custom mobile home 3D'
         }
         return productType.get(self.product_type)
 
     def productImage(self):
-        
-        productImage={
-            0:'blueprint',
-            1:'eyeview',
-            2:'custom3d',
-            3:'custom3d'
+
+        productImage = {
+            0: 'blueprint',
+            1: 'eyeview',
+            2: 'custom3d',
+            3: 'custom3d'
         }
         return productImage.get(self.product_type)
 
@@ -97,7 +98,7 @@ class Billing(models.Model):
 
     class Meta:
         db_table = 'billing'
-    
+
     def __str__(self):
         return "billing" + str(self.id)
 

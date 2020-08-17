@@ -1,12 +1,13 @@
 from django.db import models
 from backend import settings
 
+
 # Create your models here.
 class HomeType(models.Model):
-    title = models.CharField(max_length=255,blank=True, null=True)
+    title = models.CharField(max_length=255, blank=True, null=True)
     image = models.ImageField(upload_to='hometype', blank=True, null=True)
-    model = models.CharField(max_length=255,blank=True, null=True)
-    manufacture = models.CharField(max_length=255,blank=True, null=True)
+    model = models.CharField(max_length=255, blank=True, null=True)
+    manufacture = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
         db_table = "hometype"

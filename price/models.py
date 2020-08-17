@@ -1,8 +1,7 @@
 from django.db import models
 
+
 # Create your models here.
-
-
 class Price(models.Model):
     title = models.CharField(max_length=255)
     price = models.FloatField()
@@ -11,7 +10,7 @@ class Price(models.Model):
 
     class Meta:
         db_table = 'price'
-    
+
     def to_dict(self):
         return {
             'id': self.id,
@@ -20,5 +19,3 @@ class Price(models.Model):
             'old_price': self.old_price,
             'unit': self.unit,
         }
-    
-    

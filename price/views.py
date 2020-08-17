@@ -1,17 +1,10 @@
-from django.shortcuts import render
-from django.http import JsonResponse, HttpResponse
-from django.conf import settings
-from django.views.decorators.csrf import csrf_exempt
-from django.views.generic.base import TemplateView
+from django.http import JsonResponse
 from price.models import Price
 from price.serializers import PriceSerializer
-
-# Create your views here.
 from rest_framework import status, permissions
-from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
-
+# Create your views here.
 class PriceViewSet(ModelViewSet):
     http_method_names = ['post', 'get']
     serializer_class = PriceSerializer
@@ -27,7 +20,7 @@ class PriceViewSet(ModelViewSet):
             "success": True,
             "message": "success to get price list",
             "errCode": -1,
-            "data": [ price.to_dict() for price in prices ]  
+            "data": [price.to_dict() for price in prices]
         }, status=status.HTTP_200_OK)
 
     def create(self, request, *args, **kwargs):

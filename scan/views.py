@@ -1,11 +1,9 @@
 # Create your views here.
 from django.http import JsonResponse
 from rest_framework import status, permissions
-from rest_framework.decorators import action
 from rest_framework.viewsets import ModelViewSet
 
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404, render, redirect
 from order.models import Order
 from scan.models import ScanTable, ScanDetailsTable, Photo
 from scan.serializers import ScanTableSerializer, ScanDetailsTableSerializer
@@ -13,6 +11,7 @@ from .forms import PhotoForm
 from backend import settings
 from datetime import datetime
 import time
+
 
 class ScanTableApiViewSet(ModelViewSet):
     """
@@ -118,6 +117,7 @@ class ScanDetailsTableApiViewSet(ModelViewSet):
             'data': None
         })
 
+
 @login_required
 def ProgressBarUpload(request):
     time.sleep(1)
@@ -149,7 +149,7 @@ def uploadscan(request):
             imageUrl = airbnb
         elif google_drive:
             imageUrl = google_drive
-        
+
         if imageUrl == '':
             data = {'success': False, 'message': None}
             return JsonResponse(data)
@@ -165,15 +165,16 @@ def uploadscan(request):
         else:
             scan.scanImageUrl = imageUrl
 
-        scan.save()  
+        scan.save()
         data = {'success': True, 'message': 'scan has uploaded successfully'}
 
     return JsonResponse(data)
 
+
 @login_required
 def uploadscandetail(request):
     data = {'success': False, 'message': None}
-    if request.method == 'POST' : 
+    if request.method == 'POST':
         rawImageUrl = request.POST.get('rawImageUrl', '').strip()
         scanid = request.POST.get('scanid', '').strip()
         airbnb = request.POST.get('airbnb', '').strip()
@@ -185,11 +186,11 @@ def uploadscandetail(request):
             imageUrl = airbnb
         elif google_drive:
             imageUrl = google_drive
-        
+
         if imageUrl == '' or scanid == '':
             data = {'success': False, 'message': None}
             return JsonResponse(data)
-        
+
         scandetail = ScanDetailsTable()
         scandetail.scan = ScanTable.get_scan(scanid)
 
@@ -199,9 +200,10 @@ def uploadscandetail(request):
         else:
             scandetail.scanDetailImageUrl = imageUrl
         scandetail.save()
-        data = {'success': True, "scandetail":scandetail.to_dict(), 'message': 'scan detail has uploaded successfully'}
+        data = {'success': True, "scandetail": scandetail.to_dict(), 'message': 'scan detail has uploaded successfully'}
 
     return JsonResponse(data)
+
 
 @login_required
 def uploadtitle(request):
@@ -217,9 +219,11 @@ def uploadtitle(request):
         scan.title = productTitle
         scan.save()
         productType = order.product_type
-        data = {'success': True, 'type': productType,"scan":scan.to_dict(),  'message': 'scan has uploaded successfully'}
+        data = {'success': True, 'type': productType, "scan": scan.to_dict(),
+                'message': 'scan has uploaded successfully'}
 
     return JsonResponse(data)
+
 
 @login_required
 def uploadDetialTitle(request):
@@ -230,14 +234,15 @@ def uploadDetialTitle(request):
     if request.method == 'POST':
         scanDetailId = request.POST.get('scanDetailId', '').strip()
         productDetailTitle = request.POST.get('productDetailTitle', '').strip()
-        
-        scanDetail = ScanDetailsTable.objects.get(id = scanDetailId)
+
+        scanDetail = ScanDetailsTable.objects.get(id=scanDetailId)
         scanDetail.title = productDetailTitle
         scanDetail.save()
-        
+
         data = {'success': True, 'message': 'scanDetails has uploaded successfully'}
 
     return JsonResponse(data)
+
 
 @login_required
 def removeDetail(request):
@@ -250,7 +255,8 @@ def removeDetail(request):
         scanDetail = ScanDetailsTable.objects.get(id=detailId)
         scanDetail.delete()
         data = {'success': True, 'message': 'Details successfully removed!'}
-    return JsonResponse(data)   
+    return JsonResponse(data)
+
 
 @login_required
 def getDatailbyId(request):
@@ -260,10 +266,12 @@ def getDatailbyId(request):
 
     if request.method == 'POST':
         scan_id = request.POST.get('scan_id', '').strip()
-        scanDetails = ScanDetailsTable.objects.filter(scan = ScanTable.get_scan(scan_id))
-        
-        data = {'success': True, "details":ScanDetailsTable.array_to_dict(scanDetails), 'message': 'Details with respect to scan id successfully retrived!'}
+        scanDetails = ScanDetailsTable.objects.filter(scan=ScanTable.get_scan(scan_id))
+
+        data = {'success': True, "details": ScanDetailsTable.array_to_dict(scanDetails),
+                'message': 'Details with respect to scan id successfully retrived!'}
     return JsonResponse(data)
+
 
 @login_required
 def orderReady(request):
@@ -277,8 +285,9 @@ def orderReady(request):
         order.save()
         scan, created = ScanTable.objects.get_or_create(order=order)
 
-        data = {'success': True,"scan":scan.to_dict(),  'message': 'Order status updated to ready!'}
+        data = {'success': True, "scan": scan.to_dict(), 'message': 'Order status updated to ready!'}
     return JsonResponse(data)
+
 
 @login_required
 def orderConfirmed(request):
@@ -293,5 +302,5 @@ def orderConfirmed(request):
         order.save()
         scan, created = ScanTable.objects.get_or_create(order=order)
 
-        data = {'success': True,"scan":scan.to_dict(),  'message': 'Order status updated to ready!'}
+        data = {'success': True, "scan": scan.to_dict(), 'message': 'Order status updated to ready!'}
     return JsonResponse(data)

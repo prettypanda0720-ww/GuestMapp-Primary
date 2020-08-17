@@ -1,6 +1,5 @@
-from django.conf import settings
 from users.models import User
-from datetime import timedelta, date
+
 
 def authenticate(username=None, password=None):
     if '@' in username:
@@ -14,6 +13,7 @@ def authenticate(username=None, password=None):
             return user
     except User.DoesNotExist:
         return None
+
 
 class EmailOrUsernameModelBackend(object):
     def authenticate(self, username=None, password=None):
