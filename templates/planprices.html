@@ -434,9 +434,8 @@ function calc(){
             if({{isFirstUser}} == 1){
                 discount = -20;
             }
+            break;
         }
-        ;
-        break;
         var totalPrice = (price * tires) + discount;
         $("#modal_form_order_step2 button[type='submit']").removeAttr('disabled');
         $('#modal_form_order_step2 .currency-unit').addClass('active');
