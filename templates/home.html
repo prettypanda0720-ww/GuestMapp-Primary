@@ -660,5 +660,14 @@
 </div>
 <!-- /.modal -->
 <script src="{% static 'js/auth.js' %}"></script>
-
+<script>
+    $('.pricing__item').on('click', function () {
+        var isLoggedin = '{{user.is_authenticated}}';
+        if (isLoggedin == 'True') {
+            document.location.href = "/planprices";
+        } else {
+            doLogin();
+        }
+    });
+</script>
 {% endblock script %}
