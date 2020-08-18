@@ -42,7 +42,7 @@
     <nav class="offcanvas__menu mobile-menu">
         <ul>
             <li><a href="{% url 'ownguestmapp' %}">Your Guestmaps</a></li>
-            <li><a href="#">Contact to support</a></li>
+            <li><a href="#">Contact us</a></li>
         </ul>
     </nav>
     <div id="mobile-menu-wrap"></div>
@@ -63,7 +63,7 @@
                     <div class="header__info-left">
                         <ul>
                             <li><a href="{% url 'ownguestmapp' %}">Your Guestmaps</a></li>
-                            <li><a href="#" id="contact_support_btn">Contact to support</a></li>
+                            <li><a href="#" id="contact_support_btn">Contact us</a></li>
                         </ul>
                     </div>
                 </div>
@@ -147,16 +147,19 @@
                         {% csrf_token %}
                         <div class="form-body">
                             <div class="form-group">
-                                <label class="modal-title">Contact for support</label>
+                                <label class="modal-title">Contact us</label>
                                 <div class="modal-input-group mt-36">
                                     <label class="modal-input-label">Your email</label>
                                     <input id="con_email" name="contact_email" placeholder="email" class="form-control"
                                            type="email">
                                 </div>
                                 <div class="modal-input-group">
-                                    <label class="modal-input-label">Write your message here</label>
-                                    <input id="con_message" name="contact_message" placeholder="message"
-                                           class="form-control" type="textarea">
+                                    <div class="form-horizontal">
+                                        <div class="form-group">
+                                            <label class="modal-input-label">Your message</label>
+                                            <textarea id="con_message" name="contact_message" class="form-control" rows="3" placeholder="What's up?" required></textarea>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="alert alert-danger" id="alert-div">

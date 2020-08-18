@@ -2796,10 +2796,12 @@ ol {
 			}
 		}
 		@media (min-width: 420px) and (max-width: 1200px) {
+			width: 400px;
 			height: 460px;
 			overflow-y: scroll;
 		}
 		@media (min-width: 1200px) and (max-width: 1440px) {
+			width: 400px;
 			height: 520px;
 			overflow-y: scroll;
 		}
@@ -2885,6 +2887,7 @@ ol {
 			}
 		}
 		@media (min-width: 420px) and (max-width: 1440px) {
+			width: 400px;
 			height: 550px;
 			overflow-y: scroll;
 		}

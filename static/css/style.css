@@ -604,7 +604,8 @@ label, p {
 #modal_form_blueprint {
   justify-content: center;
   align-items: center;
-  display: none; }
+  display: none;
+  z-index: 1200; }
   #modal_form_blueprint.show {
     padding-right: 0px !important;
     display: flex !important; }
@@ -689,7 +690,8 @@ label, p {
 #modal_form_blueprint_submitted {
   justify-content: center;
   align-items: center;
-  display: none; }
+  display: none;
+  z-index: 1200; }
   #modal_form_blueprint_submitted.show {
     padding-right: 0px !important;
     display: flex !important; }
@@ -756,7 +758,8 @@ label, p {
 #modal_form_photo_description {
   justify-content: center;
   align-items: center;
-  display: none; }
+  display: none;
+  z-index: 1200; }
   #modal_form_photo_description.show {
     padding-right: 0px !important;
     display: flex !important; }
@@ -834,7 +837,8 @@ label, p {
 #modal_form_scan_submitted {
   justify-content: center;
   align-items: center;
-  display: none; }
+  display: none;
+  z-index: 1200; }
   #modal_form_scan_submitted.show {
     padding-right: 0px !important;
     display: flex !important; }
@@ -927,7 +931,8 @@ label, p {
 #modal_form_project_completed {
   justify-content: center;
   align-items: center;
-  display: none; }
+  display: none;
+  z-index: 1200; }
   #modal_form_project_completed.show {
     padding-right: 0px !important;
     display: flex !important; }
@@ -1023,7 +1028,8 @@ label, p {
 #modal_form_upload_photos {
   justify-content: center;
   align-items: center;
-  display: none; }
+  display: none;
+  z-index: 1200; }
   #modal_form_upload_photos.show {
     padding-right: 0px !important;
     display: flex !important; }
@@ -1168,7 +1174,8 @@ label, p {
 #modal_form_photos_add {
   justify-content: center;
   align-items: center;
-  display: none; }
+  display: none;
+  z-index: 1200; }
   #modal_form_photos_add.show {
     padding-right: 0px !important;
     display: flex !important; }
@@ -1276,7 +1283,8 @@ label, p {
 #modal_form_contact {
   justify-content: center;
   align-items: center;
-  display: none; }
+  display: none;
+  z-index: 1200; }
   #modal_form_contact.show {
     padding-right: 0px !important;
     display: flex !important; }
@@ -1291,8 +1299,8 @@ label, p {
     height: 640px;
     padding: 25px; }
     #modal_form_contact .modal-body #contact-support-form #con_message {
-      height: 340px;
-      overflow: scroll; }
+      height: 270px;
+      resize: none; }
       @media only screen and (max-width: 420px) {
         #modal_form_contact .modal-body #contact-support-form #con_message {
           height: 240px; } }
@@ -1302,6 +1310,11 @@ label, p {
         height: 500px;
         overflow-y: scroll;
         padding: 20px 15px; } }
+    @media (min-width: 420px) and (max-width: 1440px) {
+      #modal_form_contact .modal-body {
+        width: 400px;
+        height: 570px;
+        overflow-y: scroll; } }
 
 /******************************************************************
   Template Name: Deerhost
@@ -3461,7 +3474,8 @@ ol {
 #modal_form {
   justify-content: center;
   align-items: center;
-  display: none; }
+  display: none;
+  z-index: 1200; }
   #modal_form.show {
     padding-right: 0px !important;
     display: flex !important; }
@@ -3539,7 +3553,8 @@ ol {
 #modal_form_signup {
   justify-content: center;
   align-items: center;
-  display: none; }
+  display: none;
+  z-index: 1200; }
   #modal_form_signup.show {
     padding-right: 0px !important;
     display: flex !important; }
@@ -3635,7 +3650,8 @@ ol {
 #modal_form_order_step1 {
   justify-content: center;
   align-items: center;
-  display: none; }
+  display: none;
+  z-index: 1200; }
   #modal_form_order_step1.show {
     padding-right: 0px !important;
     display: flex !important; }
@@ -3720,7 +3736,8 @@ ol {
 #modal_form_order_step2 {
   justify-content: center;
   align-items: center;
-  display: none; }
+  display: none;
+  z-index: 1200; }
   #modal_form_order_step2.show {
     padding-right: 0px !important;
     display: flex !important; }
@@ -3817,10 +3834,12 @@ ol {
           font-size: 30px; } }
     @media (min-width: 420px) and (max-width: 1200px) {
       #modal_form_order_step2 .modal-body {
+        width: 400px;
         height: 460px;
         overflow-y: scroll; } }
     @media (min-width: 1200px) and (max-width: 1440px) {
       #modal_form_order_step2 .modal-body {
+        width: 400px;
         height: 520px;
         overflow-y: scroll; } }
   #modal_form_order_step2 .modal-footer {
@@ -3837,7 +3856,8 @@ ol {
 #modal_form_order_complete {
   justify-content: center;
   align-items: center;
-  display: none; }
+  display: none;
+  z-index: 1200; }
   #modal_form_order_complete.show {
     padding-right: 0px !important;
     display: flex !important; }
@@ -3939,13 +3959,15 @@ ol {
           width: initial; } }
     @media (min-width: 420px) and (max-width: 1440px) {
       #modal_form_order_complete .modal-body {
+        width: 400px;
         height: 550px;
         overflow-y: scroll; } }
 
 #modal_form_resetpassword {
   justify-content: center;
   align-items: center;
-  display: none; }
+  display: none;
+  z-index: 1200; }
   #modal_form_resetpassword.show {
     padding-right: 0px !important;
     display: flex !important; }

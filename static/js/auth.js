@@ -101,7 +101,7 @@ $(document).ready(function(){
                 success:function(response){
                     if(response.success == true){
                         if(response.order == true){
-                            window.location.href = "/ownguestmapp/"
+                            window.location.href = "/guestmapp/"
                         }
                         else{
                             window.location.href = "/planprices/"
