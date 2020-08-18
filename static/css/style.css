@@ -1545,9 +1545,13 @@ ol {
   margin-right: 25px; }
   .header__info-left ul li a {
     color: #ffffff;
-    text-decoration: underline; }
+    text-decoration: underline;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 17px; }
     .header__info-left ul li a:hover {
-      color: #778792; }
+      color: rgba(255, 255, 255, 0.65); }
 
 .header__info-left ul li:last-child {
   margin-right: 0; }
@@ -1574,9 +1578,11 @@ ol {
   margin-right: 0; }
 
 .header__info-right ul li a {
-  font-size: 13px;
+  font-size: 15px;
   color: #ffffff;
   display: block; }
+  .header__info-right ul li a:hover {
+    color: rgba(255, 255, 255, 0.65); }
 
 .header__info-right ul li a span {
   height: 30px;
@@ -1806,7 +1812,7 @@ ol {
 -----------------------*/
 .pricing-section {
   padding-top: 40px;
-  padding-bottom: 100px;
+  padding-bottom: 80px;
   background-color: #EEF1F3; }
   .pricing-section .pricing-header {
     height: 100px; }
@@ -3045,11 +3051,11 @@ ol {
 
   .offcanvas__menu__wrapper {
     display: block;
-    width: 300px;
+    width: 240px;
     position: fixed;
     left: -300px;
     top: 0;
-    background: #111111;
+    background: #3182be;
     z-index: 999;
     height: 100%;
     overflow-y: auto;
@@ -3423,7 +3429,8 @@ ol {
       margin-top: 0px; } }
 
 .summary-section {
-  background-color: #EEF1F3; }
+  background-color: #EEF1F3;
+  padding-bottom: 100px; }
   .summary-section .col-lg-4, .summary-section .col-md-4 {
     text-align: center; }
   .summary-section h4 {
@@ -4244,10 +4251,26 @@ ol {
     margin-top: 30px;
     text-align: right; }
     .complete-guestmapp-section .all-guestmapps a {
-      text-decoration: underline; }
+      text-decoration: underline;
+      line-height: 20px;
+      font-size: 20px;
+      font-family: Roboto;
+      color: #3B8EC9; }
+      .complete-guestmapp-section .all-guestmapps a:hover {
+        color: #000000; }
     @media only screen and (max-width: 420px) {
       .complete-guestmapp-section .all-guestmapps {
         display: none; } }
+
+.own-guestmapp-section .all-guestmapps a {
+  text-decoration: underline;
+  line-height: 20px;
+  font-size: 20px;
+  font-family: Roboto;
+  color: #004FAA;
+  font-weight: 400; }
+  .own-guestmapp-section .all-guestmapps a:hover {
+    color: #3B8EC9; }
 
 /*---------------------
   Footer

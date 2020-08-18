@@ -32,20 +32,20 @@
         <span class="fa fa-times-circle-o"></span>
     </div>
     <div class="offcanvas__logo">
-        <a href="{% url 'home' %}"><img src="{% static 'img/logo.png' %}" alt=""></a>
+        <a href="{% url 'home' %}"><img class="site-logo" src="{% static 'img/logo.png' %}" alt=""></a>
     </div>
     <nav class="offcanvas__menu mobile-menu">
         <ul>
-            <li><a href="#">Benefits</a></li>
-            <li><a href="#">Featured listings</a></li>
-            <li><a href="#">3 Easy steps</a></li>
-            <li><a href="#">Pricing</a></li>
+            <li><a href="#advantage__section">Benefits</a></li>
+            <li><a href="#featured__section">Featured listings</a></li>
+            <li><a href="#easystep__section">3 Easy steps</a></li>
+            <li><a href="#pricing__section">Pricing</a></li>
         </ul>
     </nav>
     <div id="mobile-menu-wrap"></div>
     <div class="offcanvas__auth">
         <ul>
-            <li><a href="#">Login / Register</a></li>
+            <li><a href="#" onclick="doLogin()">Login / Register</a></li>
         </ul>
     </div>
 </div>

@@ -167,6 +167,18 @@
         event.preventDefault();
         $('#modal_form_contact').modal('show');
     });
+
+    $('a[href*="#"]').on('click', function (e) {
+        e.preventDefault()
+      
+        $('html, body').animate(
+          {
+            scrollTop: $($(this).attr('href')).offset().top,
+          },
+          500,
+          'linear'
+        )
+    })
 })(jQuery);
 
 function doLogin()

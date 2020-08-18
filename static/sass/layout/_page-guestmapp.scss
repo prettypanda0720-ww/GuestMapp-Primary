@@ -38,10 +38,34 @@
 		text-align: right;
 		
 	    a{
-	    	text-decoration: underline;
+			text-decoration: underline;
+			line-height: 20px;
+			font-size: 20px;
+			font-family: Roboto;
+			color: #3B8EC9;
+			&:hover{
+				color: $color-black;
+			}
 	    }
 	    @media only screen and (max-width: 420px) {
 	    	display: none;
 	    }
+	}
+}
+
+.own-guestmapp-section{
+	.all-guestmapps{
+		a{
+			text-decoration: underline;
+			line-height: 20px;
+			font-size: 20px;
+			font-family: Roboto;
+			color: #004FAA;
+			font-weight: 400;
+			
+			&:hover{
+				color: #3B8EC9;
+			}
+		}
 	}
 }
