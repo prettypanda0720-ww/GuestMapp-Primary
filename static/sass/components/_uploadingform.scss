@@ -550,6 +550,12 @@
 				}
 			}
 		}
+
+		@media only screen and (max-width: 1440px) {
+			height: 500px;
+			padding: 27px;
+			overflow-y: scroll;
+		}
     }
 }
 

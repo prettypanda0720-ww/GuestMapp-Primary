@@ -51,7 +51,7 @@ urlpatterns = [
     path('api/order/', include('order.urls')),
     path('api/scan/', include('scan.urls')),
     path('api/price/', include('price.urls')),
-    path('api/hometype/', include('hometype.urls')),
+    path('api/mobilehome2dtype/', include('hometype.urls')),
     # for ajax handler
     path(r'ajax_login/', views.ajax_login, name = "ajax_login"),
     path(r'ajax_register/', views.ajax_register, name = "ajax_register"),

@@ -49,7 +49,7 @@
                 <div class="d-flex flex-column justify-content-between">
                     <div class="pricing__item">
                         <img src="{% static 'img/floorplan-1.png' %}" alt="">
-                        <h3 class="price ta-left">$49.99</h3>
+                        <h3 class="price ta-left">${{prices.0.price}}</h3>
                         <h4 class="header-h4">Features</h4>
                         <ul>
                             <li style="list-style-image: url('{% static '/img/list-check.png' %}');">
@@ -86,7 +86,7 @@
                 <div class="d-flex flex-column justify-content-between">
                     <div class="pricing__item">
                         <img src="{% static 'img/floorplan-2.png' %}" alt="">
-                        <h3 class="price ta-left">$84.99</h3>
+                        <h3 class="price ta-left">${{prices.1.price}}</h3>
                         <h4 class="header-h4">Features</h4>
                         <ul>
                             <li style="list-style-image: url('{% static 'img/list-check.png' %}');">
@@ -122,7 +122,7 @@
                 <div class="d-flex flex-column justify-content-between">
                     <div class="pricing__item">
                         <img src="{% static 'img/floorplan-3.png' %}" alt="">
-                        <h3 class="price ta-left">$99.99</h3>
+                        <h3 class="price ta-left">${{prices.2.price}}</h3>
                         <h4 class="header-h4">Features</h4>
                         <ul>
                             <li style="list-style-image: url('{% static '/img/list-check.png' %}');">
@@ -162,7 +162,7 @@
                 <div class="d-flex flex-column justify-content-between">
                     <div class="pricing__item">
                         <img src="{% static 'img/floorplan-4.png' %}" alt="">
-                        <h3 class="price ta-left">$74.99</h3>
+                        <h3 class="price ta-left">${{prices.3.price}}</h3>
                         <h4 class="header-h4">Features</h4>
                         <ul>
                             <li style="list-style-image: url('{% static '/img/list-check.png' %}');">
@@ -434,6 +434,9 @@ function calc(){
             if({{isFirstUser}} == 1){
                 discount = -20;
             }
+            break;
+        case "3":
+            price = {{prices.3.price}};
             break;
         }
         var totalPrice = (price * tires) + discount;

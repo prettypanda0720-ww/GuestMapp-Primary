@@ -2687,6 +2687,11 @@ ol {
 				margin-top: 0px;
 			}
 		}
+		@media (min-width: 420px) and (max-width: 1440px){
+			width: 456px;
+			height: 430px;
+			overflow-y: scroll;
+		}
     }
     .modal-footer {
 		background-color: $color-blue-dark;
@@ -2879,7 +2884,7 @@ ol {
 				width: initial;
 			}
 		}
-		@media (min-width: 420px) and (max-width: 1200px) {
+		@media (min-width: 420px) and (max-width: 1440px) {
 			height: 550px;
 			overflow-y: scroll;
 		}

@@ -1267,6 +1267,11 @@ label, p {
           display: inline-block; }
         #modal_form_photos_add .modal-body .forgot-password a {
           display: block; } }
+    @media only screen and (max-width: 1440px) {
+      #modal_form_photos_add .modal-body {
+        height: 500px;
+        padding: 27px;
+        overflow-y: scroll; } }
 
 #modal_form_contact {
   justify-content: center;
@@ -3683,6 +3688,11 @@ ol {
           display: inline-block; }
         #modal_form_order_step1 .modal-body .paragraph {
           margin-top: 0px; } }
+    @media (min-width: 420px) and (max-width: 1440px) {
+      #modal_form_order_step1 .modal-body {
+        width: 456px;
+        height: 430px;
+        overflow-y: scroll; } }
   #modal_form_order_step1 .modal-footer {
     background-color: #004FAA;
     padding: 20px 0;
@@ -3927,7 +3937,7 @@ ol {
           font-size: 17px !important; }
         #modal_form_order_complete .modal-body .suggest-paragraph {
           width: initial; } }
-    @media (min-width: 420px) and (max-width: 1200px) {
+    @media (min-width: 420px) and (max-width: 1440px) {
       #modal_form_order_complete .modal-body {
         height: 550px;
         overflow-y: scroll; } }
