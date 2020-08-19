@@ -42,14 +42,23 @@
     <nav class="offcanvas__menu mobile-menu">
         <ul>
             <li><a href="{% url 'ownguestmapp' %}">Your Guestmaps</a></li>
-            <li><a href="#">Contact to support</a></li>
+            <li><a href="#">Contact us</a></li>
         </ul>
     </nav>
     <div id="mobile-menu-wrap"></div>
     <div class="offcanvas__auth">
-        <ul>
-            <li><a href="{% url 'ajax_logout' %}">Logout</a></li>
-        </ul>
+        <div class="btn-group">
+            <button type="button" class="btn guest-dropdown-btn dropdown-toggle" id="dropdownMenuReference" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-reference="parent">
+                <img class="mr-10" src="{% static 'img/user-avatar.png' %}">{{user}}
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
+                <a class="dropdown-item" href="#">My Profile</a>
+                <a class="dropdown-item" href="#">Notifications</a>
+                <a class="dropdown-item" href="#">Settings</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{% url 'ajax_logout' %}">Logout</a>
+            </div>
+        </div>
     </div>
 </div>
 <!-- Offcanvas Menu End -->
@@ -63,20 +72,24 @@
                     <div class="header__info-left">
                         <ul>
                             <li><a href="{% url 'ownguestmapp' %}">Your Guestmaps</a></li>
-                            <li><a href="#" id="contact_support_btn">Contact to support</a></li>
+                            <li><a href="#" id="contact_support_btn">Contact us</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="header__info-right">
-                        <ul>
-                            <li>
-                                <img src="{% static 'img/user-avatar.png' %}">
-                            </li>
-                            <li>
-                                <a href="{% url 'ajax_logout' %}">Logout</a>
-                            </li>
-                        </ul>
+                        <div class="btn-group">
+                            <button type="button" class="btn guest-dropdown-btn dropdown-toggle" id="dropdownMenuReference" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-reference="parent">
+                                <img class="mr-10" src="{% static 'img/user-avatar.png' %}">{{user}}
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
+                                <a class="dropdown-item" href="#">My Profile</a>
+                                <a class="dropdown-item" href="#">Notifications</a>
+                                <a class="dropdown-item" href="#">Settings</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{% url 'ajax_logout' %}">Logout</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -96,7 +109,7 @@
                 <div class="col-lg-3 col-md-3 col-sm-12 col-12">
                     <div class="footer__text-about">
                         <div class="footer__logo">
-                            <a href="/"><img src="{% static 'img/footer-logo.png' %}" alt=""></a>
+                            <a href="{% url 'home' %}"><img class="site-logo" src="{% static 'img/footer-logo.png' %}" alt=""></a>
                         </div>
                         <p class="mt-18">Create perfect floor plans for your guest</p>
                     </div>
@@ -131,6 +144,7 @@
 
 <!-- Js Plugins -->
 <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
 <script src="{% static 'js/jquery.slicknav.js' %}"></script>
 <script src="{% static 'js/owl.carousel.min.js' %}"></script>
@@ -147,16 +161,19 @@
                         {% csrf_token %}
                         <div class="form-body">
                             <div class="form-group">
-                                <label class="modal-title">Contact for support</label>
+                                <label class="modal-title">Contact us</label>
                                 <div class="modal-input-group mt-36">
                                     <label class="modal-input-label">Your email</label>
                                     <input id="con_email" name="contact_email" placeholder="email" class="form-control"
                                            type="email">
                                 </div>
                                 <div class="modal-input-group">
-                                    <label class="modal-input-label">Write your message here</label>
-                                    <input id="con_message" name="contact_message" placeholder="message"
-                                           class="form-control" type="textarea">
+                                    <div class="form-horizontal">
+                                        <div class="form-group">
+                                            <label class="modal-input-label">Your message</label>
+                                            <textarea id="con_message" name="contact_message" class="form-control" rows="3" placeholder="What's up?" required></textarea>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="alert alert-danger" id="alert-div">

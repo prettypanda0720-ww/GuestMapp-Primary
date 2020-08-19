@@ -296,8 +296,12 @@ ol {
 	a{
 		color: #ffffff;
 		text-decoration: underline;
+		font-family: Roboto;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 17px;
 		&:hover{
-			color: $color-gray-dark;
+			color: rgba(255,255,255,0.65);;
 		}
 	}
 }
@@ -332,9 +336,12 @@ ol {
 }
 
 .header__info-right ul li a {
-	font-size: 13px;
+	font-size: 15px;
 	color: #ffffff;
 	display: block;
+	&:hover{
+		color: rgba(255, 255, 255, 0.65);
+	}
 }
 
 .header__info-right ul li a span {
@@ -612,7 +619,7 @@ ol {
 .pricing-section {
 	// padding-bottom: 60px;
 	padding-top: 40px;
-	padding-bottom: 100px;
+	padding-bottom: 80px;
 	background-color: $color-gray-light;
 	.pricing-header{
 		height: 100px;
@@ -2096,11 +2103,11 @@ ol {
 	}
 	.offcanvas__menu__wrapper {
 		display: block;
-		width: 300px;
+		width: 240px;
 		position: fixed;
 		left: -300px;
 		top: 0;
-		background: #111111;
+		background: #3182be;
 		z-index: 999;
 		height: 100%;
 		overflow-y: auto;
@@ -2511,6 +2518,7 @@ ol {
 }
 .summary-section{
 	background-color: $color-gray-light;
+	padding-bottom: 100px;
 	.col-lg-4,.col-md-4{
 		text-align: center;
 	}
@@ -2679,6 +2687,11 @@ ol {
 				margin-top: 0px;
 			}
 		}
+		@media (min-width: 420px) and (max-width: 1440px){
+			width: 456px;
+			height: 430px;
+			overflow-y: scroll;
+		}
     }
     .modal-footer {
 		background-color: $color-blue-dark;
@@ -2783,10 +2796,12 @@ ol {
 			}
 		}
 		@media (min-width: 420px) and (max-width: 1200px) {
+			width: 400px;
 			height: 460px;
 			overflow-y: scroll;
 		}
 		@media (min-width: 1200px) and (max-width: 1440px) {
+			width: 400px;
 			height: 520px;
 			overflow-y: scroll;
 		}
@@ -2871,7 +2886,8 @@ ol {
 				width: initial;
 			}
 		}
-		@media (min-width: 420px) and (max-width: 1200px) {
+		@media (min-width: 420px) and (max-width: 1440px) {
+			width: 400px;
 			height: 550px;
 			overflow-y: scroll;
 		}
@@ -3092,3 +3108,17 @@ ol {
 // 	padding: 15px;
 // 	background-color: red;
 // }
+.login-wrapper{
+	display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+	align-items: center;
+	
+	img{
+		margin-right: 10px;
+	}
+
+	a{
+		text-decoration: none;
+	}
+}

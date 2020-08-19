@@ -210,13 +210,13 @@ def ajax_logout(request):
 
 def home(request):
     order = None
+    prices = Price.objects.all()
     if request.user.is_authenticated:
         try:
             order = Order.objects.filter(user=request.user)
         except Order.DoesNotExist:
             order = None
-
-    return render(request, 'home.html', {'order': order})
+    return render(request, 'home.html', {'order': order, 'prices': prices})
 
 
 @login_required

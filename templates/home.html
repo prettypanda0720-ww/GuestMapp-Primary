@@ -22,25 +22,25 @@
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="header__info-right">
-                        <ul>
-                            {% if user.is_authenticated %}
-                            <li>
+                        {% if user.is_authenticated %}
+                            <div class="btn-group">
+                                <button type="button" class="btn guest-dropdown-btn dropdown-toggle" id="dropdownMenuReference" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-reference="parent">
+                                    <img class="mr-10" src="{% static 'img/user-avatar.png' %}">{{user}}
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
+                                    <a class="dropdown-item" href="#">My Profile</a>
+                                    <a class="dropdown-item" href="#">Notifications</a>
+                                    <a class="dropdown-item" href="#">Settings</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="{% url 'ajax_logout' %}">Logout</a>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="login-wrapper">
                                 <img src="{% static 'img/user-avatar.png' %}">
-                            </li>
-
-                            <li>
-                                <a href="{% url 'ajax_logout' %}">LogOut</a>
-                            </li>
-                            {% else %}
-                            <li>
-                                <img src="{% static 'img/user-avatar.png' %}">
-                            </li>
-
-                            <li>
-                                <a href="#" onclick="doLogin()">Login</a>
-                            </li>
-                            {% endif %}
-                        </ul>
+                                <a class="guest-dropdown-btn" href="#" onclick="doLogin()">Login</a>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -61,8 +61,9 @@
                         <div class="hero__text">
                             <div class="header__logo">
                                 <div class="row">
-                                    <a href="{% url 'home' %}"><img class="site-logo" src="{% static 'img/logo.png' %}"
-                                                                    alt=""></a>
+                                    <a href="{% url 'home' %}">
+                                        <img class="site-logo" src="{% static 'img/logo.png' %}" alt="">
+                                    </a>
                                 </div>
                             </div>
                             <div class="canvas__open">
@@ -75,13 +76,13 @@
                             <div class="main-summary">
                                 <h4 class="header-h4 mt-15">Order a floor plan to save time, increase ratings and stand
                                     out from your competition</h4>
-                                {% if order %}
-                                <a href="{% url 'ownguestmapp' %}" class="btn green-btn mt-36">Get yours now</a>
-                                {% elif user.is_authenticated %}
-                                <a href="{% url 'planprices' %}" class="btn green-btn mt-36" onclick="doLogin()">Get
-                                    yours now</a>
+
+                                {% if user.is_authenticated %}
+                                    <a href="{% url 'ownguestmapp' %}" class="btn green-btn mt-36">Get yours now</a>
                                 {% else %}
-                                <a href="#" class="btn green-btn mt-36" onclick="doLogin()">Get yours now</a>
+                                    <a href="#" class="btn green-btn mt-36" onclick="doLogin()">
+                                        Get yours now
+                                    </a>
                                 {% endif %}
 
                                 <div class="hero__img mt-37">
@@ -211,7 +212,13 @@
         </div>
         <div class="row d-flex justify-content-center mt-40">
             <div class="col-lg-4">
-                <a href="#" class="btn green-btn">Get yours now</a>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'ownguestmapp' %}" class="btn green-btn mt-36">Get yours now</a>
+                {% else %}
+                    <a href="#" class="btn green-btn mt-36" onclick="doLogin()">
+                        Get yours now
+                    </a>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -275,7 +282,7 @@
                 <div class="d-flex flex-column justify-content-between">
                     <div class="pricing__item">
                         <img src="{% static 'img/floorplan-1.png' %}" alt="">
-                        <h3 class="price ta-left">$15.90</h3>
+                        <h3 class="price ta-left">${{prices.0.price}}</h3>
                         <h4 class="header-h4">Features</h4>
                         <ul>
                             <li style="list-style-image: url('static/img/list-check.png');">
@@ -301,9 +308,9 @@
                     </div>
                     <div class="order-btn-wrapper">
                         {% if user.is_authenticated %}
-                        <a href="#" class="btn green-btn" onclick="showOrderStep2()">Order now</a>
+                        <a href="{% url 'planprices' %}" class="btn green-btn">Order now</a>
                         {% else %}
-                        <a href="#" class="btn green-btn" onclick="showLogin()">Order now</a>
+                        <a href="#" class="btn green-btn" onclick="doLogin()">Order now</a>
                         {% endif %}
                     </div>
                 </div>
@@ -315,7 +322,7 @@
                 <div class="d-flex flex-column justify-content-between">
                     <div class="pricing__item">
                         <img src="{% static 'img/floorplan-2.png' %}" alt="">
-                        <h3 class="price ta-left">$15.90</h3>
+                        <h3 class="price ta-left">${{prices.1.price}}</h3>
                         <h4 class="header-h4">Features</h4>
                         <ul>
                             <li style="list-style-image: url('static/img/list-check.png');">
@@ -340,7 +347,7 @@
                     </div>
                     <div class="order-btn-wrapper">
                         {% if user.is_authenticated %}
-                        <a href="#" class="btn green-btn" onclick="doOrderStep1()">Order now</a>
+                        <a href="{% url 'planprices' %}" class="btn green-btn">Order now</a>
                         {% else %}
                         <a href="#" class="btn green-btn" onclick="doLogin()">Order now</a>
                         {% endif %}
@@ -354,7 +361,7 @@
                 <div class="d-flex flex-column justify-content-between">
                     <div class="pricing__item">
                         <img src="{% static 'img/floorplan-3.png' %}" alt="">
-                        <h3 class="price ta-left">$15.90</h3>
+                        <h3 class="price ta-left">${{prices.2.price}}</h3>
                         <h4 class="header-h4">Features</h4>
                         <ul>
                             <li style="list-style-image: url('static/img/list-check.png');">
@@ -383,7 +390,7 @@
                     </div>
                     <div class="order-btn-wrapper">
                         {% if user.is_authenticated %}
-                        <a href="#" class="btn green-btn" onclick="doOrderStep1()">Order now</a>
+                        <a href="{% url 'planprices' %}" class="btn green-btn">Order now</a>
                         {% else %}
                         <a href="#" class="btn green-btn" onclick="doLogin()">Order now</a>
                         {% endif %}
@@ -397,7 +404,7 @@
                 <div class="d-flex flex-column justify-content-between">
                     <div class="pricing__item">
                         <img src="{% static 'img/floorplan-4.png' %}" alt="">
-                        <h3 class="price ta-left">$15.90</h3>
+                        <h3 class="price ta-left">${{prices.3.price}}</h3>
                         <h4 class="header-h4">Features</h4>
                         <ul>
                             <li style="list-style-image: url('static/img/list-check.png');">
@@ -428,7 +435,7 @@
                     <div class="order-btn-wrapper">
                         <div class="order-btn-wrapper">
                             {% if user.is_authenticated %}
-                            <a href="#" class="btn green-btn" onclick="doOrderStep1()">Order now</a>
+                            <a href="{% url 'planprices' %}" class="btn green-btn">Order now</a>
                             {% else %}
                             <a href="#" class="btn green-btn" onclick="doLogin()">Order now</a>
                             {% endif %}
@@ -461,6 +468,64 @@
 {% endblock main %}
 
 {% block script %}
+<div class="modal" id="modal_form_order_step1" role="dialog" data-keyboard="false" data-backdrop="static"
+     style="display: none;">
+    <div class="d-flex justify-content-center align-items-center">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body form">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <form action="#" id="form" class="form-horizontal">
+                        {% csrf_token %}
+                        <div class="form-body">
+                            <div class="form-group">
+                                <!-- <span class="fa fa-arrow-left back-btn" onclick="doLogin()"></span> -->
+                                <label class="modal-title">Order</label>
+                                <p class="paragraph mt-30 ta-left">
+                                    <span style="font-weight: bold">Step 1 from 2</span>
+                                    Create an account
+                                </p>
+                                <div class="modal-input-group mt-20">
+                                    <label class="modal-input-label">Name</label>
+                                    <input name="title" placeholder="name" class="form-control" type="text">
+                                </div>
+                                <div class="modal-input-group">
+                                    <label class="modal-input-label">Surname</label>
+                                    <input name="title" placeholder="surname" class="form-control" type="text">
+                                </div>
+                                <div class="modal-input-group">
+                                    <label class="modal-input-label">Your email</label>
+                                    <input name="title" placeholder="Email" class="form-control" type="text">
+                                </div>
+                                <div class="modal-input-group">
+                                    <label class="modal-input-label">Your password</label>
+                                    <input name="title" placeholder="password" class="form-control" type="text">
+                                </div>
+                                <div class="modal-input-group">
+                                    <label class="modal-input-label">Confirm password</label>
+                                    <input name="title" placeholder="password" class="form-control" type="text">
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn green-btn mt-40" data-dismiss="modal" aria-label="Close"
+                                onclick="doOrderStep2()"><span aria-hidden="true">Next</span></button>
+                    </form>
+                    <p class="mt-15">If you already have an account, please <a href="#" onclick="doLogin()">login</a>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <p>Or log in with</p>
+                    <div class="mt-15">
+                        <a class="mr-10" onclick=""><img src="{% static 'img/google.png' %}"></a>
+                        <a class="ml-10" onclick=""><img src="{% static 'img/facebook.png' %}"></a>
+                    </div>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+</div>
+
 <!-- Bootstrap modal -->
 <div class="modal" id="modal_form" data-keyboard="false" data-backdrop="static" role="dialog">
     <div class="d-flex justify-content-center align-items-center">
@@ -595,5 +660,14 @@
 </div>
 <!-- /.modal -->
 <script src="{% static 'js/auth.js' %}"></script>
-
+<script>
+    $('.pricing__item').on('click', function () {
+        var isLoggedin = '{{user.is_authenticated}}';
+        if (isLoggedin == 'True') {
+            document.location.href = "/planprices";
+        } else {
+            doLogin();
+        }
+    });
+</script>
 {% endblock script %}
