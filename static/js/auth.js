@@ -165,4 +165,14 @@ $(document).ready(function(){
         var src = $(this).attr('src');
         $(this).attr('src', src.replace('.gif', '.png'));
     });
+
+    $(".gif-anim-easy").mouseover(function(){
+        var src = $(this).attr('src');
+        $(this).attr('src', src.replace('.png', '.gif'));
+    });
+      
+    $(".gif-anim-easy").mouseout(function() {
+        var src = $(this).attr('src');
+        $(this).attr('src', src.replace('.gif', '.png'));
+    });
 })
