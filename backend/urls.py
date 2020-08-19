@@ -27,7 +27,7 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     # admin part
     path('admin/', admin.site.urls),
-    
+
     url(r'^reset/$',
         auth_views.PasswordResetView.as_view(
             template_name='password_reset.html',
@@ -45,6 +45,8 @@ urlpatterns = [
         auth_views.PasswordResetCompleteView.as_view(template_name='password_reset_complete.html'),
         name='password_reset_complete'),
 
+    # administration
+    path('administration/', include('administration.urls')),
 
     # api part
     path('api/auth/', include('users.urls')),
@@ -52,10 +54,12 @@ urlpatterns = [
     path('api/scan/', include('scan.urls')),
     path('api/price/', include('price.urls')),
     path('api/hometype/', include('hometype.urls')),
+
     # for ajax handler
     path(r'ajax_login/', views.ajax_login, name = "ajax_login"),
     path(r'ajax_register/', views.ajax_register, name = "ajax_register"),
     path(r'ajax_logout/', views.ajax_logout, name="ajax_logout"),
+
     # for stripe integrtion
     path(r'payout/', order_views.payout, name="payout"),
 
@@ -69,19 +73,20 @@ urlpatterns = [
     path(r'uploadDetialTitle/', scan_views.uploadDetialTitle, name='uploadDetialTitle'),
     path(r'orderReady/', scan_views.orderReady, name='orderReady'),
     path(r'orderConfirmed/', scan_views.orderConfirmed, name='orderConfirmed'),
-    
+
     # order ready state
     path(r'removeDetail/', scan_views.removeDetail, name='removeDetail'),
-    
+
     # for web template
-    path(r'', views.home, name = "home"),
+    path(r'', views.home, name="home"),
     path(r'planprices/', views.planprices, name = "planprices"),
     path(r'ownguestmapp/', views.ownguestmapp, name="ownguestmapp"),
     path(r'guestmapp/', views.guestmapp, name = "guestmapp"),
     path(r'newpassword/', views.newpassword),
 
-    
-
-    # media part
+    # media part and administration static part
     url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT, }),
+    url(r'^administration/static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT, }),
+    url(r'^administration/all_orders/static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT, }),
+
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

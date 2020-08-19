@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'contact',
     'price',
     'hometype',
+    'administration',
     # thirdparty
     'rest_framework',
     'rest_framework.authtoken'
@@ -60,12 +61,11 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'backend.urls'
-
+TEMPLATE_DIR = os.path.join(BASE_DIR, "administration/templates")  # ROOT dir for templates
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
+        'DIRS': [os.path.join(BASE_DIR, 'templates'), TEMPLATE_DIR],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -94,23 +94,23 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'guestmapps',  # dbname
-        'USER': 'guestmapp',  # master username
-        'PASSWORD': 'guestmapp',  # master password
-        'HOST': 'localhost',  # Endpoint
-        'PORT': '3306',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'guestmapps',  # dbname
+#         'USER': 'guestmapp',  # master username
+#         'PASSWORD': 'guestmapp',  # master password
+#         'HOST': 'localhost',  # Endpoint
+#         'PORT': '3306',
+#     }
+# }
 
 # DATABASES = {
 #     'default': {
@@ -166,15 +166,20 @@ LOGOUT_REDIRECT_URL = 'home'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = '/static/'
 
-BASE_URL = 'http://162.214.124.207:8000'
-# BASE_URL = 'http://127.0.0.1:8000'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# BASE_URL = 'http://162.214.124.207:8000'
+BASE_URL = 'http://127.0.0.1:8000'
+
+
 MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+STATIC_URL = '/static/'
+STATIC_DIR = os.path.join(BASE_DIR, "administration/static")
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'static'), STATIC_DIR
 ]
 
 STRIPE_PUBLISHABLE_KEY = 'pk_test_51HDLj6CtzgITtfkbEPLhgC6509Y7unmzkrmumjKgCxm7RIjzuqs0mwijA3uTjVVDYkvyyLdsQRL7rOcUUpPPgeWo00d6iOEhpg'

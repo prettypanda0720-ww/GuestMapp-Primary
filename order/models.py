@@ -31,6 +31,8 @@ class Order(models.Model):
     status = models.IntegerField(default=0, choices=statusChoices)
     created_date = models.DateTimeField(auto_now=True)
     completed_date = models.DateTimeField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
 
     class Meta:
         db_table = "order"
@@ -77,15 +79,27 @@ class Order(models.Model):
         return productType.get(self.product_type)
 
     def productImage(self):
-
-        productImage = {
+        product_image = {
             0: 'blueprint',
             1: 'eyeview',
             2: 'custom3d',
             3: 'custom3d'
         }
-        return productImage.get(self.product_type)
+        return product_image.get(self.product_type)
 
+    def orderStatus(self):
+        status = {
+            0: 'Pending',
+            1: 'Ready',
+            2: 'working',
+            3: 'completed',
+            4: 'cancelled',
+            5: 'confirmed'
+        }
+        return status.get(self.status)
+
+    def get_price(self):
+        return round(self.price/100, 2)
 
 class Billing(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, blank=True, null=True)
