@@ -178,7 +178,9 @@
           500,
           'linear'
         )
-    })
+    });
+
+    $('.dropdown-toggle').dropdown();
 })(jQuery);
 
 function doLogin()

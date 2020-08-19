@@ -545,6 +545,16 @@ label, p {
   .upload-btn:hover {
     cursor: pointer; }
 
+.guest-dropdown-btn {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 23px;
+  color: #FFFFFF; }
+  .guest-dropdown-btn:hover {
+    color: rgba(255, 255, 255, 0.75); }
+
 .progressBar {
   width: 200px;
   height: 22px;
@@ -4208,6 +4218,16 @@ ol {
 .site-logo {
   width: 140px;
   height: 120px; }
+
+.login-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center; }
+  .login-wrapper img {
+    margin-right: 10px; }
+  .login-wrapper a {
+    text-decoration: none; }
 
 .newpassword-hero-section .set-bg .container {
   display: flex;

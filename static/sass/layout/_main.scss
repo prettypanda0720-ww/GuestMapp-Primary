@@ -3108,3 +3108,17 @@ ol {
 // 	padding: 15px;
 // 	background-color: red;
 // }
+.login-wrapper{
+	display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+	align-items: center;
+	
+	img{
+		margin-right: 10px;
+	}
+
+	a{
+		text-decoration: none;
+	}
+}

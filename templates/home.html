@@ -22,25 +22,25 @@
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="header__info-right">
-                        <ul>
-                            {% if user.is_authenticated %}
-                            <li>
+                        {% if user.is_authenticated %}
+                            <div class="btn-group">
+                                <button type="button" class="btn guest-dropdown-btn dropdown-toggle" id="dropdownMenuReference" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-reference="parent">
+                                    <img class="mr-10" src="{% static 'img/user-avatar.png' %}">{{user}}
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
+                                    <a class="dropdown-item" href="#">My Profile</a>
+                                    <a class="dropdown-item" href="#">Notifications</a>
+                                    <a class="dropdown-item" href="#">Settings</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="{% url 'ajax_logout' %}">Logout</a>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="login-wrapper">
                                 <img src="{% static 'img/user-avatar.png' %}">
-                            </li>
-
-                            <li>
-                                <a href="{% url 'ajax_logout' %}">LogOut</a>
-                            </li>
-                            {% else %}
-                            <li>
-                                <img src="{% static 'img/user-avatar.png' %}">
-                            </li>
-
-                            <li>
-                                <a href="#" onclick="doLogin()">Login</a>
-                            </li>
-                            {% endif %}
-                        </ul>
+                                <a class="guest-dropdown-btn" href="#" onclick="doLogin()">Login</a>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
