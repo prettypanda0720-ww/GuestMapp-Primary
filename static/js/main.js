@@ -181,6 +181,7 @@
     });
 
     $('.dropdown-toggle').dropdown();
+
 })(jQuery);
 
 function doLogin()

@@ -155,4 +155,14 @@ $(document).ready(function(){
             });
         }
     });
+
+    $(".gif-anim").mouseover(function(){
+        var src = $(this).attr('src');
+        $(this).attr('src', src.replace('.png', '.gif'));
+    });
+      
+    $(".gif-anim").mouseout(function() {
+        var src = $(this).attr('src');
+        $(this).attr('src', src.replace('.gif', '.png'));
+    });
 })

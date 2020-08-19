@@ -277,7 +277,7 @@
                                     Create a new payment
                                 </p>
                                 <div class="row">
-                                    <div class="col-lg-9 col-md-9 col-sm-8 col-8">
+                                    <div class="col-lg-8 col-md-4 col-sm-8 col-8">
                                         <div class="modal-input-group">
                                             <label class="modal-input-label">Product</label>
                                             <select name="product" class="form-control" id="product_type">
@@ -288,7 +288,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-lg-3 col-md-3 col-sm-4 col-4">
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-4">
                                         <div class="modal-input-group">
                                             <label class="modal-input-label">Floors</label> 
                                             <input name="tires" class="form-control" type="number">
@@ -417,10 +417,6 @@ function calc(){
     var product_type = $("#modal_form_order_step2 #product_type").find("option:selected").val();
     var price = 0, discount = 0;
     var tires = $("#modal_form_order_step2 input[name='tires']").val();
-    if(tires <= 0 || tires > 1000){
-        tires = 1; 
-        $("#modal_form_order_step2 input[name='tires']").val(tires);
-    }
     switch(product_type){
         case "0":
             price = {{prices.0.price}};
@@ -446,6 +442,17 @@ function calc(){
     }
 
     $("#modal_form_order_step2 input[name='tires']").on('input', function () {
+        var tires = $(this).val();
+        if(tires > 1000){
+            tires = 1000; 
+            $("#modal_form_order_step2 input[name='tires']").val(tires);
+        } else if(tires == 0 || tires == "") {
+            console.log(0);
+            $("#modal_form_order_step2 button[type='submit']").attr('disabled', 'disabled');
+            $('#modal_form_order_step2 .currency-unit').removeClass('active');
+            $("#modal_form_order_step2 .price").text('');
+            return;
+        }
         calc();
     });
 </script>

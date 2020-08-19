@@ -549,9 +549,10 @@ label, p {
   font-family: Roboto;
   font-style: normal;
   font-weight: normal;
-  font-size: 20px;
+  font-size: 17px;
   line-height: 23px;
-  color: #FFFFFF; }
+  color: #FFFFFF;
+  padding: 0px; }
   .guest-dropdown-btn:hover {
     color: rgba(255, 255, 255, 0.75); }
 
@@ -656,7 +657,7 @@ label, p {
       -webkit-animation: loader 0.8s linear infinite; }
   #modal_form_blueprint .modal-body {
     width: 456px;
-    height: 670px; }
+    height: 620px; }
     #modal_form_blueprint .modal-body a {
       text-decoration: none; }
     #modal_form_blueprint .modal-body .blueprint-drag {
@@ -1128,7 +1129,8 @@ label, p {
 #modal_form_photos_list {
   justify-content: center;
   align-items: center;
-  display: none; }
+  display: none;
+  z-index: 1200; }
   #modal_form_photos_list.show {
     padding-right: 0px !important;
     display: flex !important; }
@@ -1180,6 +1182,10 @@ label, p {
           margin-top: 10px !important; }
         #modal_form_photos_list .modal-body .green-reverse-btn {
           margin-top: 30px !important; } }
+    @media (min-width: 420px) and (max-width: 1400px) {
+      #modal_form_photos_list .modal-body {
+        height: 660px;
+        overflow-y: scroll; } }
 
 #modal_form_photos_add {
   justify-content: center;
@@ -1247,7 +1253,7 @@ label, p {
       line-height: 20px;
       color: #474D50;
       margin-top: 25px; }
-    #modal_form_photos_add .modal-body .blueprint-drag {
+    #modal_form_photos_add .modal-body .photos-drag {
       background-color: #bfcdd6;
       border: 2px dotted #0B85A1;
       color: #92AAB0;
@@ -1256,13 +1262,13 @@ label, p {
       font-size: 200%;
       display: flex;
       flex-direction: column; }
-      #modal_form_photos_add .modal-body .blueprint-drag img {
+      #modal_form_photos_add .modal-body .photos-drag img {
         width: 100px;
         height: 80px;
         margin-top: 30px;
         margin-left: auto;
         margin-right: auto; }
-      #modal_form_photos_add .modal-body .blueprint-drag p {
+      #modal_form_photos_add .modal-body .photos-drag p {
         color: #FFFFFF;
         margin-top: 10px; }
     #modal_form_photos_add .modal-body .lbl-from {
@@ -1284,9 +1290,9 @@ label, p {
           display: inline-block; }
         #modal_form_photos_add .modal-body .forgot-password a {
           display: block; } }
-    @media only screen and (max-width: 1440px) {
+    @media (min-width: 420px) and (max-width: 1440px) {
       #modal_form_photos_add .modal-body {
-        height: 500px;
+        height: 670px;
         padding: 27px;
         overflow-y: scroll; } }
 
@@ -4228,6 +4234,13 @@ ol {
     margin-right: 10px; }
   .login-wrapper a {
     text-decoration: none; }
+
+#modal-progress {
+  z-index: 1250; }
+
+.gif-anim {
+  width: 255px;
+  height: 184px; }
 
 .newpassword-hero-section .set-bg .container {
   display: flex;
