@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
     $(".upload-btn").on("click", function(event){
-        $("input[type='file']").val('');
+        $("#modal_form_blueprint input[name='rawImageUrl']").val('');
         $("input[type='text']").val('');
         $("#modal_form_blueprint").modal('show');
         // console.log($(this).parent().parent().find('.oderId').val());
@@ -21,7 +21,7 @@ $(document).ready(function(){
         var orderid = $("#modal_form_blueprint input[name='orderid']").val();
         var airbnb = $("#modal_form_blueprint input[name='airbnb']").val();
         var google_drive = $("#modal_form_blueprint input[name='google_drive']").val();
-        
+
         $.ajax({
             url: '/uploadscan/',
             method: 'POST',
@@ -340,8 +340,8 @@ function show_upload_photos(){
 
 function show_photos_add()
 {
-    // resset
-    $('#upload_detailfilename').text('');
+    // reset
+    $("#modal_form_photos_add input[name='rawImageUrl']").val('');
     $("#modal_form_photos_add input[name='airbnb']").removeAttr("disabled");
     $("#modal_form_photos_add input[name='airbnb']").text('');
     $("#modal_form_photos_add input[name='google_drive']").removeAttr("disabled");

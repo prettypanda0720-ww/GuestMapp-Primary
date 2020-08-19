@@ -94,23 +94,23 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'guestmapps',  # dbname
-#         'USER': 'guestmapp',  # master username
-#         'PASSWORD': 'guestmapp',  # master password
-#         'HOST': 'localhost',  # Endpoint
-#         'PORT': '3306',
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'guestmapps',  # dbname
+        'USER': 'guestmapp',  # master username
+        'PASSWORD': 'guestmapp',  # master password
+        'HOST': 'localhost',  # Endpoint
+        'PORT': '3306',
+    }
+}
 
 # DATABASES = {
 #     'default': {
@@ -168,8 +168,8 @@ LOGOUT_REDIRECT_URL = 'home'
 
 
 
-# BASE_URL = 'http://162.214.124.207:8000'
-BASE_URL = 'http://127.0.0.1:8000'
+BASE_URL = 'http://162.214.124.207:8000'
+# BASE_URL = 'http://127.0.0.1:8000'
 
 
 MEDIA_URL = '/media/'

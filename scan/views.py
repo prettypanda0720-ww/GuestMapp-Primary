@@ -149,8 +149,9 @@ def uploadscan(request):
             imageUrl = airbnb
         elif google_drive:
             imageUrl = google_drive
-
+        print(rawImageUrl)
         if imageUrl == '':
+
             data = {'success': False, 'message': None}
             return JsonResponse(data)
         order = Order.get_order(orderid)
