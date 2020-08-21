@@ -215,11 +215,6 @@ function showOrderStep2()
     $('#modal_form_order_step2').modal('show');   
 }
 
-function showOrderStep2()
-{
-    $('#modal_form_order_step2').modal('show');   
-}
-
 function doPay(){
     $('#modal_form_order_step2').modal('hide');   
     // $('#modal_form_order_complete').modal('show');   

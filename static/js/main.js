@@ -225,14 +225,14 @@ function doOrderStep2()
     $('#modal_form_order_step2').modal('show');   
 }
 
-function showOrderStep2()
+function showOrderStep2(val)
 {
-    $('#modal_form_order_step2').modal('show');   
-}
-
-function showOrderStep2()
-{
-    $('#modal_form_order_step2').modal('show');   
+    $("#modal_form_order_step2 input[name='tires']").val('');
+    $("#modal_form_order_step2 button[type='submit']").attr('disabled', 'disabled');
+    $('#modal_form_order_step2 .currency-unit').removeClass('active');
+    $("#modal_form_order_step2 .price").text('');
+    $('#modal_form_order_step2').modal('show');
+    $('#modal_form_order_step2 select').val(val);   
 }
 
 function doPay(){
