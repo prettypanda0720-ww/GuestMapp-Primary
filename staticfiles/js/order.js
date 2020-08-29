@@ -5,10 +5,10 @@ $("#modal_form_order_step2 button[type='submit']").on('click', function(event){
         var metadata = ""
         var tires = $('#modal_form_order_step2 input[name="tires"]').val();
         var price = $("#modal_form_order_step2 .price").text();
-        var card_name = $("#modal_form_order_step2 input[name='cardname']").val()
-        var card_number = $("#modal_form_order_step2 input[name='cardnumber']").val()
-        var cvv = $("#modal_form_order_step2 input[name='cvv']").val()
-        var expiry_date = $("#modal_form_order_step2 input[name='expiry_date']").val()
+        var card_name = $("#modal_form_order_step2 input[name='cardname']").val();
+        var card_number = $("#modal_form_order_step2 input[name='cardnumber']").val();
+        var cvv = $("#modal_form_order_step2 input[name='cvv']").val();
+        var expiry_date = $("#modal_form_order_step2 input[name='expiry_date']").val();
         $("#modal_form_order_step2 button[type='submit']").attr('disabled', 'disabled');
         $("#modal_form_order_step2 button[type='submit'] .loader").css('display', 'block');
         $.ajax({

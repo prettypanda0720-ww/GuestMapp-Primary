@@ -1,22 +1,17 @@
 $(document).ready(function(){
 
     $(".upload-btn").on("click", function(event){
-        $("#modal_form_blueprint input[name='rawImageUrl']").val('');
-        $("input[type='text']").val('');
+        reset_upload_form();
+        
         $("#modal_form_blueprint").modal('show');
         // console.log($(this).parent().parent().find('.oderId').val());
         $("#modal_form_blueprint input[name='orderid']").val($(this).parent().parent().find('.oderId').val());
         // $("#modal_form_photos_list").modal('show');
-        $('#modal_form_blueprint #upload_filename').text('');
-        $("#modal_form_blueprint input[name='airbnb']").removeAttr("disabled");
-        $("#modal_form_blueprint input[name='airbnb']").text('');
-        $("#modal_form_blueprint input[name='google_drive']").removeAttr("disabled");
-        $("#modal_form_blueprint input[name='google_drive']").text('');
+        
     });
 
     $("#blueprint-upload-btn").on("click", function(event){
         event.preventDefault();
-
         var rawImageUrl = $("#modal_form_blueprint input[name='rawImageUrl']").val();
         var orderid = $("#modal_form_blueprint input[name='orderid']").val();
         var airbnb = $("#modal_form_blueprint input[name='airbnb']").val();
@@ -37,6 +32,7 @@ $(document).ready(function(){
                 if(response.success == true){
                     $('#modal_form_blueprint').modal('hide');
                     $('#modal_form_blueprint_submitted').modal('show');
+                    reset_upload_form();
                 }
             }
         });
@@ -145,11 +141,6 @@ $(document).ready(function(){
                     $('#modal_form_photo_description').modal('hide');
                     show_form_photo_description();
                 }
-                else{
-                    $('#modal_form_photos_add').modal('hide');
-                    $("#modal_form_photos_list").modal('show');
-                }
-
             }
         });
     });
@@ -341,12 +332,7 @@ function show_upload_photos(){
 function show_photos_add()
 {
     // reset
-    $("#modal_form_photos_add input[name='rawImageUrl']").val('');
-    $("#modal_form_photos_add input[name='airbnb']").removeAttr("disabled");
-    $("#modal_form_photos_add input[name='airbnb']").text('');
-    $("#modal_form_photos_add input[name='google_drive']").removeAttr("disabled");
-    $("#modal_form_photos_add input[name='google_drive']").text('');
-    $("#detailfileupload").val('');
+    reset_upload_form();
     $("#modal_form_photos_list").modal('hide');
     $("#modal_form_photos_add").modal('show');
 }
@@ -466,4 +452,28 @@ function showProjectComplete()
 {
     $('#modal_form_photos_list').modal('hide');
     $('#modal_form_project_completed').modal('show');
+}
+
+function reset_upload_form(){
+    $("#modal_form_blueprint input[name='rawImageUrl']").val('');
+    $('#modal_form_blueprint #upload_filename').text('');
+    $("#modal_form_blueprint input[name='airbnb']").removeAttr("disabled");
+    $("#modal_form_blueprint input[name='airbnb']").text('');
+    $("#modal_form_blueprint input[name='google_drive']").removeAttr("disabled");
+    $("#modal_form_blueprint input[name='google_drive']").text('');
+    $("#modal_form_photos_add input[name='rawImageUrl']").val('');
+    $("#modal_form_photos_add input[name='airbnb']").removeAttr("disabled");
+    $("#modal_form_photos_add input[name='airbnb']").text('');
+    $("#modal_form_photos_add input[name='google_drive']").removeAttr("disabled");
+    $("#modal_form_photos_add input[name='google_drive']").text('');
+    $("#upload_detailfilename").text('');
+    $("#detailfileupload").val('');
+    $("#modal_form_blueprint_submitted input[name='productTitle']").val('');
+}
+
+function goPhotosList()
+{
+    reset_upload_form();
+    $('#modal_form_photos_add').modal('hide');
+    $('#modal_form_photos_list').modal('show');
 }

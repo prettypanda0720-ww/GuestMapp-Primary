@@ -62,7 +62,7 @@
 	@include auth-modal;
     .modal-body{
     	width: 456px;
-		height: 670px;
+		height: 620px;
 
 		a{
 			text-decoration: none;
@@ -381,7 +381,8 @@
 #modal_form_photos_list{
     justify-content: center;
     align-items: center;
-    display: none;
+	display: none;
+	z-index: 1200;
 	&.show{
 		padding-right: 0px !important;
     	display: flex!important;
@@ -453,7 +454,12 @@
 		    .green-reverse-btn {
 		    	margin-top: 30px !important;
 		    }
-	    } 
+		} 
+		
+		@media (min-width: 420px) and (max-width: 1400px) {
+			height: 660px;
+			overflow-y: scroll;
+		}
     }
 }
 
@@ -493,7 +499,7 @@
 			margin-top: 25px;
 		}
 
-		.blueprint-drag {
+		.photos-drag {
 			background-color: #bfcdd6;
 			border:2px dotted #0B85A1;
 			color:#92AAB0;
@@ -550,6 +556,12 @@
 				}
 			}
 		}
+
+		@media (min-width: 420px) and (max-width: 1440px) {
+			height: 670px;
+			padding: 27px;
+			overflow-y: scroll;
+		}
     }
 }
 
@@ -557,7 +569,8 @@
 #modal_form_contact{
 	justify-content: center;
     align-items: center;
-    display: none;
+	display: none;
+	z-index: 1200;
 	&.show{
 		padding-right: 0px !important;
     	display: flex!important;
@@ -578,8 +591,9 @@
 		
 		#contact-support-form {
 			#con_message{
-				height: 340px;	
-				overflow: scroll;
+				height: 270px;	
+				resize: none;
+				// overflow: scroll;
 				@media only screen and (max-width: 420px) {
 					height: 240px;
 				}
@@ -591,7 +605,11 @@
 		    height: 500px;
 		    overflow-y: scroll;
 		    padding: 20px 15px;
-
+		} 
+		@media (min-width: 420px) and (max-width: 1440px){
+	    	width: 400px;
+		    height: 570px;
+		    overflow-y: scroll;
 	    } 
     }
 }

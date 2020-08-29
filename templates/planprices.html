@@ -73,7 +73,7 @@
                         </ul>
                     </div>
                     <div class="order-btn-wrapper">
-                        <a href="#" class="btn green-btn" onclick="showOrderStep2(0)">Order now</a>
+                        <button class="btn green-btn" onclick="showOrderStep2(0)">Order now</button>
                     </div>
                 </div>
             </div>
@@ -109,7 +109,7 @@
                         </ul>
                     </div>
                     <div class="order-btn-wrapper">
-                        <a href="#" class="btn green-btn" onclick="showOrderStep2(1)">Order now</a>
+                        <button class="btn green-btn" onclick="showOrderStep2(1)">Order now</button>
                     </div>
                 </div>
             </div>
@@ -149,7 +149,7 @@
                         </ul>
                     </div>
                     <div class="order-btn-wrapper">
-                        <a href="#" class="btn green-btn" onclick="showOrderStep2(2)">Order now</a>
+                        <button class="btn green-btn" onclick="showOrderStep2(2)">Order now</button>
                     </div>
                 </div>
             </div>
@@ -190,7 +190,7 @@
                         </ul>
                     </div>
                     <div class="order-btn-wrapper">
-                        <a href="#" class="btn green-btn" onclick="showOrderStep2(3)">Order now</a>
+                        <button class="btn green-btn" onclick="showOrderStep2(3)">Order now</button>
                     </div>
                 </div>
             </div>
@@ -290,7 +290,7 @@
                                     </div>
                                     <div class="col-lg-4 col-md-4 col-sm-4 col-4">
                                         <div class="modal-input-group">
-                                            <label class="modal-input-label">Floors</label> 
+                                            <label class="modal-input-label" name="tires_lbl">Floors</label> 
                                             <input name="tires" class="form-control" type="number">
                                         </div>
                                     </div>
@@ -410,36 +410,16 @@
         } else {
             $('#modal_form_order_step2 #guestmapp_style').hide();
         }
+        if(product_type == 0 || product_type == 3) {
+            $("#modal_form_order_step2 input[name='tires']").css('display', 'none');
+            $("#modal_form_order_step2 label[name='tires_lbl']").css('display', 'none');
+        } else {
+            $("#modal_form_order_step2 input[name='tires']").css('display', 'block');   
+            $("#modal_form_order_step2 label[name='tires_lbl']").css('display', 'block'); 
+            $("#modal_form_order_step2 input[name='tires']").val('');
+        }
         calc();
     });
-
-function calc(){
-    var product_type = $("#modal_form_order_step2 #product_type").find("option:selected").val();
-    var price = 0, discount = 0;
-    var tires = $("#modal_form_order_step2 input[name='tires']").val();
-    switch(product_type){
-        case "0":
-            price = {{prices.0.price}};
-            break;
-        case "1":
-            price = {{prices.1.price}};
-            break;
-        case "2":
-            price = {{prices.2.price}};
-            if({{isFirstUser}} == 1){
-                discount = -20;
-            }
-            break;
-        case "3":
-            price = {{prices.3.price}};
-            break;
-        }
-        var totalPrice = (price * tires) + discount;
-        $("#modal_form_order_step2 button[type='submit']").removeAttr('disabled');
-        $('#modal_form_order_step2 .currency-unit').addClass('active');
-        $('#modal_form_order_step2 .price').text(Number((totalPrice).toFixed(2)));
-        $('#modal_form_order_step2 .totalPrice').text(Number((totalPrice).toFixed(2)));
-    }
 
     $("#modal_form_order_step2 input[name='tires']").on('input', function () {
         var tires = $(this).val();
@@ -455,5 +435,54 @@ function calc(){
         }
         calc();
     });
+
+    function showOrderStep2(val)
+    {   
+        $("#modal_form_order_step2 button[type='submit']").attr('disabled', 'disabled');
+        $('#modal_form_order_step2 .currency-unit').removeClass('active');
+        $("#modal_form_order_step2 .price").text('');
+        $('#modal_form_order_step2 select').val(val);
+        if(val == 0 || val == 3) {
+            $("#modal_form_order_step2 input[name='tires']").css('display', 'none');
+            $("#modal_form_order_step2 label[name='tires_lbl']").css('display', 'none');
+            calc();
+        } else {
+            $("#modal_form_order_step2 input[name='tires']").css('display', 'block');   
+            $("#modal_form_order_step2 label[name='tires_lbl']").css('display', 'block'); 
+            $("#modal_form_order_step2 input[name='tires']").val('');
+        }
+        
+        $('#modal_form_order_step2').modal('show');
+    }
+
+    function calc(){
+        var product_type = $("#modal_form_order_step2 #product_type").find("option:selected").val();
+        var price = 0, discount = 0;
+        var tires = $("#modal_form_order_step2 input[name='tires']").val();
+        switch(product_type){
+            case "0":
+                price = {{prices.0.price}};
+                tires = 1;
+                break;
+            case "1":
+                price = {{prices.1.price}};
+                break;
+            case "2":
+                price = {{prices.2.price}};
+                if({{isFirstUser}} == 1){
+                    discount = -20;
+                }
+                break;
+            case "3":
+                price = {{prices.3.price}};
+                tires = 1;
+                break;
+            }
+        var totalPrice = (price * tires) + discount;
+        $("#modal_form_order_step2 button[type='submit']").removeAttr('disabled');
+        $('#modal_form_order_step2 .currency-unit').addClass('active');
+        $('#modal_form_order_step2 .price').text(Number((totalPrice).toFixed(2)));
+        $('#modal_form_order_step2 .totalPrice').text(Number((totalPrice).toFixed(2)));
+    }
 </script>
 {% endblock script %}

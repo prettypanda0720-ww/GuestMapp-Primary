@@ -167,6 +167,21 @@
         event.preventDefault();
         $('#modal_form_contact').modal('show');
     });
+
+    $('a[href*="#"]').on('click', function (e) {
+        e.preventDefault()
+      
+        $('html, body').animate(
+          {
+            scrollTop: $($(this).attr('href')).offset().top,
+          },
+          500,
+          'linear'
+        )
+    });
+
+    $('.dropdown-toggle').dropdown();
+
 })(jQuery);
 
 function doLogin()
@@ -207,11 +222,6 @@ function backOrderStep1()
 function doOrderStep2()
 {
     $('#modal_form_order_step1').modal('show');   
-    $('#modal_form_order_step2').modal('show');   
-}
-
-function showOrderStep2()
-{
     $('#modal_form_order_step2').modal('show');   
 }
 

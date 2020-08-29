@@ -101,7 +101,7 @@ $(document).ready(function(){
                 success:function(response){
                     if(response.success == true){
                         if(response.order == true){
-                            window.location.href = "/ownguestmapp/"
+                            window.location.href = "/guestmapp/"
                         }
                         else{
                             window.location.href = "/planprices/"
@@ -154,5 +154,25 @@ $(document).ready(function(){
                 }
             });
         }
+    });
+
+    $(".gif-anim").mouseover(function(){
+        var src = $(this).attr('src');
+        $(this).attr('src', src.replace('.png', '.gif'));
+    });
+      
+    $(".gif-anim").mouseout(function() {
+        var src = $(this).attr('src');
+        $(this).attr('src', src.replace('.gif', '.png'));
+    });
+
+    $(".gif-anim-easy").mouseover(function(){
+        var src = $(this).attr('src');
+        $(this).attr('src', src.replace('.png', '.gif'));
+    });
+      
+    $(".gif-anim-easy").mouseout(function() {
+        var src = $(this).attr('src');
+        $(this).attr('src', src.replace('.gif', '.png'));
     });
 })
