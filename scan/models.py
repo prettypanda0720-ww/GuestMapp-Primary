@@ -24,7 +24,7 @@ class ScanTable(models.Model):
             'id': self.id,
             'order_id': self.order.id,
             'title': self.title,
-            'scanImageRaw': settings.BASE_URL + self.scanImageRaw.url if self.scanImageRaw.url else None,
+            'scanImageRaw': settings.BASE_URL + self.scanImageRaw.url if self.scanImageRaw else None,
             'scanImageUrl': self.scanImageUrl
         }
 
