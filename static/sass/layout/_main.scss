@@ -3137,7 +3137,7 @@ ol {
 	height: 260px;
 	background-image: url('/static/img/scan.png');
 	background-position: center center;
-	background-size: cover;
+	background-size: contain;
     background-repeat: no-repeat;
 
 	&:hover{
@@ -3163,7 +3163,7 @@ ol {
 	height: 260px;
 	background-image: url('/static/img/upload.png');
 	background-position: center center;
-	background-size: cover;
+	background-size: contain;
     background-repeat: no-repeat;
 
 	&:hover{
@@ -3189,7 +3189,7 @@ ol {
 	height: 260px;
 	background-image: url('/static/img/finalize.png');
 	background-position: center center;
-	background-size: cover;
+	background-size: contain;
     background-repeat: no-repeat;
 
 	&:hover{
