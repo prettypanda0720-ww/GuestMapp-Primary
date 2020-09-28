@@ -30,6 +30,25 @@ class LoginSerializer(serializers.Serializer):
         return attrs
 
 
+class SocialLoginSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    socialToken = serializers.CharField()
+    type = serializers.IntegerField()
+    name = serializers.CharField()
+
+    @staticmethod
+    def save_user(validated_data):
+        user = User()
+        user.username = validated_data['name']
+        user.email = validated_data['email']
+        user.socialToken = validated_data['socialToken']
+        user.is_staff = True
+        user.is_active = True
+        user.is_superuser = False
+        user.save()
+        return user
+
+
 class SignUpSerializer(serializers.Serializer):
     full_name = serializers.CharField()
     email = serializers.EmailField()
