@@ -178,7 +178,7 @@ LOGOUT_REDIRECT_URL = 'home'
 
 
 
-BASE_URL = 'http://162.214.124.207:8000'
+BASE_URL = 'http://162.214.124.207'
 # BASE_URL = 'http://127.0.0.1:8000'
 
 
@@ -208,3 +208,31 @@ EMAIL_TIMEOUT = 60
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '862773112657-2fe3upapg2rjprh7dh7n6a31chk4cnke.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'Qb9OEGg-zbRePgASarWl93wB'
+SOCIAL_AUTH_FACEBOOK_KEY = '480746376218798'
+SOCIAL_AUTH_FACEBOOK_SECRET = '2693c3c6de6856fe1c72ec04daaef9e2'
+
+# DEFAULT_AUTH_PIPELINE = (
+#     'social.pipeline.social_auth.social_details',
+#     'social.pipeline.social_auth.social_uid',
+#     'social.pipeline.social_auth.auth_allowed',
+#     'social.pipeline.social_auth.social_user',
+#     'social.pipeline.user.get_username',
+#     'social.pipeline.mail.mail_validation',
+#     'social.pipeline.social_auth.associate_by_email',
+#     'social.pipeline.user.create_user',
+#     'social.pipeline.social_auth.associate_user',
+#     'social.pipeline.social_auth.load_extra_data',
+#     'social.pipeline.user.user_details'
+# )
+
+SOCIAL_AUTH_PIPELINE = (
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.social_auth.associate_by_email',
+    'social_core.pipeline.user.create_user',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+)
