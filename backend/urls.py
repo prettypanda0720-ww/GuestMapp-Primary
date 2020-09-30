@@ -27,7 +27,7 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     # admin part
     path('admin/', admin.site.urls),
-
+    url(r'^oauth/', include('social_django.urls', namespace='social')),  # <--
     url(r'^reset/$',
         auth_views.PasswordResetView.as_view(
             template_name='password_reset.html',
