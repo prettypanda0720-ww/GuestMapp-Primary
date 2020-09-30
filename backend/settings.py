@@ -188,7 +188,7 @@ STRIPE_SECRET_KEY = 'sk_test_51HDLj6CtzgITtfkbhTDhdQv1p4fq5MlC3i2MVWc25nx3PgsIb5
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = 'mail.guestmapp.net'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='')
 DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='')
